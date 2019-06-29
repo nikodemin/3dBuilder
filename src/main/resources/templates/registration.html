@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/register.css}">
+</head>
+<body>
+    <h1>Register</h1>
+    <th:block th:include="/_menu"></th:block>
+    <div th:if="${errorMessage != null}"
+         th:utext="${errorMessage}" class="error">...</div>
+    <form method="POST" th:action="@{/register}" th:object="${form}" id="registerForm">
+
+        <label for="username">Username: </label>
+        <input type="text" th:field="*{username}"/><br/>
+        <span class="err" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username</span><br>
+
+        <label for="password">Password: </label>
+        <input type="password" th:field="*{password}"/><br/>
+        <span class="err" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password</span><br>
+
+        <label for="confirm">Confirm password: </label>
+        <input type="password" th:field="*{confirm}"/><br/>
+        <span class="err" th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}">confirm</span><br>
+
+        <label for="email">Email: </label>
+        <input type="email" th:field="*{email}"><br>
+        <span class="err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email</span><br>
+
+        <input type="submit" value="Register"/>
+    </form>
+</body>
+</html>
