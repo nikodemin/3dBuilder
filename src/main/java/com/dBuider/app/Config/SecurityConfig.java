@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/design", "/orders")
+                .antMatchers("/order/**")
                 .access("hasRole('ROLE_USER')")
                 .antMatchers("/", "/**").access("permitAll")
 
@@ -44,7 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
                 .and()
                 .logout()
-                .logoutSuccessUrl("/");
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
     }
 
     @Override

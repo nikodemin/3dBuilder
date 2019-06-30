@@ -1,5 +1,6 @@
 package com.dBuider.app.Controller;
 
+import com.dBuider.app.Config.MyPropertiesConfig;
 import com.dBuider.app.Model.Order;
 import com.dBuider.app.Model.OrderForm;
 import com.dBuider.app.Model.User;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,35 +31,52 @@ public class OrderController
 {
     private final OrderRepo orderRepo;
     private final UserRepo userRepo;
+    private final MyPropertiesConfig config;
 
     @GetMapping("/make")
-    public String getOrderPage(Model model)
+    public String getOrderPage(Model model, Principal principal)
     {
-        model.addAttribute("form", new OrderForm());
+        OrderForm form = new OrderForm();
+        if (principal != null)
+        {
+            model.addAttribute("username",principal.getName());
+            form.setAddress(userRepo.findByUsername(principal.getName()).getAddress());
+        }
+        model.addAttribute("form", form);
         return "makeorder";
     }
 
     @PostMapping("/make")
     public String getForm(HttpServletRequest request,
                           Model model,
-                          @ModelAttribute("form") OrderForm form)
+                          @ModelAttribute("form") OrderForm form, Principal principal)
     {
-        return this.doUpload(request,model,form);
+        if (principal != null)
+        {
+            model.addAttribute("username",principal.getName());
+        }
+        return this.doUpload(request,model,form, principal);
     }
 
     @GetMapping("/recent")
-    public String recent(Model model)
+    public String recent(Model model, Principal principal)
     {
-        //model.addAttribute("orders")
+        if (principal != null)
+        {
+            model.addAttribute("username", principal.getName());
+            List<Order> orders = orderRepo.findByUser(
+                    userRepo.findByUsername(principal.getName()));
+            model.addAttribute("orders",orders);
+        }
         return "recentorder";
     }
 
     private String doUpload(HttpServletRequest request, Model model,
-                            OrderForm form)
+                            OrderForm form, Principal principal)
     {
 
         // Root Directory.
-        String uploadRootPath = request.getServletContext().getRealPath("upload");
+        String uploadRootPath = config.getUploadPath();
         System.out.println("uploadRootPath=" + uploadRootPath);
 
         File uploadRootDir = new File(uploadRootPath);
@@ -73,10 +92,10 @@ public class OrderController
         {
 
             // Client File Name
-            String name = fileData.getOriginalFilename();
+            String name = (new Date()).getTime()+"_"+fileData.getOriginalFilename();
             System.out.println("Client File Name = " + name);
 
-            if (name != null && name.length() > 0)
+            if (fileData.getOriginalFilename() != null && fileData.getOriginalFilename().length() > 0)
             {
                 try
                 {
@@ -97,17 +116,10 @@ public class OrderController
             }
         }
 
-        User user = new User("lalka","123");
-        userRepo.save(user);
+        User user = userRepo.findByUsername(principal.getName());
         Order order = new Order(form.getAddress(),user
-                ,uploadedFiles.toArray(String[]::new), new Date());
+                ,uploadedFiles.toArray(String[]::new), new Date(),false);
         orderRepo.save(order);
-        orderRepo.findAll().forEach(o->{
-            for (String file:o.getFilenames())
-            {
-                System.out.println("FILENAME="+file);
-            }
-        });
         return "redirect:/order/recent";
     }
 }

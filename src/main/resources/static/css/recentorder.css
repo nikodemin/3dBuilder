@@ -1,0 +1,10 @@
+#orders
+{
+    padding: 20px;
+}
+#orders td.text
+{
+    padding-left: 5px;
+    background-color: lightskyblue;
+    border-radius: 5px;
+}

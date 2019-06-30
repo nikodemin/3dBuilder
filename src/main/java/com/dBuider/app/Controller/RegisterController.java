@@ -14,6 +14,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/register")
 @RequiredArgsConstructor
@@ -37,9 +39,11 @@ public class RegisterController
     }
 
     @GetMapping
-    public String register(Model model)
+    public String register(Model model, Principal principal)
     {
         model.addAttribute("form",new RegistrationForm());
+        if (principal != null)
+            model.addAttribute("username",principal.getName());
         return "registration";
     }
 
@@ -47,8 +51,12 @@ public class RegisterController
     public String processRegistration(Model model,
                                       @Validated @ModelAttribute("form") RegistrationForm form,
                                       BindingResult result,
-                                      final RedirectAttributes redirectAttributes)
+                                      final RedirectAttributes redirectAttributes,
+                                      Principal principal)
     {
+        if (principal != null)
+            model.addAttribute("username",principal.getName());
+
         if (result.hasErrors())
             return "registration";
 

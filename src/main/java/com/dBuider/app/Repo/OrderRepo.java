@@ -11,6 +11,5 @@ import java.util.List;
 @Repository
 public interface OrderRepo extends CrudRepository<Order, Long>
 {
-    @Query(value = "FROM orders ORDER BY date DESC LIMIT 10",nativeQuery = true)
-    List<Order> findRecentOrders();
+    List<Order> findByUser(User user);
 }

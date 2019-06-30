@@ -20,6 +20,7 @@ public class Order
     private final User user;
     private final String[] filenames;
     private final Date date;
+    private final boolean isdone;
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

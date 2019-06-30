@@ -3,26 +3,34 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>3d Buider Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{css/modules.css}">
 </head>
 <body>
-    <div th:if="${error}">
-        Unable to login. Check your username and password.
+    <header class="dark">
+        <h2>Welcome to the 3D Builder Home Page</h2>
+    </header>
+    <th:block th:include="/_topMenu"></th:block>
+    <th:block th:include="/_menu"></th:block>
+    <div id="body" class="ligth">
+        <div th:if="${error}">
+            Unable to login. Check your username and password.
+        </div>
+
+        <p>New here? Click
+            <a th:href="@{/register}">here</a> to register.</p>
+
+        <form method="POST" th:action="@{/login}" id="loginForm">
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username" /><br/>
+
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" /><br/>
+
+            <input type="submit" value="Login"/>
+        </form>
     </div>
-
-    <p>New here? Click
-        <a th:href="@{/register}">here</a> to register.</p>
-
-    <!-- tag::thAction[] -->
-    <form method="POST" th:action="@{/login}" id="loginForm">
-        <!-- end::thAction[] -->
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" /><br/>
-
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password" /><br/>
-
-        <input type="submit" value="Login"/>
-    </form>
+    <th:block th:include="/_footer"></th:block>
 </body>
 </html>

@@ -8,28 +8,39 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/modules.css}">
 </head>
 <body>
-    <h1>Register</h1>
-    <div th:if="${errorMessage != null}"
-         th:utext="${errorMessage}" class="error">...</div>
-    <form method="POST" th:action="@{/register}" th:object="${form}" id="registerForm">
+    <header class="dark">
+        <h2>Welcome to the 3D Builder Home Page</h2>
+    </header>
+    <th:block th:include="/_topMenu"></th:block>
+    <th:block th:include="/_menu"></th:block>
+    <div id="body" class="ligth">
+        <div th:if="${errorMessage != null}"
+             th:utext="${errorMessage}" class="error">...</div>
+        <form method="POST" th:action="@{/register}" th:object="${form}" id="registerForm">
 
-        <label for="username">Username: </label>
-        <input type="text" th:field="*{username}"/><br/>
-        <span class="err" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username</span><br>
+            <label for="username">Username: </label>
+            <input type="text" th:field="*{username}"/><br/>
+            <span class="err" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username</span><br>
 
-        <label for="password">Password: </label>
-        <input type="password" th:field="*{password}"/><br/>
-        <span class="err" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password</span><br>
+            <label for="password">Password: </label>
+            <input type="password" th:field="*{password}"/><br/>
+            <span class="err" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password</span><br>
 
-        <label for="confirm">Confirm password: </label>
-        <input type="password" th:field="*{confirm}"/><br/>
-        <span class="err" th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}">confirm</span><br>
+            <label for="confirm">Confirm password: </label>
+            <input type="password" th:field="*{confirm}"/><br/>
+            <span class="err" th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}">confirm</span><br>
 
-        <label for="email">Email: </label>
-        <input type="email" th:field="*{email}"><br>
-        <span class="err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email</span><br>
+            <label for="email">Email: </label>
+            <input type="email" th:field="*{email}"><br>
+            <span class="err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email</span><br>
 
-        <input type="submit" value="Register"/>
-    </form>
+            <label for="email">Address: </label>
+            <input type="text" th:field="*{address}"><br>
+            <span class="err" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">address</span><br>
+
+            <input type="submit" value="Register"/>
+        </form>
+    </div>
+    <th:block th:include="/_footer"></th:block>
 </body>
 </html>
