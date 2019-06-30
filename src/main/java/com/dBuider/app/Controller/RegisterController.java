@@ -39,11 +39,9 @@ public class RegisterController
     }
 
     @GetMapping
-    public String register(Model model, Principal principal)
+    public String register(Model model)
     {
         model.addAttribute("form",new RegistrationForm());
-        if (principal != null)
-            model.addAttribute("username",principal.getName());
         return "registration";
     }
 
@@ -51,12 +49,8 @@ public class RegisterController
     public String processRegistration(Model model,
                                       @Validated @ModelAttribute("form") RegistrationForm form,
                                       BindingResult result,
-                                      final RedirectAttributes redirectAttributes,
-                                      Principal principal)
+                                      final RedirectAttributes redirectAttributes)
     {
-        if (principal != null)
-            model.addAttribute("username",principal.getName());
-
         if (result.hasErrors())
             return "registration";
 

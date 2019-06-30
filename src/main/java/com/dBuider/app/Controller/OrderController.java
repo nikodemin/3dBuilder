@@ -1,6 +1,6 @@
 package com.dBuider.app.Controller;
 
-import com.dBuider.app.Config.MyPropertiesConfig;
+import com.dBuider.app.Config.PropertiesConfig;
 import com.dBuider.app.Model.Order;
 import com.dBuider.app.Model.OrderForm;
 import com.dBuider.app.Model.User;
@@ -31,7 +31,7 @@ public class OrderController
 {
     private final OrderRepo orderRepo;
     private final UserRepo userRepo;
-    private final MyPropertiesConfig config;
+    private final PropertiesConfig config;
 
     @GetMapping("/make")
     public String getOrderPage(Model model, Principal principal)
@@ -51,10 +51,6 @@ public class OrderController
                           Model model,
                           @ModelAttribute("form") OrderForm form, Principal principal)
     {
-        if (principal != null)
-        {
-            model.addAttribute("username",principal.getName());
-        }
         return this.doUpload(request,model,form, principal);
     }
 
@@ -63,7 +59,6 @@ public class OrderController
     {
         if (principal != null)
         {
-            model.addAttribute("username", principal.getName());
             List<Order> orders = orderRepo.findByUser(
                     userRepo.findByUsername(principal.getName()));
             model.addAttribute("orders",orders);

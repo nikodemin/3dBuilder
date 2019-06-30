@@ -1,12 +1,12 @@
 <nav id="topMenu" class="ligth" xmlns:th="http://www.w3.org/1999/xhtml">
-    <ul th:if="${username == null}">
+    <ul th:if="${session.username == null}">
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
     </ul>
-    <ul th:if="${username != null}">
-        <li th:text="'Hello ' + ${username}+'!'">Hello</li>
+    <ul th:if="${session.username != null}">
+        <li th:text="'Hello ' + ${session.username}+'!'">Hello</li>
         <li><a href="/order/recent">My orders</a></li>
         <li><a href="/settings">Account settings</a></li>
-        <li><a href="/logout">Exit</a></li>
+        <li><a href="/logout">Log out</a></li>
     </ul>
 </nav>

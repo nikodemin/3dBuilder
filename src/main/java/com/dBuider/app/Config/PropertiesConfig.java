@@ -11,7 +11,8 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties(prefix = "server")
 @Data
 @Primary
-public class MyPropertiesConfig
+public class PropertiesConfig
 {
     private String uploadPath;
+    private String portfolioPath;
 }
