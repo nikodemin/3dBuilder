@@ -3,12 +3,12 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{css/register.css}">
+    <title>Registration to 3dBuider</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/modules.css}">
 </head>
 <body>
     <h1>Register</h1>
-    <th:block th:include="/_menu"></th:block>
     <div th:if="${errorMessage != null}"
          th:utext="${errorMessage}" class="error">...</div>
     <form method="POST" th:action="@{/register}" th:object="${form}" id="registerForm">

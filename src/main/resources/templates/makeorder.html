@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Make order on 3D Builder</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/modules.css}">
+</head>
+<body>
+    <header class="dark">
+        <h2>Make order on 3D Builder</h2>
+    </header>
+    <th:block th:include="/_topMenu"></th:block>
+    <th:block th:include="/_menu"></th:block>
+    <div id="body" class="ligth">
+        <p>
+            In leo sagittis senectus tellus blandit augue litora nostra vivamus. Cubilia dapibus porta praesent class pretium quam mus. Nullam fusce inceptos eu condimentum vehicula platea feugiat consequat molestie ligula odio enim? Gravida iaculis amet congue diam. Faucibus lorem justo dapibus bibendum tempor vehicula velit? Pulvinar pharetra semper cum montes fermentum proin sodales aliquet vestibulum, cubilia fusce. Interdum lacinia tellus phasellus malesuada montes fermentum? Nascetur pretium risus dui tincidunt. Vestibulum nisi mi euismod. Elementum sagittis tortor auctor quam id rutrum integer porta luctus. Aptent sapien euismod dolor.
+
+            Parturient vivamus odio metus non ornare. Commodo cursus egestas ac nibh volutpat iaculis urna! Consectetur etiam sodales auctor, pharetra dolor dis laoreet aptent! Condimentum sed erat sapien viverra luctus leo? Pulvinar orci habitant suscipit sagittis congue a commodo neque ligula natoque. Ligula lobortis hendrerit malesuada bibendum bibendum erat. Ligula malesuada, aliquet massa ad dis scelerisque. Aliquet blandit erat imperdiet. A mauris pulvinar mi at duis. Ac lorem.
+        </p>
+        <form method="POST" th:action="@{/order/make}" th:object="${form}" id="registerForm" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Address: </td>
+                    <td><input type="text" th:field="*{address}"></td>
+                </tr>
+                <tr>
+                    <td>3d file(1): </td>
+                    <td><input type="file" required="required" th:field="*{files}"></td>
+                </tr>
+                <tr>
+                    <td>3d file(2): </td>
+                    <td><input type="file" th:field="*{files}"></td>
+                </tr>
+                <tr>
+                    <td>3d file(3): </td>
+                    <td><input type="file" th:field="*{files}"></td>
+                </tr>
+                <tr>
+                    <td>3d file(4): </td>
+                    <td><input type="file" th:field="*{files}"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <th:block th:include="/_footer"></th:block>
+</body>
+</html>

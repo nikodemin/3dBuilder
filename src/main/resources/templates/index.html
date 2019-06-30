@@ -3,9 +3,28 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>3D Builder</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/index.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{css/modules.css}">
 </head>
 <body>
-    <h2>Welcome to the 3D Builder Home Page</h2>
+    <header class="dark">
+        <h2>Welcome to the 3D Builder Home Page</h2>
+    </header>
+    <th:block th:include="/_topMenu"></th:block>
     <th:block th:include="/_menu"></th:block>
+    <div id="body" class="ligth">
+        <img id="printerImg" th:src="@{/img/printer.jpg}"/>
+        <p>Senectus semper ante aptent tristique ac massa dictumst primis vehicula malesuada potenti facilisi. Parturient rhoncus lectus adipiscing varius vitae ultricies nisl quis aliquet lorem euismod? Tristique convallis ac per condimentum pellentesque netus dui vel nisl aliquet iaculis urna. Primis ligula suscipit auctor congue morbi curabitur enim porta. Volutpat dui eget semper curabitur aliquam dolor habitasse aptent fusce a sociis. Fames sodales elementum cum eu volutpat eros interdum varius pharetra phasellus metus. Fames congue vitae vulputate consequat suspendisse purus semper neque natoque risus felis? Nascetur blandit cras ultricies.
+
+            Mattis class pulvinar aenean scelerisque. Sociis eros pharetra suscipit vulputate. Aptent tristique malesuada inceptos integer. Quis ac iaculis duis laoreet fringilla habitant urna nunc commodo. Nascetur ultrices aenean sit, eget ornare facilisis fringilla at torquent? Magna diam at eget fermentum. Habitant faucibus nunc placerat ad facilisi nulla nulla eget parturient.
+
+            Ligula adipiscing lobortis blandit venenatis nascetur non sem! Eget elit arcu orci pretium nec massa integer. Risus blandit consequat amet vivamus suspendisse fames. Sapien curae; pharetra ante molestie iaculis class dapibus fringilla lorem pellentesque? Mauris rutrum sit habitasse blandit fusce. Euismod imperdiet interdum nibh nullam congue ridiculus elementum proin class conubia lacus. Rutrum urna porta id senectus nunc mattis dui. Tortor pretium.
+
+            Hendrerit purus, hac ac habitant hac. Ridiculus tempor suspendisse a sed turpis nec cum parturient pharetra eget. Morbi auctor arcu euismod vel metus. Consequat laoreet habitasse in nisi? Mollis, dictumst ultricies blandit. Maecenas tortor aenean tristique dapibus pulvinar non ultrices tempus torquent ac fringilla. Molestie lorem dictum suspendisse auctor proin mattis ac proin magna himenaeos. In diam massa per.
+
+            Class dolor vehicula ridiculus mattis molestie vitae nostra tempus. Platea leo tempus consequat tellus dignissim nascetur sem! Auctor duis cursus natoque neque adipiscing proin, diam aliquet phasellus. Mi est primis pharetra euismod! Hendrerit primis vestibulum pellentesque netus euismod lacus. Commodo magna aptent non tempor, neque sem facilisi scelerisque dis. Orci aptent auctor nam mattis morbi posuere, purus primis malesuada ad. Ridiculus mauris nullam primis fringilla volutpat dapibus senectus convallis sed lacinia rhoncus urna. Enim blandit dui.
+        </p>
+    </div>
+    <th:block th:include="/_footer"></th:block>
 </body>
 </html>

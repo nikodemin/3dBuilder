@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Entity
-@Table(name = "user2")
+@Table(name = "users")
 @Data
 @NoArgsConstructor(access= AccessLevel.PRIVATE, force=true)
 @RequiredArgsConstructor
