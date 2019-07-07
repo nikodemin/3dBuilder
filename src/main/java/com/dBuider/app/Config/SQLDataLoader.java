@@ -1,9 +1,6 @@
 package com.dBuider.app.Config;
 
-import com.dBuider.app.Model.Brand;
-import com.dBuider.app.Model.Order;
-import com.dBuider.app.Model.Tool;
-import com.dBuider.app.Model.User;
+import com.dBuider.app.Model.*;
 import com.dBuider.app.Service.Interfaces.OrderService;
 import com.dBuider.app.Service.Interfaces.ToolsService;
 import com.dBuider.app.Service.Interfaces.UserDetailsService;
@@ -12,8 +9,11 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -52,7 +52,7 @@ public class SQLDataLoader implements ApplicationRunner
                 "2kWt",1.0, 600, 6000));
 
         User vasya = new User("Vasya","123","SPB",
-                "8911","mail");
+                "8911","mail","Vasya","Bobkin");
         userDetailsService.saveUser(vasya);
 
         orderService.addOrder(new Order("SPB",
@@ -68,6 +68,10 @@ public class SQLDataLoader implements ApplicationRunner
                 toolsService.findTools("Hitachi mega").get(0),
                 vasya, new Date(), 4, true));
 
-        log.debug("DATABASE FILLED!");
+        User admin = new Admin("admin","admin",
+                "","","","","");
+        userDetailsService.saveUser(admin);
+
+        log.info("DATABASE FILLED!");
     }
 }

@@ -67,4 +67,13 @@ public class AppApplicationTests
 		Assert.assertEquals(userDetailsService.loadUserByUsername("Vasya").getUsername(),
 				"Vasya");
 	}
+
+	@Test
+	public void dublicateTest()
+	{
+		userDetailsService.saveUser(new User("Vasya","123",
+				"","","gmail","Vasya","Vasyavich"));
+		userDetailsService.saveUser(new User("Bob","123",
+				"","","mail","Vasya","Vasyavich"));
+	}
 }

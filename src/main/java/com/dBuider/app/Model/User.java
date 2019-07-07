@@ -27,6 +27,8 @@ public class User implements UserDetails
     private final String telnum;
     @Column(unique = true, nullable = false)
     private final String email;
+    private final String firstname;
+    private final String lastname;
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
