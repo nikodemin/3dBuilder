@@ -2,7 +2,7 @@ package com.dBuider.app.Controller;
 
 import com.dBuider.app.Config.PropertiesConfig;
 import com.dBuider.app.Model.Order;
-import com.dBuider.app.Model.OrderForm;
+import com.dBuider.app.Model.Form.OrderForm;
 import com.dBuider.app.Model.User;
 import com.dBuider.app.Repo.OrderRepo;
 import com.dBuider.app.Repo.UserRepo;
@@ -70,7 +70,7 @@ public class OrderController
                             OrderForm form, Principal principal)
     {
 
-        // Root Directory.
+        /*// Root Directory.
         String uploadRootPath = config.getUploadPath();
         System.out.println("uploadRootPath=" + uploadRootPath);
 
@@ -116,5 +116,7 @@ public class OrderController
                 ,uploadedFiles.toArray(String[]::new), new Date(),false);
         orderRepo.save(order);
         return "redirect:/order/recent";
+         */
+        return "";
     }
 }

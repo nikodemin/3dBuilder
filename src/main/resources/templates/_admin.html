@@ -1,0 +1,43 @@
+<section>
+    <h1>Добавить инструмент</h1>
+    <form method="POST">
+        <h4>Стоимость проката</h4>
+        <table>
+            <tr><td><label for="priceFor1day">Цена за день:</label></td>
+            <td><input type="text" id="priceFor1day"></td></tr>
+            <tr><td><label for="priceFor1day">Цена от 2х-дней до недели:</label></td>
+            <td><input type="text" id="priceFor1day"></td></tr>
+            <tr><td><label for="priceFor1day">Цена от недели до двух недель:</label></td>
+            <td><input type="text" id="priceFor1day"></td></tr>
+            <tr><td><label for="priceFor1day">Цена за больший срок:</label></td>
+            <td><input type="text" id="priceFor1day"></td></tr>
+        </table>
+
+        <h4>Основные характеристики для миниатюр</h4>
+        <textarea></textarea>
+        <h4>Все характеристики</h4>        
+        <div id="addProp"><i class="fas fa-plus">Добавить характеристику</i> </div>
+    </form>
+</section>
+<style>
+section
+{
+    padding: 40px;
+    color: white;
+    width: 960px;
+    margin: auto;
+    background-color: grey;
+    border-radius: 10px;
+}
+textarea
+{
+    width: 500px;
+}
+#addProp
+{
+    cursor: pointer;
+    width: 300px;
+    background-color: black;
+    border-radius: 10px;
+}
+</style>

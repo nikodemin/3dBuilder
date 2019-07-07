@@ -17,10 +17,12 @@ public class Order
 {
     private final String address;
     @OneToOne
+    private final Tool tool;
+    @OneToOne
     private final User user;
-    private final String[] filenames;
     private final Date date;
-    private final boolean isdone;
+    private final Integer fordays;
+    private final boolean done;
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

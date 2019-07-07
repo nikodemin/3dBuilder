@@ -1,6 +1,6 @@
 package com.dBuider.app.Controller;
 
-import com.dBuider.app.Model.RegistrationForm;
+import com.dBuider.app.Model.Form.RegistrationForm;
 import com.dBuider.app.Model.User;
 import com.dBuider.app.Repo.UserRepo;
 import com.dBuider.app.Validator.RegistrationValidator;
@@ -13,8 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.security.Principal;
 
 @Controller
 @RequestMapping("/register")

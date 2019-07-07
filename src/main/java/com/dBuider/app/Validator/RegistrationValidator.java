@@ -1,6 +1,6 @@
 package com.dBuider.app.Validator;
 
-import com.dBuider.app.Model.RegistrationForm;
+import com.dBuider.app.Model.Form.RegistrationForm;
 import com.dBuider.app.Repo.UserRepo;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -20,9 +20,12 @@ import java.util.Collection;
 public class User implements UserDetails
 {
 
+    @Column(unique = true, nullable = false)
     private final String username;
     private final String password;
     private final String address;
+    private final String telnum;
+    @Column(unique = true, nullable = false)
     private final String email;
 
     @Id

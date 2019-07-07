@@ -28,21 +28,6 @@ public class MainController
             session.setAttribute("username",principal.getName());
         }
 
-        return "index";
+        return "main";
     }
-
-    @GetMapping("/portfolio")
-    public String portfolio(Model model)
-    {
-        File dir = new File("src/main/resources/static/img/portfolio");
-        List<String> images = new ArrayList<>();
-
-        for (File file:dir.listFiles())
-        {
-            images.add("/img/portfolio/"+file.getName());
-        }
-        model.addAttribute("images", images);
-        return "portfolio";
-    }
-
 }
