@@ -1,12 +1,10 @@
 package com.dBuider.app;
 
-import com.dBuider.app.Model.Brand;
-import com.dBuider.app.Model.Order;
-import com.dBuider.app.Model.Tool;
-import com.dBuider.app.Model.User;
+import com.dBuider.app.Model.*;
 import com.dBuider.app.Service.Interfaces.OrderService;
 import com.dBuider.app.Service.Interfaces.ToolsService;
 import com.dBuider.app.Service.Interfaces.UserDetailsService;
+import com.dBuider.app.Service.TranslitService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -33,6 +31,8 @@ public class AppApplicationTests
 	private OrderService orderService;
 	@Autowired
 	private UserDetailsService userDetailsService;
+	@Autowired
+	private TranslitService translitService;
 
 	@Test
 	public void ordersTest()
@@ -43,7 +43,7 @@ public class AppApplicationTests
 		Assert.assertNotEquals(orders.size(),0);
 		for (Order order:orders)
 		{
-			Assert.assertEquals(order.isDone(),false);
+			Assert.assertEquals(false,order.isDone());
 		}
 	}
 
@@ -52,11 +52,10 @@ public class AppApplicationTests
 	{
 		Assert.assertNotEquals(toolsService.getTopTools().size(),0);
 		Assert.assertNotEquals(toolsService.findTools("Makita mega").size(),0);
-		Assert.assertNotEquals(toolsService.findTools("perforatori",null).size(),
+		Assert.assertNotEquals(toolsService.findTools("Электроинструменты","Перфораторы").size(),
 				0);
 		Assert.assertNotEquals(toolsService.getBrands().size(),0);
 		Assert.assertNotEquals(toolsService.getCategories().size(),0);
-		Assert.assertNotEquals(toolsService.getSubCategories().size(),0);
 		Assert.assertNotEquals(toolsService.findTools("Makita").size(),0);
 		Assert.assertNotEquals(toolsService.findTools("maKita").size(),0);
 	}
@@ -64,8 +63,8 @@ public class AppApplicationTests
 	@Test
 	public void usersTest()
 	{
-		Assert.assertEquals(userDetailsService.loadUserByUsername("Vasya").getUsername(),
-				"Vasya");
+		Assert.assertEquals("Vasya",userDetailsService.
+				loadUserByUsername("Vasya").getUsername());
 	}
 
 	@Test
@@ -75,5 +74,30 @@ public class AppApplicationTests
 				"","","gmail","Vasya","Vasyavich"));
 		userDetailsService.saveUser(new User("Bob","123",
 				"","","mail","Vasya","Vasyavich"));
+		toolsService.addCategory(new Category("Электроинструменты","Перфораторы"));
+	}
+
+	@Test
+	public void notFoundTest()
+	{
+		Assert.assertEquals(0, toolsService.findTools("gg").size());
+		Assert.assertEquals(0,toolsService.findTools("gg","gg").size());
+	}
+
+	@Test
+	public void translitTest()
+	{
+		translit("Инструмент");
+		translit("perforatori");
+		translit("Штроборез");
+		translit("Штробо33рез");
+	}
+
+	private void translit(String str)
+	{
+		Assert.assertEquals(translitService.toRus(str),
+				translitService.toRus(translitService.toEng(str)));
+		Assert.assertEquals(translitService.toEng(str),
+				translitService.toEng(translitService.toRus(str)));
 	}
 }

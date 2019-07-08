@@ -30,6 +30,8 @@ public class SQLDataLoader implements ApplicationRunner
     private Brand hitachi = new Brand("Hitachi","");
     private Brand bosh = new Brand("Bosh","");
 
+    private Category perf = new Category("Электроинструменты","Перфораторы");
+
     @Override
     public void run(ApplicationArguments args) throws Exception
     {
@@ -38,17 +40,17 @@ public class SQLDataLoader implements ApplicationRunner
         toolsService.addBrand(hitachi);
         toolsService.addBrand(bosh);
 
-        toolsService.addTool(new Tool("img","perforatori",
-                "","Makita mega","desc",makita,
+        toolsService.addCategory(perf);
+
+        toolsService.addTool(new Tool("img",perf,"Makita mega","desc",makita,
                 "2kWt",1.0, 600, 6000));
-        toolsService.addTool(new Tool("img","perforatori",
-                "","Bosh mega","desc",bosh,
+        toolsService.addTool(new Tool("img", perf,"Bosh mega","desc",bosh,
                 "2kWt",1.0, 400, 4000));
-        toolsService.addTool(new Tool("img","perforatori",
-                "","Interskol mega","desc",interskol,
+        toolsService.addTool(new Tool("img",perf,"Interskol mega",
+                "desc",interskol,
                 "2kWt",1.0, 300, 3000));
-        toolsService.addTool(new Tool("img","perforatori",
-                "","Hitachi mega","desc",hitachi,
+        toolsService.addTool(new Tool("img",perf,
+                "Hitachi mega","desc",hitachi,
                 "2kWt",1.0, 600, 6000));
 
         User vasya = new User("Vasya","123","SPB",
@@ -56,16 +58,16 @@ public class SQLDataLoader implements ApplicationRunner
         userDetailsService.saveUser(vasya);
 
         orderService.addOrder(new Order("SPB",
-                toolsService.findTools("Makita mega").get(0),
+                toolsService.findTools("Makita mega"),
                 vasya, new Date(), 3, false));
         orderService.addOrder(new Order("SPB",
-                toolsService.findTools("Bosh mega").get(0),
+                toolsService.findTools("Bosh mega"),
                 vasya, new Date(), 1, true));
         orderService.addOrder(new Order("SPB",
-                toolsService.findTools("Interskol mega").get(0),
+                toolsService.findTools("Interskol mega"),
                 vasya, new Date(), 5, false));
         orderService.addOrder(new Order("SPB",
-                toolsService.findTools("Hitachi mega").get(0),
+                toolsService.findTools("Hitachi mega"),
                 vasya, new Date(), 4, true));
 
         User admin = new Admin("admin","admin",

@@ -1,70 +1,5 @@
-<th:block inc
-  <section id="first-container">
-    <div id="nav-first" class="row show-for-desktop">
-      <div>
-        <i class="fas fa-map-marker-alt"></i> Ваш город: <a href="#"> Санкт-Петербург</a>
-      </div>
-      <div>
-        <a href="#"> Пункты выдачи</a>
-      </div>
-      <ul class="float-right list-unstyled list-inline">
-        <li class="list-inline-item"><a href="#">Условия аренды</a></li>
-        <li class="list-inline-item"><a href="#">Доставка</a></li>
-        <li class="list-inline-item"><a href="#">О нас</a></li>
-      </ul>
-    </div>
-  </section>
-  <hr>
-  <section id='second-container'>
-    <div id="nav-second" class="row show-for-desktop">
-      <div>
-        <a href="#"><img src="/imgs/logo.png" class="img-responsive"></a>
-      </div>
-      <div>
-            <pre>
-    Быстрая досавка
-        готовых решений!
-            </pre>
-      </div>
-      <div>
-        <a href="#"><h5>+7 (499) 427-08-00</h5></a>
-        <pre>
-    пн.-пт. 9:00-19:00
-    сб. 9:00-18:00
-            </pre>
-      </div>
-      <div>
-        <i class="fas fa-user fa-2x"></i><a href="#"> Вход</a> | <a href="#">Регистрация</a>
-      </div>
-    </div>
-  </section>
-  <section  id='third-container' class="show-for-desktop">
-    <div>
-      <div id="nav-third" class="show-for-desktop">
-        <div class="catalog"><i class="fas fa-bars"></i> Каталог товаров</div>
-        <span><i class="fas fa-percent"></i><a href="#"> Акции  </a></span>
-        <div class="input-group input-group-sm show-for-desktop">
-          <input type="text" class="form-control" placeholder="Что вы хотите взять в аренду?">
-          <div class="input-group-append">
-            <a href="#" class="nav-link input-group-text"><i class="fas fa-search"></i></a>
-          </div>
-        </div>
-        <span>
-                <i class="fas fa-shopping-cart"></i>
-                <a href="#"> В корзине: </a><span class='cart'>нет товаров</span>
-            </span>
-      </div>
-    </div>
-  </section>
-  <section id="main-container">
-    <div id="catalog" class="show-for-desktop">
-      <ul class="list-unstyled">
-        <li><a href="#"><i class="fas fa-tools"></i> Инструмент</a></li>
-        <li><a href="#"><i class="fas fa-tools"></i> Инструмент</a></li>
-        <li><a href="#"><i class="fas fa-tools"></i> Инструмент</a></li>
-        <li><a href="#"><i class="fas fa-tools"></i> Инструмент</a></li>
-      </ul>
-    </div>
+<div xmlns:th="http://www.thymeleaf.org">
+  <th:block th:include="_header"></th:block>
     <div id="main-banner">
       <div class="wrapper">
         <ul class="list-unstyled list-inline">
@@ -255,4 +190,5 @@
       </div>
     </div>
   </section>
-  <th:block 
+  <th:block th:include="_footer"></th:block>
+</div>

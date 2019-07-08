@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -16,8 +17,8 @@ import java.util.Date;
 public class Order
 {
     private final String address;
-    @OneToOne
-    private final Tool tool;
+    @OneToMany
+    private final List<Tool> tools;
     @OneToOne
     private final User user;
     private final Date date;

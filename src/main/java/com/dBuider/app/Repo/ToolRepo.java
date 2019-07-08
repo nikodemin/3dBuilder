@@ -1,5 +1,6 @@
 package com.dBuider.app.Repo;
 
+import com.dBuider.app.Model.Category;
 import com.dBuider.app.Model.Tool;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -11,13 +12,7 @@ import java.util.List;
 @Repository
 public interface ToolRepo extends CrudRepository<Tool,Long>
 {
-    List<Tool> findByCategory (String category);
+    List<Tool> findByCategory (Category category);
 
     List<Tool> findByNameContainingIgnoreCase (String name);
-
-    @Query(value = "SELECT DISTINCT category FROM tools", nativeQuery = true)
-    List<String> findCategories();
-
-    @Query(value = "SELECT DISTINCT subcat FROM tools",nativeQuery = true)
-    List<String> findSubCategories();
 }

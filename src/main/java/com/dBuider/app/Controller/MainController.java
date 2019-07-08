@@ -1,6 +1,8 @@
 package com.dBuider.app.Controller;
 
 import com.dBuider.app.Config.PropertiesConfig;
+import com.dBuider.app.Service.Interfaces.ToolsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class MainController
 {
-    @Autowired
-    private PropertiesConfig propertiesConfig;
+    private final ToolsService toolsService;
 
     @GetMapping("/")
     public String main(Model model, Principal principal, HttpSession session)
@@ -27,7 +29,6 @@ public class MainController
         {
             session.setAttribute("username",principal.getName());
         }
-
         return "main";
     }
 }

@@ -1,5 +1,6 @@
 package com.dBuider.app.Model;
 
+import com.dBuider.app.Service.TranslitService;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,31 +8,30 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
-@Table(name = "tools")
 @Entity
+@Table(name = "categories")
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
-public class Tool
+@Data
+public class Category
 {
-    private final String image;
-    @OneToOne
-    private final Category category;
-
     @Column(unique = true, nullable = false)
     private final String name;
-    private final String description;
-    @OneToOne
-    private final Brand brand;
-    private final String power;
-    private final Double weight;
-    private final Integer price;
-    private final Integer pledge;
+    @Column(unique = true, nullable = false)
+    private final String subcat;
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    public String getNamepath()
+    {
+        return TranslitService.toEng(name);
+    }
+
+    public String getSubcatpath()
+    {
+        return TranslitService.toEng(subcat);
+    }
 }
-
-
