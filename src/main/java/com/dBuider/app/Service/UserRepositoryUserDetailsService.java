@@ -1,6 +1,5 @@
 package com.dBuider.app.Service;
 
-import com.dBuider.app.Config.PropertiesConfig;
 import com.dBuider.app.Model.User;
 import com.dBuider.app.Repo.UserRepo;
 import com.dBuider.app.Service.Interfaces.UserDetailsService;
@@ -9,8 +8,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
@@ -22,13 +21,11 @@ import java.lang.reflect.Field;
 public class UserRepositoryUserDetailsService implements UserDetailsService
 {
     private final UserRepo userRepo;
-    private final PropertiesConfig config;
-
 
     @Bean
     public PasswordEncoder encoder()
     {
-        return new StandardPasswordEncoder(config.getSecret());
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -51,8 +48,7 @@ public class UserRepositoryUserDetailsService implements UserDetailsService
             {
                 Field password = User.class.getDeclaredField("password");
                 password.setAccessible(true);
-                password.set(user,encoder().encode(config.getSalt1()
-                        + user.getPassword() + config.getSalt2()));
+                password.set(user,encoder().encode(user.getPassword()));
                 userRepo.save(user);
             }
             catch (Exception e)

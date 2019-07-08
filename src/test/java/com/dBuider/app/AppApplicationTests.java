@@ -1,23 +1,20 @@
 package com.dBuider.app;
 
-import com.dBuider.app.Model.*;
+import com.dBuider.app.Model.Category;
+import com.dBuider.app.Model.Order;
+import com.dBuider.app.Model.User;
 import com.dBuider.app.Service.Interfaces.OrderService;
 import com.dBuider.app.Service.Interfaces.ToolsService;
 import com.dBuider.app.Service.Interfaces.UserDetailsService;
 import com.dBuider.app.Service.TranslitService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.PostConstruct;
-import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)

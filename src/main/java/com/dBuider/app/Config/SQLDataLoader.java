@@ -3,17 +3,13 @@ package com.dBuider.app.Config;
 import com.dBuider.app.Model.*;
 import com.dBuider.app.Service.Interfaces.OrderService;
 import com.dBuider.app.Service.Interfaces.ToolsService;
-import com.dBuider.app.Service.Interfaces.UserDetailsService;
+import com.dBuider.app.Service.UserRepositoryUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Method;
-import java.util.Collection;
 import java.util.Date;
 
 @RequiredArgsConstructor
@@ -23,7 +19,7 @@ public class SQLDataLoader implements ApplicationRunner
 {
     private final ToolsService toolsService;
     private final OrderService orderService;
-    private final UserDetailsService userDetailsService;
+    private final UserRepositoryUserDetailsService userDetailsService;
 
     private Brand makita = new Brand("Makita","");
     private Brand interskol = new Brand("Интерскол","");

@@ -12,8 +12,11 @@ import java.util.Collection;
 @Table(name = "users")
 public class Admin extends User
 {
-
-
+    private Admin()
+    {
+        super("","","",
+                "","","","");
+    }
     public Admin(String username, String password, String address,
                  String telnum, String email, String firstname, String lastname)
     {

@@ -72,8 +72,11 @@
     сб. 9:00-18:00
             </pre>
         </div>
-        <div>
-            <i class="fas fa-user fa-2x"></i><a href="#"> Вход</a> | <a href="#">Регистрация</a>
+        <div th:if="${session.username == null}">
+            <i class="fas fa-user fa-2x"></i><a th:href="@{/login}"> Вход</a> | <a th:href="@{/register}">Регистрация</a>
+        </div>
+        <div th:if="${session.username != null}">
+            <i class="fas fa-user fa-2x"></i><a th:href="@{/logout}"> Выход</a> | <a th:href="@{/settings}">Настройки</a>
         </div>
     </div>
 </section>
@@ -90,7 +93,7 @@
             </div>
             <span>
                 <i class="fas fa-shopping-cart"></i>
-                <a href="#"> В корзине: </a><span class='cart'>нет товаров</span>
+                <a th:href="@{/order/cart}"> В корзине: </a><span class='cart'>нет товаров</span>
             </span>
         </div>
     </div>

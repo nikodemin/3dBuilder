@@ -2,8 +2,6 @@ package com.dBuider.app.Repo;
 
 import com.dBuider.app.Model.Order;
 import com.dBuider.app.Model.User;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,5 @@
 package com.dBuider.app.Service;
 
-import org.springframework.stereotype.Component;
-
 public class TranslitService
 {
     private static String[][] tripleSyms = {

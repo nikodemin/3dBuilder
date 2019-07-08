@@ -15,7 +15,4 @@ public class PropertiesConfig
 {
     private String uploadPath;
     private String portfolioPath;
-    private String salt1;
-    private String salt2;
-    private String secret;
 }
