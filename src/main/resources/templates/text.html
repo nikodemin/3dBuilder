@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="_header"></th:block>
+<section class="container mt-3">
+    <h3 th:text="${text}"></h3>
+</section>
+<style>
+        #catalog
+        {
+            display: none !important;
+        }
+        div.catalog, div.catalog i
+        {
+            color: #E6E6E6 !important;
+            background-color: #E6E6E6 !important;
+        }
+    </style>
+<th:block th:include="_footer"></th:block>
+</html>

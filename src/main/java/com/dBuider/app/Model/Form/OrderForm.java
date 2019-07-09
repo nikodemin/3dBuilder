@@ -4,12 +4,12 @@ import com.dBuider.app.Model.Tool;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class OrderForm
 {
     private String address;
-    private Tool tool;
-    private Date date;
+    private String date;
     private Integer fordays;
 }

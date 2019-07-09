@@ -39,4 +39,6 @@ $(document).ready(function(){
         $('#main-banner img').height($('#main-banner div.wrapper').width()*ratio)
         .width($('#main-banner div.wrapper').width());
     }).resize();
+
+    //$('.addToCart')
 })

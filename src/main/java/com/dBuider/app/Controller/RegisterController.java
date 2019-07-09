@@ -46,7 +46,6 @@ public class RegisterController
     public String processRegistration(Model model,
                                       @Validated @ModelAttribute("form") RegistrationForm form,
                                       BindingResult result)
-                                      //final RedirectAttributes redirectAttributes)
     {
         if (result.hasErrors())
             return "register";
