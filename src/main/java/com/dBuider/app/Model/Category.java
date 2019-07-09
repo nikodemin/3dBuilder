@@ -17,8 +17,10 @@ public class Category
 {
     @Column(unique = true, nullable = false)
     private final String name;
+    private final String image;
     @Column(unique = true, nullable = false)
     private final String subcat;
+    private final String subcatImage;
 
 
     @Id

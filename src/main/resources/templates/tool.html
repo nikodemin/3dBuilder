@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="_header"></th:block>
+<section id="main-container">
+    <div id="main-banner">
+        <div class="wrapper">
+            <ul class="list-unstyled list-inline">
+                <li><a href="#">
+                    <img class='img-responsive' src="/imgs/landscape-02.jpg">
+                </a></li>
+                <li><a href="#">
+                    <img src="/imgs/landscape-03.jpg">
+                </a></li>
+                <li><a href="#">
+                    <img src="/imgs/landscape-04.jpg">
+                </a></li>
+                <li><a href="#">
+                    <img src="/imgs/landscape-05.jpg">
+                </a></li>
+            </ul>
+        </div>
+    </div>
+    <ul class="banner-btns"></ul>
+    <div class="row">
+        <div class="col col-md-4 mt-3">
+            <div id="toolPreview">
+                <div>
+                    <img style="width:100%" th:src="@{/imgs/cat.jpg}">
+                </div>
+                <table class="table table-sm">
+                    <tr>
+                        <td>Брэнд:</td>
+                        <td>Bosh</td>
+                    </tr>
+                    <tr>
+                        <td>Мощность:</td>
+                        <td>10 Вт</td>
+                    </tr>
+                    <tr>
+                        <td>Вес:</td>
+                        <td>1 кг</td>
+                    </tr>
+                    <tr>
+                        <td>Аренда:</td>
+                        <td>600 р</td>
+                    </tr>
+                    <tr>
+                        <td>Залог:</td>
+                        <td>7000 р</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary">Арендовать</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col col-md-8 mt-3">
+            <div id="toolInfo">
+                Fames sodales molestie hac etiam ac cursus nisl scelerisque convallis hendrerit. Eget a vehicula quis elementum mollis facilisi. Litora porttitor euismod arcu platea sollicitudin dis sociis semper. Condimentum lacinia hendrerit bibendum placerat eleifend tincidunt. Ipsum montes hac vivamus augue sit lacus maecenas luctus tempus taciti commodo etiam. Conubia fringilla facilisi ornare inceptos duis eleifend neque consequat consectetur vestibulum, eros quisque. Posuere dapibus enim id arcu dis quam ultrices dolor luctus scelerisque praesent quis. Lorem habitasse inceptos a aliquam. Urna, suscipit sociosqu tristique blandit vivamus facilisis. Vivamus ornare auctor gravida sociis habitant.
+
+                Euismod elit sagittis maecenas conubia ullamcorper curae;. Accumsan dignissim rhoncus ornare convallis habitant at cursus augue hac commodo ullamcorper. Sodales in est, urna bibendum vestibulum dui pellentesque commodo. Sollicitudin enim platea congue. Enim nunc justo torquent placerat mattis magnis dictum? Dictumst vivamus quisque praesent iaculis eros blandit lorem! Sociis mattis quisque iaculis erat. Cursus pellentesque!
+            </div>
+        </div>
+    </div>
+</section>
+<link href="/css/tool.css" type="text/css" rel="stylesheet">
+<th:block th:include="_footer"></th:block>
+</html>

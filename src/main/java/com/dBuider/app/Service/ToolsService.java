@@ -35,7 +35,7 @@ public class ToolsService implements com.dBuider.app.Service.Interfaces.ToolsSer
     @Override
     public List<Tool> findTools(String category, String subcategory)
     {
-        Category cat = categoryRepo.findByNameAndSubcat(category,subcategory);
+        Category cat = categoryRepo.findByNameIgnoreCaseAndSubcatIgnoreCase(category,subcategory);
         List<Tool> tools = toolRepo.findByCategory(cat);
 
         return tools;
@@ -45,6 +45,20 @@ public class ToolsService implements com.dBuider.app.Service.Interfaces.ToolsSer
     public List<Tool> findTools(String tool)
     {
         return toolRepo.findByNameContainingIgnoreCase(tool);
+    }
+
+    @Override
+    public Tool findToolById(String id)
+    {
+        try
+        {
+            return toolRepo.findById(Long.parseLong(id)).get();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

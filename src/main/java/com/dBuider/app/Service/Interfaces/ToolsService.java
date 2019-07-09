@@ -10,6 +10,7 @@ public interface ToolsService
 {
     List<Tool> findTools(String category, String subcategory);
     List<Tool> findTools(String query);
+    Tool findToolById(String id);
     List<Tool> getTopTools();
     List<Brand> getBrands();
     List<Category> getCategories();

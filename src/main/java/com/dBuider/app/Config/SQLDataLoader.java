@@ -26,7 +26,8 @@ public class SQLDataLoader implements ApplicationRunner
     private Brand hitachi = new Brand("Hitachi","");
     private Brand bosh = new Brand("Bosh","");
 
-    private Category perf = new Category("Электроинструменты","Перфораторы");
+    private Category perf = new Category("Электроинструменты","",
+            "Перфораторы","");
 
     @Override
     public void run(ApplicationArguments args) throws Exception

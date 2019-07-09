@@ -1,6 +1,7 @@
-<div xmlns:th="http://www.thymeleaf.org">
-    <th:block th:include="_header"></th:block>
-    </section>
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">    <th:block th:include="_header"></th:block>
     <section class="container mt-3">
         <form th:action="@{/login}" method="post">
             <div th:if="${param.error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -28,6 +29,15 @@
             margin-top: 100px;
             margin-bottom: 100px;
         }
+        #catalog
+        {
+            display: none !important;
+        }
+        div.catalog, div.catalog i
+        {
+            color: #E6E6E6 !important;
+            background-color: #E6E6E6 !important;
+        }
     </style>
     <th:block th:include="_footer"></th:block>
-</div>
+</html>

@@ -39,6 +39,12 @@ public class UserRepositoryUserDetailsService implements UserDetailsService
     }
 
     @Override
+    public User getUserByEmail(String email)
+    {
+        return userRepo.findByEmail(email);
+    }
+
+    @Override
     public void saveUser(User user)
     {
         if(userRepo.findByUsername(user.getUsername()) == null &&
@@ -58,5 +64,11 @@ public class UserRepositoryUserDetailsService implements UserDetailsService
         }
         else
             log.error("User "+user.getUsername()+" already exists!");
+    }
+
+    @Override
+    public User getUser(String username)
+    {
+        return userRepo.findByUsername(username);
     }
 }

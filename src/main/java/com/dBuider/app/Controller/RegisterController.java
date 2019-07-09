@@ -3,6 +3,7 @@ package com.dBuider.app.Controller;
 import com.dBuider.app.Model.Form.RegistrationForm;
 import com.dBuider.app.Model.User;
 import com.dBuider.app.Repo.UserRepo;
+import com.dBuider.app.Service.UserRepositoryUserDetailsService;
 import com.dBuider.app.Validator.RegistrationValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class RegisterController
 {
-    private final UserRepo userRepo;
+    private final UserRepositoryUserDetailsService userService;
     private final PasswordEncoder passwordEncoder;
     private final RegistrationValidator registrationValidator;
 
@@ -30,8 +31,6 @@ public class RegisterController
         if (target==null)
             return;
 
-        System.out.println("TARGET="+target);
-
         if (target.getClass() == RegistrationForm.class)
             binder.setValidator(registrationValidator);
     }
@@ -40,30 +39,28 @@ public class RegisterController
     public String register(Model model)
     {
         model.addAttribute("form",new RegistrationForm());
-        return "registration";
+        return "register";
     }
 
     @PostMapping
     public String processRegistration(Model model,
                                       @Validated @ModelAttribute("form") RegistrationForm form,
-                                      BindingResult result,
-                                      final RedirectAttributes redirectAttributes)
+                                      BindingResult result)
+                                      //final RedirectAttributes redirectAttributes)
     {
         if (result.hasErrors())
-            return "registration";
+            return "register";
 
-        User newUser = null;
         try
         {
-            newUser = userRepo.save(form.toUser(passwordEncoder));
+            userService.saveUser(form.toUser(passwordEncoder));
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            return "registration";
+            return "register";
         }
 
-        redirectAttributes.addFlashAttribute("flashUser", newUser);
         return "redirect:/login";
     }
 }

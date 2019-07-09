@@ -345,6 +345,10 @@ hr
 {
     padding: 0 20px;
 }
+#nav-third
+{
+    position: relative;
+}
 #nav-third div.input-group
 {
     width: 300px;
@@ -409,7 +413,7 @@ hr
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 10px;
-    top: -20.5px;
+    top: 85%;
     left: 40px;
     z-index: 999;
 }

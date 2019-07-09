@@ -1,0 +1,28 @@
+.catalog-item
+{
+    display: inline-flex;
+    max-width: 150px;
+    padding: 7px;
+    margin: 10px;
+    background-color: #E6E6E6;
+    border-radius: 4px;
+    box-shadow: 3px 3px 2px grey;
+    text-align: center;
+}
+.catalog-item div
+{
+    display: inline-block;
+    max-width: 80%;
+}
+.catalog-item a
+{
+    width: 100%;
+}
+.catalog-item span
+{
+    overflow-wrap: break-word;
+}
+#main-container
+{
+    text-align: center;
+}

@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -84,27 +80,28 @@
     <div>
         <div id="nav-third" class="show-for-desktop">
             <div class="catalog"><i class="fas fa-bars"></i> Каталог товаров</div>
+            <div id="catalog" class="show-for-desktop">
+                <ul class="list-unstyled">
+                    <li th:each="cat:${session.categories}">
+                        <a th:href="@{'/catalog/' + ${cat.namepath}}">
+                            <i class="fas fa-tools"></i><th:block th:text="${cat.name}"></th:block>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <span><i class="fas fa-percent"></i><a href="#"> Акции  </a></span>
             <div class="input-group input-group-sm show-for-desktop">
                 <input type="text" class="form-control" placeholder="Что вы хотите взять в аренду?">
                 <div class="input-group-append">
-                    <a href="#" class="nav-link input-group-text"><i class="fas fa-search"></i></a>
+      <a href="#" class="nav-link input-group-text"><i class="fas fa-search"></i></a>
                 </div>
             </div>
             <span>
                 <i class="fas fa-shopping-cart"></i>
-                <a th:href="@{/order/cart}"> В корзине: </a><span class='cart'>нет товаров</span>
+                <a th:href="@{/order/cart}"> Товаров в корзине: </a>
+                <span th:if="${session.order != null}" class='cart'
+                      th:text="${#lists.size(session.order.tools)}">нет товаров</span>
             </span>
         </div>
     </div>
 </section>
-<section id="main-container">
-    <div id="catalog" class="show-for-desktop">
-        <ul class="list-unstyled">
-            <li th:each="cat:${session.categories}">
-                <a th:href="@{'/catalog/' + ${cat.namepath}}">
-                    <i class="fas fa-tools"></i><th:block th:text="${cat.name}"></th:block>
-                </a>
-            </li>
-        </ul>
-    </div>

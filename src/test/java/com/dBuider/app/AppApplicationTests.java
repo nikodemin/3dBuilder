@@ -71,7 +71,8 @@ public class AppApplicationTests
 				"","","gmail","Vasya","Vasyavich"));
 		userDetailsService.saveUser(new User("Bob","123",
 				"","","mail","Vasya","Vasyavich"));
-		toolsService.addCategory(new Category("Электроинструменты","Перфораторы"));
+		toolsService.addCategory(new Category("Электроинструменты", "",
+				"Перфораторы",""));
 	}
 
 	@Test

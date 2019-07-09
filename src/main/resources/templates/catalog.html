@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <th:block th:include="_header"></th:block>
+    <section id="main-container">
+        <div id="main-banner">
+            <div class="wrapper">
+                <ul class="list-unstyled list-inline">
+                    <li><a href="#">
+                        <img class='img-responsive' src="/imgs/landscape-02.jpg">
+                    </a></li>
+                    <li><a href="#">
+                        <img src="/imgs/landscape-03.jpg">
+                    </a></li>
+                    <li><a href="#">
+                        <img src="/imgs/landscape-04.jpg">
+                    </a></li>
+                    <li><a href="#">
+                        <img src="/imgs/landscape-05.jpg">
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+        <ul class="banner-btns"></ul>
+        <div th:if="${categories != null}" th:each="cat:${categories}" class="catalog-item">
+            <a th:href="@{'/catalog/'+${cat.namepath}+'/'+${cat.subcatpath}}">
+                <div>
+                    <img class="img-fluid" th:src="@{/imgs/cat.jpg}">
+                </div>
+                <div>
+                    <span th:text="${cat.subcat}">
+                    </span>
+                </div>
+            </a>
+        </div>
+        <div th:if="${tools != null}" th:each="tool:${tools}" class="catalog-item">
+            <a th:href="@{'/tool/'+${tool.id}}">
+                <div>
+                    <img class="img-fluid" th:src="@{/imgs/cat.jpg}">
+                </div>
+                <div>
+                    <span th:text="${tool.name}">
+                    </span>
+                </div>
+            </a>
+        </div>
+    </section>
+    <link href="/css/catalog.css" type="text/css" rel="stylesheet">
+    <th:block th:include="_footer"></th:block>
+</html>
