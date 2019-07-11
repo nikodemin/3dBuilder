@@ -417,6 +417,11 @@ hr
     left: 40px;
     z-index: 999;
 }
+#catalog li
+{
+    font-size: 80%;
+    line-height: 30px;
+}
 #catalog a
 {
     text-decoration: none;

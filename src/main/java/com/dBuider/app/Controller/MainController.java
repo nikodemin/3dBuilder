@@ -22,6 +22,7 @@ public class MainController
         {
             session.setAttribute("username",principal.getName());
         }
+        model.addAttribute("topTools",toolsService.getTopTools());
         return "main";
     }
 }

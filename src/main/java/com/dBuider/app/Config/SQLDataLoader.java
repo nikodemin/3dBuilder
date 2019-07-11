@@ -26,8 +26,19 @@ public class SQLDataLoader implements ApplicationRunner
     private Brand hitachi = new Brand("Hitachi","");
     private Brand bosh = new Brand("Bosh","");
 
-    private Category perf = new Category("Электроинструменты","",
-            "Перфораторы","");
+    private Category perf = new Category("Электроинструменты","/imgs/cat.jpg",
+            "Перфораторы","/imgs/cat.jpg");
+
+    private Category cat = new Category("Бензоинструменты","/imgs/cat.jpg",
+            "Бензопилы","/imgs/cat.jpg");
+    private Category cat2 = new Category("Строительное оборудование","/imgs/cat.jpg",
+            "Уголки","/imgs/cat.jpg");
+    private Category cat3 = new Category("Клининговое и климатическое оборудование","/imgs/cat.jpg",
+            "Karcher","/imgs/cat.jpg");
+    private Category cat4 = new Category("Силовая техника","/imgs/cat.jpg",
+            "Генераторы","/imgs/cat.jpg");
+    private Category cat5 = new Category("Расходные материалы","/imgs/cat.jpg",
+            "Перчатки","/imgs/cat.jpg");
 
     @Override
     public void run(ApplicationArguments args) throws Exception
@@ -38,15 +49,20 @@ public class SQLDataLoader implements ApplicationRunner
         toolsService.addBrand(bosh);
 
         toolsService.addCategory(perf);
+        toolsService.addCategory(cat);
+        toolsService.addCategory(cat2);
+        toolsService.addCategory(cat3);
+        toolsService.addCategory(cat4);
+        toolsService.addCategory(cat5);
 
-        toolsService.addTool(new Tool("img",perf,"Makita mega","desc",makita,
+        toolsService.addTool(new Tool("/imgs/cat.jpg",perf,"Makita mega","desc",makita,
                 "2kWt",1.0, 600, 6000));
-        toolsService.addTool(new Tool("img", perf,"Bosh mega","desc",bosh,
+        toolsService.addTool(new Tool("/imgs/cat.jpg", perf,"Bosh mega","desc",bosh,
                 "2kWt",1.0, 400, 4000));
-        toolsService.addTool(new Tool("img",perf,"Interskol mega",
+        toolsService.addTool(new Tool("/imgs/cat.jpg",perf,"Interskol mega",
                 "desc",interskol,
                 "2kWt",1.0, 300, 3000));
-        toolsService.addTool(new Tool("img",perf,
+        toolsService.addTool(new Tool("/imgs/cat.jpg",perf,
                 "Hitachi mega","desc",hitachi,
                 "2kWt",1.0, 600, 6000));
 

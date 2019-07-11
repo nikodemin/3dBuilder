@@ -3,171 +3,45 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">  <th:block th:include="_header"></th:block>
   <section id="main-container">
-    <div id="main-banner">
-      <div class="wrapper">
-        <ul class="list-unstyled list-inline">
-          <li><a href="#">
-            <img class='img-responsive' src="/imgs/landscape-02.jpg">
-          </a></li>
-          <li><a href="#">
-            <img src="/imgs/landscape-03.jpg">
-          </a></li>
-          <li><a href="#">
-            <img src="/imgs/landscape-04.jpg">
-          </a></li>
-          <li><a href="#">
-            <img src="/imgs/landscape-05.jpg">
-          </a></li>
-        </ul>
-      </div>
-    </div>
-    <ul class="banner-btns"></ul>
+    <th:block th:include="_slider"></th:block>
     <div class="row mobile-tools-menu hide-for-desktop">
-      <div class="col col-sm-4"><a href="#">
-        <img class="img-responsive" src="/imgs/electroinstument.jpg">
-        <span>Электроинструменты</span>
-      </a></div>
-      <div class="col col-sm-4"><a href="#">
-        <img class="img-responsive" src="/imgs/benzoinstrument.jpg">
-        <span>Бензоинструменты</span>
-      </a></div>
-      <div class="col col-sm-4"><a href="#">
-        <img class="img-responsive" src="/imgs/beton.jpg">
-        <span>Строительное оборудование</span>
-      </a></div>
-      <div class="col col-sm-4"><a href="#">
-        <img class="img-responsive" src="/imgs/klining.jpg">
-        <span>Клининговое и климатическое оборудование</span>
-      </a></div>
-      <div class="col col-sm-4"><a href="#">
-        <img class="img-responsive" src="/imgs/silovaya.jpg">
-        <span>Силовая техника</span>
-      </a></div>
-      <div class="col col-sm-4"><a href="#">
-        <img class="img-responsive" src="/imgs/rashodniki.jpg">
-        <span>Расходные материалы</span>
+      <div class="col col-sm-4" th:each="cat:${session.categories}"><a th:href="@{'/catalog/' + ${cat.namepath}}">
+        <img class="img-responsive" th:src="${cat.image}">
+        <span th:text="${cat.name}">Электроинструменты</span>
       </a></div>
     </div>
     <h3 class="leaders">Лидеры проката</h3>
-
     <div id="leaders" class="hide-for-desktop">
-      <div>
+      <div th:each="tool:${topTools}">
         <div class="image">
-          <img src='/imgs/cat.jpg' class="img-responsive">
+          <a th:href="@{'/tool/'+${tool.id}}"><img th:src="${tool.image}" class="img-responsive"></a>
         </div>
         <div class="text">
-          <h5>Бензиновый генератор</h5>
-          <pre>
+          <h5 th:text="${tool.name}">Бензиновый генератор</h5>
+          <pre th:text="${tool.power}">
         Мощность 1000лс
         уровень шума 100дц
                 </pre>
-          <h5>От 1500 руб/сутки</h5>
-          <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Арендовать</button>
-        </div>
-      </div>
-      <div>
-        <div class="image">
-          <img src='/imgs/cat.jpg' class="img-responsive">
-        </div>
-        <div class="text">
-          <h5>Бензиновый генератор</h5>
-          <pre>
-        Мощность 1000лс
-        уровень шума 100дц
-                </pre>
-          <h5>От 1500 руб/сутки</h5>
-          <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Арендовать</button>
-        </div>
-      </div>
-      <div>
-        <div class="image">
-          <img src='/imgs/cat.jpg' class="img-responsive">
-        </div>
-        <div class="text">
-          <h5>Бензиновый генератор</h5>
-          <pre>
-        Мощность 1000лс
-        уровень шума 100дц
-                </pre>
-          <h5>От 1500 руб/сутки</h5>
-          <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Арендовать</button>
-        </div>
-      </div>
-      <div>
-        <div class="image">
-          <img src='/imgs/cat.jpg' class="img-responsive">
-        </div>
-        <div class="text">
-          <h5>Бензиновый генератор</h5>
-          <pre>
-        Мощность 1000лс
-        уровень шума 100дц
-                </pre>
-          <h5>От 1500 руб/сутки</h5>
-          <button class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Арендовать</button>
+          <h5>От <span th:text="${tool.price}">1500</span> руб/сутки</h5>
+          <button class="btn btn-primary"><i class="fas fa-shopping-cart addToCart"></i> Арендовать</button>
         </div>
       </div>
     </div>
     <div id="leaders-desktop" class="show-for-desktop">
       <a href="#" class="arrow-left"><i class="fas fa-arrow-left"></i></a>
       <a href="#" class="arrow-right"><i class="fas fa-arrow-right"></i></a>
-      <ul class="list-unstyled">
-        <li><a href="#"><div class="hit">Хит</div><img src="/imgs/cat.jpg" class="img-responsive"></a></li>
-        <li><span>Бензиновый генератор</span></a></li>
-        <li><span class="props">8Квт, 6.4Квт, 100 Дцб</span></li>
+      <ul class="list-unstyled" th:attr="data-tool=${tool.id}" th:each="tool:${topTools}">
+        <li><a th:href="@{'/tool/'+${tool.id}}"><div class="hit">Хит</div><img th:src="${tool.image}" class="img-responsive"></a></li>
+        <li><span th:text="${tool.name}">Бензиновый генератор</span></a></li>
+        <li><span class="props" th:text="${tool.power}">8Квт, 6.4Квт, 100 Дцб</span></li>
         <li><i class="fas fa-map-marker-alt"> Самовывоз:  </i><span class="pick-date">сегодня</span></li>
         <li><i class="fas fa-car"> Доставка:  </i><span class="delivery-date">завтра</span></li>
         <hr>
-        <li class="price-li">От <span class="price">1500</span> руб/сутки</li>
-        <li><button class="btn btn-primary btn-block">Арендовать</button></li>
-        <li><button class="btn btn-outline-primary btn-block">Быстрый заказ</button></li>
-      </ul>
-      <ul class="list-unstyled">
-        <li><a href="#"><div class="hit">Хит</div><img src="/imgs/cat.jpg" class="img-responsive"></a></li>
-        <li><span>Бензиновый генератор</span></a></li>
-        <li><span class="props">8Квт, 6.4Квт, 100 Дцб</span></li>
-        <li><i class="fas fa-map-marker-alt"> Самовывоз:  </i><span class="pick-date">сегодня</span></li>
-        <li><i class="fas fa-car"> Доставка:  </i><span class="delivery-date">завтра</span></li>
-        <hr>
-        <li class="price-li">От <span class="price">1500</span> руб/сутки</li>
-        <li><button class="btn btn-primary btn-block">Арендовать</button></li>
-        <li><button class="btn btn-outline-primary btn-block">Быстрый заказ</button></li>
-      </ul>
-      <ul class="list-unstyled">
-        <li><a href="#"><div class="hit">Хит</div><img src="/imgs/cat.jpg" class="img-responsive"></a></li>
-        <li><a><span>Бензиновый генератор</span></a></li>
-        <li><span class="props">8Квт, 6.4Квт, 100 Дцб</span></li>
-        <li><i class="fas fa-map-marker-alt"> Самовывоз:  </i><span class="pick-date">сегодня</span></li>
-        <li><i class="fas fa-car"> Доставка:  </i><span class="delivery-date">завтра</span></li>
-        <hr>
-        <li class="price-li">От <span class="price">1500</span> руб/сутки</li>
-        <li><button class="btn btn-primary btn-block">Арендовать</button></li>
-        <li><button class="btn btn-outline-primary btn-block">Быстрый заказ</button></li>
-      </ul>
-      <ul class="list-unstyled">
-        <li><a href="#"><div class="hit">Хит</div><img src="/imgs/cat.jpg" class="img-responsive"></li>
-        <li><span>Бензиновый генератор</span></a></li>
-        <li><span class="props">8Квт, 6.4Квт, 100 Дцб</span></li>
-        <li><i class="fas fa-map-marker-alt"> Самовывоз:  </i><span class="pick-date">сегодня</span></li>
-        <li><i class="fas fa-car"> Доставка:  </i><span class="delivery-date">завтра</span></li>
-        <hr>
-        <li class="price-li">От <span class="price">1500</span> руб/сутки</li>
-        <li><button class="btn btn-primary btn-block">Арендовать</button></li>
-        <li><button class="btn btn-outline-primary btn-block">Быстрый заказ</button></li>
-      </ul>
-      <ul class="list-unstyled">
-        <li><a href="#"><div class="hit">Хит</div><img src="/imgs/cat.jpg" class="img-responsive"></a></li>
-        <li><span>Бензиновый генератор</span></a></li>
-        <li><span class="props">8Квт, 6.4Квт, 100 Дцб</span></li>
-        <li><i class="fas fa-map-marker-alt"> Самовывоз:  </i><span class="pick-date">сегодня</span></li>
-        <li><i class="fas fa-car"> Доставка:  </i><span class="delivery-date">завтра</span></li>
-        <hr>
-        <li class="price-li">От <span class="price">1500</span> руб/сутки</li>
-        <li><button class="btn btn-primary btn-block">Арендовать</button></li>
-        <li><button class="btn btn-outline-primary btn-block">Быстрый заказ</button></li>
+        <li class="price-li">От <span class="price" th:text="${tool.price}">1500</span> руб/сутки</li>
+        <li><button class="btn btn-primary btn-block addToCart">Арендовать</button></li>
+        <li><button class="btn btn-outline-primary btn-block quickBuy">Быстрый заказ</button></li>
       </ul>
     </div>
-
     <div id="show-more" class="hide-for-desktop">
       <button class="btn btn-outline-primary">Показать ещё</button>
     </div>

@@ -1,6 +1,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--[if it IE9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -37,7 +39,7 @@
 <section id="first-container">
     <div id="nav-first" class="row show-for-desktop">
         <div>
-            <i class="fas fa-map-marker-alt"></i> Ваш город: <a href="#"> Санкт-Петербург</a>
+            <i class="fas fa-map-marker-alt"></i> Наш город: <a href="#"> Санкт-Петербург</a>
         </div>
         <div>
             <a href="#"> Пункты выдачи</a>
@@ -53,7 +55,7 @@
 <section id='second-container'>
     <div id="nav-second" class="row show-for-desktop">
         <div>
-            <a href="#"><img src="/imgs/logo.png" class="img-responsive"></a>
+            <a href="/"><img src="/imgs/logo.png" class="img-responsive"></a>
         </div>
         <div>
             <pre>
@@ -84,7 +86,7 @@
                 <ul class="list-unstyled">
                     <li th:each="cat:${session.categories}">
                         <a th:href="@{'/catalog/' + ${cat.namepath}}">
-                            <i class="fas fa-tools"></i><th:block th:text="${cat.name}"></th:block>
+                            <i class="fas fa-tools"> </i>  <th:block th:text="${cat.name}"></th:block>
                         </a>
                     </li>
                 </ul>
@@ -98,7 +100,7 @@
             </div>
             <span>
                 <i class="fas fa-shopping-cart"></i>
-                <a th:href="@{/order/cart}"> Товаров в корзине: </a>
+                <a th:href="@{/order/cart}"> Товаров в корзине:</a>
                 <span th:if="${session.order != null}" class='cart'
                       th:text="${#lists.size(session.order.tools)}">нет товаров</span>
             </span>

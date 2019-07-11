@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -45,7 +47,16 @@ public class OrderController
     @GetMapping("/cart")
     public String cart(HttpSession session, Model model)
     {
-        model.addAttribute("form",new OrderForm());
+        OrderForm form = new OrderForm();
+        SimpleDateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+        form.setDate(date.format(new Date()));
+        String address = "";
+        if (session.getAttribute("username") != null)
+            address = userService.getUser((String)session
+                    .getAttribute("username")).getAddress();
+        form.setAddress(address);
+        form.setFordays(1);
+        model.addAttribute("form",form);
         return "order";
     }
 

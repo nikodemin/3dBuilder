@@ -40,5 +40,48 @@ $(document).ready(function(){
         .width($('#main-banner div.wrapper').width());
     }).resize();
 
-    //$('.addToCart')
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+    xhr.setRequestHeader(header, token);
+    });
+
+    $('.addToCart').on('click',function(e){
+        var id = $(this).parents('ul').attr('data-tool')
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/addtool/'+id,
+            success: function(data){
+                $('span.cart').text(data)
+            }
+        })
+    })
+
+    $('.date').datepicker($.datepicker.regional[ "ru" ])
+
+    $('tr.tool button.btn-dec').on('click', function(e){
+        var id = $(this).parents('tr').attr('data-tool')
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/deltool/'+id,
+            success: function(data){
+                $('span.cart').text(data)
+            }
+        })
+        var quantity = $(this).parents('tr').find('span.quantity')
+        if (quantity.text() > 0)
+            quantity.text(quantity.text()-1)
+    })
+    $('tr.tool button.btn-inc').on('click', function(e){
+            var id = $(this).parents('tr').attr('data-tool')
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8080/addtool/'+id,
+                success: function(data){
+                    $('span.cart').text(data)
+                }
+            })
+            var quantity = $(this).parents('tr').find('span.quantity')
+            quantity.text(parseInt(quantity.text(),10)+1)
+    })
 })

@@ -4,25 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
     <th:block th:include="_header"></th:block>
     <section id="main-container">
-        <div id="main-banner">
-            <div class="wrapper">
-                <ul class="list-unstyled list-inline">
-                    <li><a href="#">
-                        <img class='img-responsive' src="/imgs/landscape-02.jpg">
-                    </a></li>
-                    <li><a href="#">
-                        <img src="/imgs/landscape-03.jpg">
-                    </a></li>
-                    <li><a href="#">
-                        <img src="/imgs/landscape-04.jpg">
-                    </a></li>
-                    <li><a href="#">
-                        <img src="/imgs/landscape-05.jpg">
-                    </a></li>
-                </ul>
-            </div>
-        </div>
-        <ul class="banner-btns"></ul>
+        <th:block th:include="_slider"></th:block>
         <div th:if="${categories != null}" th:each="cat:${categories}" class="catalog-item">
             <a th:href="@{'/catalog/'+${cat.namepath}+'/'+${cat.subcatpath}}">
                 <div>
