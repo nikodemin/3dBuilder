@@ -6,6 +6,8 @@ import com.dBuider.app.Model.User;
 import com.dBuider.app.Service.Interfaces.ToolsService;
 import com.dBuider.app.Service.UserRepositoryUserDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -29,6 +31,12 @@ public class SessionInterceptor implements HandlerInterceptor
                               Object handler) throws Exception
     {
         session.setAttribute("categories",toolsService.getCategories());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        if (!username.equals("anonymousUser"))
+            session.setAttribute("username",username);
+
         if (session.getAttribute("order") == null
                 && session.getAttribute("username") != null)
         {

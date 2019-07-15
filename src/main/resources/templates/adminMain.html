@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="_header"></th:block>
+<section id="main-container">
+<table class="table">
+    <tr th:each="cat:${session.categories}" th:attr="data-id=${cat.id}">
+        <td>
+            <ul class="inline-list list-unstyled">
+                <li class="list-inline-item"><input class="category" type="text" th:value="${cat.name}"></li>
+                <li class="list-inline-item"><input type="file"></li>
+                <li class="list-inline-item"><input class="category" type="text" th:value="${cat.subcat}"></li>
+                <li class="list-inline-item"><input type="file"></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+</section>
+<style>
+    table
+    {
+        max-width: 700px;
+        margin: auto;
+        margin-top: 300px;
+        margin-bottom: 100px;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        $('category').on('blur', function(e){
+            $.ajax()
+        })
+    })
+</script>
+<link href="/css/order.css" type="text/css" rel="stylesheet">
+<th:block th:include="_footer"></th:block>
+</html>

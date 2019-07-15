@@ -13,8 +13,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -29,7 +33,7 @@ public class AppApplicationTests
 	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired
-	private TranslitService translitService;
+	private JavaMailSender emailSender;
 
 	@Test
 	public void ordersTest()
@@ -91,11 +95,25 @@ public class AppApplicationTests
 		translit("Штробо33рез");
 	}
 
+	@Test
+	public void emailTest() throws MessagingException
+	{
+		MimeMessage message = emailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+
+		String htmlMsg = "<h3>Привет мир!</h3>";
+
+		message.setContent(htmlMsg,"text/html");
+		helper.setTo("niko.demin@gmail.com");
+		helper.setSubject("Test send HTML email");
+		emailSender.send(message);
+	}
+
 	private void translit(String str)
 	{
-		Assert.assertEquals(translitService.toRus(str),
-				translitService.toRus(translitService.toEng(str)));
-		Assert.assertEquals(translitService.toEng(str),
-				translitService.toEng(translitService.toRus(str)));
+		Assert.assertEquals(TranslitService.toRus(str),
+				TranslitService.toRus(TranslitService.toEng(str)));
+		Assert.assertEquals(TranslitService.toEng(str),
+				TranslitService.toEng(TranslitService.toRus(str)));
 	}
 }

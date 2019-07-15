@@ -32,7 +32,7 @@ public class OrderValidator implements Validator
 
         if (session.getAttribute("order") == null ||
                 ((Order)session.getAttribute("order")).getTools().size() == 0)
-            errors.rejectValue("tools","NotEmpty.orderForm.tools");
+            errors.reject("NotEmpty.orderForm.tools");
 
     }
 }

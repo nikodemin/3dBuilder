@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="_header"></th:block>
-<section class="container mt-3">
+<section class="main container mt-3">
     <h3 th:text="${text}"></h3>
 </section>
 <style>
@@ -15,6 +15,15 @@
         {
             color: #E6E6E6 !important;
             background-color: #E6E6E6 !important;
+        }
+        section.main
+        {
+            min-height: 200px;
+            text-align: center;
+        }
+        section.main h3
+        {
+            margin-top: 100px;
         }
     </style>
 <th:block th:include="_footer"></th:block>

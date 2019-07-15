@@ -3,16 +3,6 @@ nav#nav-mobile
     height: 3rem;
     color: #D60000;
 }
-nav#nav-mobile nav.navbar, nav#nav-mobile nav.navbar a
-{
-    height: 2.4rem;
-    padding: 0.3rem;
-}
-nav#nav-mobile img
-{
-    display: inline-block;
-    height: 100%;
-}
 nav#nav-mobile > div
 {
     display: inline-flex;

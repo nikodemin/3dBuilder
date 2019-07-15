@@ -13,18 +13,21 @@
 <body>
 <nav id="nav-mobile" class="hide-for-desktop">
     <div>
-        <nav class="navbar navbar-expand-xs  navbar-light bg-faded">
-            <button class="navbar-toggler" type="button">
-                <span class="navbar-toggler-icon"></span>
+        <nav class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                Каталог
             </button>
-            <a href="#"><img src="/imgs/cat.jpg" class="img-responsive"></a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" th:each="cat:${session.categories}"
+                   th:href="@{'/catalog/' + ${cat.namepath}}"
+                   th:text="${cat.name}"></a>
+            </div>
         </nav>
     </div>
     <div class="nav float-right">
-        <a href="#" class="nav-link"><i class="fas fa-search"></i></a>
         <a href="#" class="nav-link"><i class="fas fa-phone"></i></a>
-        <a href="#" class="nav-link"><i class="fas fa-user"></i></a>
-        <a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
+        <a href="/settings" class="nav-link"><i class="fas fa-user"></i></a>
+        <a href="/order/cart" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
     </div>
 </nav>
 <div id="nav-search hide-for-desktop">
@@ -102,7 +105,7 @@
                 <i class="fas fa-shopping-cart"></i>
                 <a th:href="@{/order/cart}"> Товаров в корзине:</a>
                 <span th:if="${session.order != null}" class='cart'
-                      th:text="${#lists.size(session.order.tools)}">нет товаров</span>
+                      th:text="${#lists.size(session.order.uniqtools)}">нет товаров</span>
             </span>
         </div>
     </div>

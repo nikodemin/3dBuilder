@@ -47,12 +47,24 @@ $(document).ready(function(){
     });
 
     $('.addToCart').on('click',function(e){
-        var id = $(this).parents('ul').attr('data-tool')
+        var id = $(this).parents('[data-tool]').attr('data-tool')
         $.ajax({
             type: 'POST',
             url: 'http://localhost:8080/addtool/'+id,
             success: function(data){
                 $('span.cart').text(data)
+            }
+        })
+    })
+
+    $('.quickBuy').on('click',function(e){
+        var id = $(this).parents('[data-tool]').attr('data-tool')
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/addtool/'+id,
+            success: function(data){
+                $('span.cart').text(data)
+                window.location.href='http://localhost:8080/order/cart'
             }
         })
     })

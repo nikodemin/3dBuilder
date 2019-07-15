@@ -22,8 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/order/**")
+                .antMatchers("/order/**", "/text","/settings")
                 .access("hasRole('ROLE_USER')")
+                .antMatchers("/admin/**")
+                .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/", "/**").access("permitAll")
 
                 .and()
@@ -31,7 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .loginPage("/login")
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
-                .defaultSuccessUrl("/")
 
                 .and()
                 .logout()

@@ -16,12 +16,8 @@ public class MainController
     private final ToolsService toolsService;
 
     @GetMapping("/")
-    public String main(Model model, Principal principal, HttpSession session)
+    public String main(Model model)
     {
-        if (principal != null)
-        {
-            session.setAttribute("username",principal.getName());
-        }
         model.addAttribute("topTools",toolsService.getTopTools());
         return "main";
     }

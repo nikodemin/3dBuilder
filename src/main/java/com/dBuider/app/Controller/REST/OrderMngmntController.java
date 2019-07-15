@@ -28,7 +28,7 @@ public class OrderMngmntController
                 order.getTools().add(toolsService.findToolById(id));
                 session.setAttribute("order", order);
             }
-            return order.getTools().size();
+            return order.getUniqtools().size();
         }
 
         return 0;
@@ -42,7 +42,7 @@ public class OrderMngmntController
         if (order!= null)
         {
             order.getTools().remove(toolsService.findToolById(id));
-            return order.getTools().size();
+            return order.getUniqtools().size();
         }
         return 0;
     }
