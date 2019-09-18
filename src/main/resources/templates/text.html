@@ -7,24 +7,23 @@
     <h3 th:text="${text}"></h3>
 </section>
 <style>
-        #catalog
-        {
-            display: none !important;
-        }
-        div.catalog, div.catalog i
-        {
-            color: #E6E6E6 !important;
-            background-color: #E6E6E6 !important;
-        }
-        section.main
-        {
-            min-height: 200px;
-            text-align: center;
-        }
-        section.main h3
-        {
-            margin-top: 100px;
-        }
-    </style>
+    #catalog {
+        display: none !important;
+    }
+
+    div.catalog, div.catalog i {
+        color: #E6E6E6 !important;
+        background-color: #E6E6E6 !important;
+    }
+
+    section.main {
+        min-height: 200px;
+        text-align: center;
+    }
+
+    section.main h3 {
+        margin-top: 100px;
+    }
+</style>
 <th:block th:include="_footer"></th:block>
 </html>

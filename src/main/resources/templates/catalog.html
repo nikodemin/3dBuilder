@@ -2,32 +2,30 @@
 <html lang="ru"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-    <th:block th:include="_header"></th:block>
-    <section id="main-container">
-        <th:block th:include="_slider"></th:block>
-        <div th:if="${categories != null}" th:each="cat:${categories}" class="catalog-item">
-            <a th:href="@{'/catalog/'+${cat.namepath}+'/'+${cat.subcatpath}}">
-                <div>
-                    <img class="img-fluid" th:src="@{/imgs/cat.jpg}">
-                </div>
-                <div>
-                    <span th:text="${cat.subcat}">
-                    </span>
-                </div>
-            </a>
-        </div>
-        <div th:if="${tools != null}" th:each="tool:${tools}" class="catalog-item">
-            <a th:href="@{'/tool/'+${tool.id}}">
-                <div>
-                    <img class="img-fluid" th:src="@{/imgs/cat.jpg}">
-                </div>
-                <div>
-                    <span th:text="${tool.name}">
-                    </span>
-                </div>
-            </a>
-        </div>
-    </section>
-    <link href="/css/catalog.css" type="text/css" rel="stylesheet">
-    <th:block th:include="_footer"></th:block>
+<th:block th:include="_header"></th:block>
+<section id="main-container">
+    <th:block th:include="_slider"></th:block>
+    <div th:if="${categories != null}" th:each="cat:${categories}" class="catalog-item">
+        <a th:href="@{${#httpServletRequest.requestURI}+','+${cat.id}}">
+            <div>
+                <img class="img-fluid" th:src="@{'/imgs/'+${cat.image}}">
+            </div>
+            <div>
+                <span th:text="${cat.name}"></span>
+            </div>
+        </a>
+    </div>
+    <div th:if="${tools != null}" th:each="tool:${tools}" class="catalog-item">
+        <a th:href="@{'/tool/'+${tool.id}}">
+            <div>
+                <img class="img-fluid" th:src="@{'/imgs/'+${tool.image}}">
+            </div>
+            <div>
+                <span th:text="${tool.name}"></span>
+            </div>
+        </a>
+    </div>
+</section>
+<link href="/css/catalog.css" type="text/css" rel="stylesheet">
+<th:block th:include="_footer"></th:block>
 </html>

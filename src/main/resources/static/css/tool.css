@@ -1,17 +1,16 @@
-#toolPreview
-{
+#toolPreview {
     padding: 10px;
     width: 100%;
     box-shadow: 3 3 2px grey;
     background-color: #F6F6F6;
 }
-#toolPreview div
-{
+
+#toolPreview div {
     width: 80%;
     margin: auto;
     text-align: center;
 }
-#toolName
-{
+
+#toolName {
     text-align: center;
 }

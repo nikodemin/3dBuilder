@@ -6,9 +6,9 @@
 <section id="main-container">
     <th:block th:include="_slider"></th:block>
     <h2 class="mt-3">Корзина</h2>
-    <form class="mt-3" th:action="@{/order}" th:if="${session.order!=null}" method="post" th:object="${form}">
+    <form class="mt-3" th:action="@{/order}" th:if="${session.order!=null}" method="post" th:object="${orderDto}">
         <table class="table table-sm" cellspacing="3">
-            <tr class="tool" th:each="pair:${session.order.uniqtools}" th:attr="data-tool=${pair.first.id}">
+            <tr class="tool" th:each="pair:${session.order.uniqTools}" th:attr="data-tool=${pair.first.id}">
                 <td><span th:text="${pair.first.name}">Перфоратор Bosh 10 Wt</span></td>
                 <td>Количество:
                     <span class="quantity" th:text="@{'  '+${pair.second}}"></span>

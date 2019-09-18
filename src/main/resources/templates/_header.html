@@ -1,25 +1,15 @@
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!--[if it IE9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <title>Аренда оборудования</title>
-</head>
-<body>
+<body xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <nav id="nav-mobile" class="hide-for-desktop">
     <div>
         <nav class="dropdown">
-            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
                 Каталог
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" th:each="cat:${session.categories}"
-                   th:href="@{'/catalog/' + ${cat.namepath}}"
+                   th:href="@{'/catalog?cat=' + ${cat.id}}"
                    th:text="${cat.name}"></a>
             </div>
         </nav>
@@ -74,22 +64,37 @@
             </pre>
         </div>
         <div th:if="${session.username == null}">
-            <i class="fas fa-user fa-2x"></i><a th:href="@{/login}"> Вход</a> | <a th:href="@{/register}">Регистрация</a>
+            <i class="fas fa-user fa-2x"></i><a th:href="@{/login}"> Вход</a> | <a
+                th:href="@{/registration}">Регистрация</a>
         </div>
         <div th:if="${session.username != null}">
-            <i class="fas fa-user fa-2x"></i><a th:href="@{/logout}"> Выход</a> | <a th:href="@{/settings}">Настройки</a>
+            <i class="fas fa-user fa-2x"></i><a th:href="@{/logout}"> Выход</a> | <a
+                th:href="@{/settings}">Настройки</a>
         </div>
     </div>
 </section>
-<section  id='third-container' class="show-for-desktop">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--[if it IE9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <title>Аренда оборудования</title>
+</head>
+<section id='third-container' class="show-for-desktop">
     <div>
         <div id="nav-third" class="show-for-desktop">
             <div class="catalog"><i class="fas fa-bars"></i> Каталог товаров</div>
             <div id="catalog" class="show-for-desktop">
                 <ul class="list-unstyled">
                     <li th:each="cat:${session.categories}">
-                        <a th:href="@{'/catalog/' + ${cat.namepath}}">
-                            <i class="fas fa-tools"> </i>  <th:block th:text="${cat.name}"></th:block>
+                        <a th:href="@{'/catalog?cat=' + ${cat.id}}">
+                            <i class="fas fa-tools"> </i>
+                            <th:block th:text="${cat.name}"></th:block>
                         </a>
                     </li>
                 </ul>
@@ -98,14 +103,14 @@
             <div class="input-group input-group-sm show-for-desktop">
                 <input type="text" class="form-control" placeholder="Что вы хотите взять в аренду?">
                 <div class="input-group-append">
-      <a href="#" class="nav-link input-group-text"><i class="fas fa-search"></i></a>
+                    <a href="#" class="nav-link input-group-text"><i class="fas fa-search"></i></a>
                 </div>
             </div>
             <span>
                 <i class="fas fa-shopping-cart"></i>
                 <a th:href="@{/order/cart}"> Товаров в корзине:</a>
                 <span th:if="${session.order != null}" class='cart'
-                      th:text="${#lists.size(session.order.uniqtools)}">нет товаров</span>
+                      th:text="${#lists.size(session.order.uniqTools)}">нет товаров</span>
             </span>
         </div>
     </div>

@@ -1,5 +1,4 @@
-.catalog-item
-{
+.catalog-item {
     display: inline-flex;
     max-width: 150px;
     padding: 7px;
@@ -9,20 +8,20 @@
     box-shadow: 3px 3px 2px grey;
     text-align: center;
 }
-.catalog-item div
-{
+
+.catalog-item div {
     display: inline-block;
     max-width: 80%;
 }
-.catalog-item a
-{
+
+.catalog-item a {
     width: 100%;
 }
-.catalog-item span
-{
+
+.catalog-item span {
     overflow-wrap: break-word;
 }
-#main-container
-{
+
+#main-container {
     text-align: center;
 }
