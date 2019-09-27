@@ -1,7 +1,6 @@
 package com.niko.prokat.Validator;
 
 import com.niko.prokat.Model.dto.OrderDto;
-import com.niko.prokat.Model.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

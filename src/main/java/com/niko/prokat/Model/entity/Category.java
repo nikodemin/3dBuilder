@@ -13,6 +13,9 @@ public class Category extends AbstractEntity {
     private String name;
     private String image;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Category> children;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category parent;
 }

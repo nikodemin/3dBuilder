@@ -3,6 +3,7 @@ package com.niko.prokat.Service;
 import com.niko.prokat.Model.dto.OrderDto;
 import com.niko.prokat.Model.entity.Order;
 import com.niko.prokat.Repo.OrderRepo;
+import com.niko.prokat.Repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +14,27 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepo orderRepo;
+    private final UserRepo userRepo;
     private final DtoMapper mapper;
 
-    public void addOrder(OrderDto orderDto) {
-        orderRepo.save(mapper.toOrder(orderDto));
+    public void addOrder(OrderDto orderDto, String username) {
+        Order order = mapper.toOrder(orderDto);
+        order.setUser(userRepo.findByUsername(username));
+        orderRepo.save(order);
     }
 
     public List<OrderDto> getAllOrders() {
         return ((List<Order>) orderRepo.findAll()).stream()
-                .map(o->mapper.toOrderDto(o)).collect(Collectors.toList());
+                .map(mapper::toOrderDto).collect(Collectors.toList());
     }
 
     public List<OrderDto> getUncompletedOrders() {
-        return ((List<Order>) orderRepo.findAll()).stream()
-                .filter(o -> !o.isDone())
-                .map(o->mapper.toOrderDto(o)).collect(Collectors.toList());
+        return (orderRepo.findByDoneIsFalse()).stream()
+                .map(mapper::toOrderDto).collect(Collectors.toList());
+    }
+
+    public List<OrderDto> getUserOrders(String username) {
+        return orderRepo.findByUser(userRepo.findByUsername(username)).stream()
+                .map(mapper::toOrderDto).collect(Collectors.toList());
     }
 }

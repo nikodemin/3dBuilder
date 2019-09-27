@@ -6,7 +6,7 @@
 <section id="main-container">
     <th:block th:include="_slider"></th:block>
     <div th:if="${categories != null}" th:each="cat:${categories}" class="catalog-item">
-        <a th:href="@{${#httpServletRequest.requestURI}+','+${cat.id}}">
+        <a th:href="@{${#request.requestURI}+'?cat='+${queryStr}+','+${cat.id}}">
             <div>
                 <img class="img-fluid" th:src="@{'/imgs/'+${cat.image}}">
             </div>

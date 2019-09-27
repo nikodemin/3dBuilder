@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,6 +22,9 @@ public class ToolContoller {
     public String getCategoriesPage(@RequestParam List<Long> cat,
                                     Model model){
         CategoryDto category = toolService.getCategory(cat);
+        List<String> categoryIds = cat.stream()
+                .map(String::valueOf).collect(Collectors.toList());
+        model.addAttribute("queryStr",String.join(",",categoryIds));
 
         if (category.getChildren().isEmpty()){
             List<ToolDto> tools = toolService.findTools(category.getId());

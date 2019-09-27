@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Entity
 public class Tool extends AbstractEntity {
     private String image;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     private Category category;
 
     @Column(unique = true, nullable = false)

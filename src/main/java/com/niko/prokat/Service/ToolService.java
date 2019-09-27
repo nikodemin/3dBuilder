@@ -5,7 +5,6 @@ import com.niko.prokat.Model.dto.CategoryDto;
 import com.niko.prokat.Model.dto.ToolDto;
 import com.niko.prokat.Model.entity.Brand;
 import com.niko.prokat.Model.entity.Category;
-import com.niko.prokat.Model.entity.Order;
 import com.niko.prokat.Model.entity.Tool;
 import com.niko.prokat.Repo.BrandRepo;
 import com.niko.prokat.Repo.CategoryRepo;
@@ -13,7 +12,6 @@ import com.niko.prokat.Repo.OrderRepo;
 import com.niko.prokat.Repo.ToolRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -87,35 +85,39 @@ public class ToolService {
     }
 
     public List<CategoryDto> getRootCategories() {
-        return categoryRepo.findCategoriesByChildren_Empty().stream()
+        return categoryRepo.findCategoriesByParentNull().stream()
                 .map(mapper::toCategoryDto).collect(Collectors.toList());
     }
 
-    public boolean addTool(ToolDto tool) {
-        try {
-            return toolRepo.save(mapper.toTool(tool)) != null;
-        } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
-        }
+
+    public Long addBrand(BrandDto brand) {
+        return brandRepo.save(mapper.toBrand(brand)).getId();
     }
 
-    public boolean addBrand(BrandDto brand) {
-        try {
-            return brandRepo.save(mapper.toBrand(brand)) != null;
-        } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
-        }
+    public Long addCategory(CategoryDto category) {
+        return categoryRepo.save(mapper.toCategory(category)).getId();
     }
 
-    public boolean addCategory(CategoryDto category) {
-        try {
-            return categoryRepo.save(mapper.toCategory(category)) != null;
-        } catch (Exception e) {
-            log.error(e.getMessage(),e);
-            return false;
+    public Long addSubCategory(CategoryDto categoryDto, Long catId){
+        Category category = mapper.toCategory(categoryDto);
+        Category parent = categoryRepo.findById(catId).orElse(null);
+
+        if (parent == null){
+            log.error("Category not found");
+            return null;
         }
+
+        category.setParent(parent);
+        parent.getChildren().add(category);
+        Long id = categoryRepo.save(category).getId();
+        categoryRepo.save(parent);
+        categoryDto.setId(id);
+        return id;
+    }
+
+    public Long addTool(ToolDto toolDto) {
+        Tool tool = mapper.toTool(toolDto);
+        return toolRepo.save(tool).getId();
     }
 
     public CategoryDto getCategory(Long id) {

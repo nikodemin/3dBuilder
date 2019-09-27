@@ -1,7 +1,22 @@
+var baseUrl = window.location.origin;
+function raisePopup(text, style){
+    $('<div class="popup alert alert-'+style+'">\n' +
+    '    <span class="close">&times;</span>\n' +
+    '    <div>\n' +
+    '       '+text+'\n' +
+    '    </div>\n' +
+    '</div>').appendTo('#popupContainer').hide().fadeIn(function () {
+        $(this).find('.close').on('click', function (e) {
+            $(e.target).parents('.popup').remove()
+        })
+        $(this).delay(1000).fadeOut(2000,function () {
+            $(this).remove()
+        })
+    })
+}
 $(document).ready(function () {
 
     var liCount = 0;
-    var origin = window.location.origin;
 
     $('#main-banner div.wrapper ul li').each(function () {
         ++liCount;
@@ -54,9 +69,13 @@ $(document).ready(function () {
         var id = $(this).parents('[data-tool]').attr('data-tool')
         $.ajax({
             type: 'POST',
-            url: origin + '/addtool/' + id,
+            url: baseUrl + '/tool/' + id,
             success: function (data) {
                 $('span.cart').text(data)
+            },
+            error: function (jqXHR, status, errorThrown) {
+                raisePopup('ERROR: ' + jqXHR.responseText,'danger')
+                console.log('ERROR: ' + jqXHR.responseText)
             }
         })
     })
@@ -65,39 +84,19 @@ $(document).ready(function () {
         var id = $(this).parents('[data-tool]').attr('data-tool')
         $.ajax({
             type: 'POST',
-            url: origin + '/addtool/' + id,
+            url: baseUrl + '/tool/' + id,
             success: function (data) {
                 $('span.cart').text(data)
-                window.location.href = origin + '/order/cart'
+                window.location.href = baseUrl + '/order/cart'
+            },
+            error: function (jqXHR, status, errorThrown) {
+                raisePopup('ERROR: ' + jqXHR.responseText,'danger')
+                console.log('ERROR: ' + jqXHR.responseText)
             }
         })
     })
 
-    $('.date').datepicker($.datepicker.regional["ru"])
-
-    $('tr.tool button.btn-dec').on('click', function (e) {
-        var id = $(this).parents('tr').attr('data-tool')
-        $.ajax({
-            type: 'POST',
-            url: origin + '/deltool/' + id,
-            success: function (data) {
-                $('span.cart').text(data)
-            }
-        })
-        var quantity = $(this).parents('tr').find('span.quantity')
-        if (quantity.text() > 0)
-            quantity.text(quantity.text() - 1)
-    })
-    $('tr.tool button.btn-inc').on('click', function (e) {
-        var id = $(this).parents('tr').attr('data-tool')
-        $.ajax({
-            type: 'POST',
-            url: origin + '/addtool/' + id,
-            success: function (data) {
-                $('span.cart').text(data)
-            }
-        })
-        var quantity = $(this).parents('tr').find('span.quantity')
-        quantity.text(parseInt(quantity.text(), 10) + 1)
+    $('div.catalog').on('click',function () {
+        $('#catalog').slideToggle()
     })
 })

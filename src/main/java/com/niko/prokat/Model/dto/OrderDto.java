@@ -1,8 +1,10 @@
 package com.niko.prokat.Model.dto;
 
+import com.niko.prokat.Model.enums.OrderStatus;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,11 +16,15 @@ public class OrderDto {
     @NotBlank(message = "Адрес не указан")
     private String address;
 
-    @NotBlank(message = "Кол-во дней не указано")
+    @NotNull(message = "Кол-во дней не указано")
     private Integer fordays;
 
     @NotBlank(message = "Дата не указана")
     private String date;
+    private Integer total;
+    private Integer pledge;
+    private UserDto user;
+    private OrderStatus status = OrderStatus.PROCESSING;
     private List<ToolDto> tools = new ArrayList();
 
     public List<TulipDto<ToolDto,Integer>> getUniqTools(){

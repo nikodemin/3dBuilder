@@ -1,5 +1,6 @@
 package com.niko.prokat.Model.entity;
 
+import com.niko.prokat.Model.enums.OrderStatus;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,4 +19,7 @@ public class Order extends AbstractEntity {
     private Date date;
     private Integer fordays;
     private boolean done;
+    private Integer total;
+    private Integer pledge;
+    private OrderStatus status;
 }

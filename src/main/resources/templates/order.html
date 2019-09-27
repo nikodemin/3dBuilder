@@ -6,25 +6,38 @@
 <section id="main-container">
     <th:block th:include="_slider"></th:block>
     <h2 class="mt-3">Корзина</h2>
-    <form class="mt-3" th:action="@{/order}" th:if="${session.order!=null}" method="post" th:object="${orderDto}">
+    <form class="mt-3" th:action="@{/order}" th:if="${session.order!=null}" method="post" th:object="${orderDto}" autocomplete="off">
         <table class="table table-sm" cellspacing="3">
-            <tr class="tool" th:each="pair:${session.order.uniqTools}" th:attr="data-tool=${pair.first.id}">
-                <td><span th:text="${pair.first.name}">Перфоратор Bosh 10 Wt</span></td>
-                <td>Количество:
-                    <span class="quantity" th:text="@{'  '+${pair.second}}"></span>
-                    <button type="button" class="btn btn-primary btn-quantity btn-dec">-</button>
-                    <button type="button" class="btn btn-primary btn-quantity btn-inc">+</button>
+            <tr th:each="err:${#fields.errors('tools')}">
+                <td><span th:text="${err}" class="error"></span></td>
+            </tr>
+            <tr>
+                <th>Брэнд</th>
+                <th>Инструмент</th>
+                <th>Цена за сутки</th>
+                <th>Залог</th>
+            </tr>
+            <tr class="tool" v-for="tool in tools">
+                <td><a :href="tool.first.brand.site">{{tool.first.brand.name}}</a></td>
+                <td><span>{{tool.first.name}}</span></td>
+                <td><span>{{tool.first.price}}</span></td>
+                <td><span>{{tool.first.pledge}}</span></td>
+                <td style="width: 150px">
+                    <span>Кол-во:</span>
+                    <span class="quantity">{{tool.second}}</span>
+                    <button type="button" @click="removeTool(tool.first.id)" class="btn btn-primary btn-quantity">-</button>
+                    <button type="button" @click="addTool(tool.first.id)" class="btn btn-primary btn-quantity">+</button>
                 </td>
             </tr>
             <tr>
                 <td><label for="date">Дата:</label></td>
-                <td><input type="text" id="date" class="form-control form-control-sm date" th:field="*{date}"></td>
+                <td><input type="date" id="date" class="form-control form-control-sm" th:field="*{date}"></td>
                 <td><span th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
                           class="error">..</span></td>
             </tr>
             <tr>
                 <td><label for="fordays">Кол-во дней:</label></td>
-                <td><input type="number" id="fordays" class="form-control form-control-sm" th:field="*{fordays}"></td>
+                <td><input type="number" v-model="forDays" min="1" id="fordays" class="form-control form-control-sm" th:field="*{fordays}"></td>
                 <td><span th:if="${#fields.hasErrors('fordays')}" th:errors="*{fordays}"
                           class="error">..</span></td>
             </tr>
@@ -35,6 +48,17 @@
                           class="error">..</span></td>
             </tr>
             <tr>
+                <th>Итог:</th>
+            </tr>
+            <tr>
+                <td>Сумма аренды</td>
+                <td>{{total}}</td>
+            </tr>
+            <tr>
+                <td>Сумма залога</td>
+                <td>{{pledge}}</td>
+            </tr>
+            <tr>
                 <td>
                     <button type="submit" class="btn btn-primary">Заказать</button>
                 </td>
@@ -42,9 +66,17 @@
         </table>
     </form>
 </section>
-<script>
-
-</script>
-<link href="/css/order.css" type="text/css" rel="stylesheet">
 <th:block th:include="_footer"></th:block>
+<style>
+    table{
+        margin: auto;
+        max-width: 700px !important;
+        min-width: 500px !important;
+    }
+    #main-container{
+        overflow-x: scroll;
+    }
+</style>
+<link href="/css/order.css" type="text/css" rel="stylesheet">
+<script src="/js/order.js"></script>
 </html>

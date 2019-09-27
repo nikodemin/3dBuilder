@@ -1,3 +1,15 @@
+<head>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/4/united/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css">
+    <!-- Font awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- Custom-->
+    <link href="/css/main.css" type="text/css" rel="stylesheet">
+</head>
 <body xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <nav id="nav-mobile" class="hide-for-desktop">
@@ -16,7 +28,11 @@
     </div>
     <div class="nav float-right">
         <a href="#" class="nav-link"><i class="fas fa-phone"></i></a>
-        <a href="/settings" class="nav-link"><i class="fas fa-user"></i></a>
+        <a th:if="${session.username == null}" href="/login" class="nav-link"><i class="fas fa-user"></i></a>
+        <a th:if="${session.username == null}" href="/registration" class="nav-link"><i class="fas fa-user-plus"></i></a>
+        <a th:if="${session.username != null}" href="/settings" class="nav-link"><i class="fas fa-cog"></i></a>
+        <a th:if="${session.username != null}" href="/order/all" class="nav-link"><i class="fas fa-folder"></i></a>
+        <a th:if="${session.username != null}" href="/logout" class="nav-link"><i class="fas fa-sign-out-alt"></i></a>
         <a href="/order/cart" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
     </div>
 </nav>
@@ -69,7 +85,7 @@
         </div>
         <div th:if="${session.username != null}">
             <i class="fas fa-user fa-2x"></i><a th:href="@{/logout}"> Выход</a> | <a
-                th:href="@{/settings}">Настройки</a>
+                th:href="@{/settings}">Настройки</a> | <a th:href="@{/order/all}">Мои заказы</a>
         </div>
     </div>
 </section>

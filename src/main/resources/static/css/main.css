@@ -295,6 +295,7 @@ hr {
 
 #nav-second > div:last-child {
     line-height: 100px;
+    margin: 0;
 }
 
 #nav-second > div:last-child i {
@@ -367,6 +368,7 @@ hr {
 }
 
 #nav-third div.catalog {
+    cursor: pointer;
     width: 220px;
     height: 30px;
     display: inline-block;
@@ -443,4 +445,28 @@ hr {
     ul.banner-btns {
         margin-left: 600px;
     }
+}
+
+#popupContainer{
+    z-index: 99;
+    position: fixed;
+    max-width: 300px;
+    right: 10%;
+    bottom: 0;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+#popupContainer div.popup{
+    margin-top: 10px;
+    max-width: 250px;
+}
+
+#popupContainer div.popup span.close{
+    float: right;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
 }

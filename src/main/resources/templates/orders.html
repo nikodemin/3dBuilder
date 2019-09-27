@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="_header"></th:block>
+<section class="container mt-3 main">
+    <table class="table">
+        <tr>
+            <th>Дата</th>
+            <th>Адресс</th>
+            <th>Кол-во дней</th>
+            <th>Сумма аренды</th>
+            <th>Сумма залога</th>
+            <th>Статус</th>
+            <th>Позиции</th>
+        </tr>
+        <tr th:each="order:${orders}">
+            <td th:text="${order.date}"></td>
+            <td th:text="${order.address}"></td>
+            <td th:text="${order.fordays}"></td>
+            <td th:text="${order.total}"></td>
+            <td th:text="${order.pledge}"></td>
+            <td th:text="${order.status.toString()}"></td>
+            <td>
+                <ul>
+                    <li th:each="tulip:${order.getUniqTools()}">
+                        <a th:text="${tulip.getFirst().name}" th:href="@{'/tool/'+${tulip.getFirst().id}}"></a>
+                        <span th:text="${' X '+tulip.getSecond()}"></span>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</section>
+<th:block th:include="_footer"></th:block>
+<style>
+    table{
+        margin: auto;
+        max-width: 900px !important;
+        min-width: 600px !important;
+    }
+    section.main{
+        overflow-x: scroll;
+    }
+</style>
+<script>
+    $('#catalog').slideUp()
+</script>
+</html>

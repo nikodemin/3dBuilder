@@ -2,6 +2,7 @@ package com.niko.prokat.Service;
 
 import com.niko.prokat.Model.dto.UserDto;
 import com.niko.prokat.Model.entity.User;
+import com.niko.prokat.Model.enums.UserRole;
 import com.niko.prokat.Repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -84,7 +85,9 @@ public class UserService implements UserDetailsService {
         if (userRepo.findByUsername(userDto.getUsername()) == null &&
                 userRepo.findByEmail(userDto.getEmail()) == null) {
             userDto.setPassword(encoder().encode(userDto.getPassword()));
-            userRepo.save(mapper.toUser(userDto));
+            User user = mapper.toUser(userDto);
+            user.setRole(UserRole.USER);
+            userRepo.save(user);
         } else
             log.error("User " + userDto.getUsername() + " already exists!");
     }
@@ -97,8 +100,20 @@ public class UserService implements UserDetailsService {
         if (userRepo.findByUsername(userDto.getUsername()) == null &&
                 userRepo.findByEmail(userDto.getEmail()) == null) {
             userDto.setPassword(encoder().encode(userDto.getPassword()));
-            userRepo.save(mapper.toAdmin(userDto));
+            User user = mapper.toUser(userDto);
+            user.setRole(UserRole.ADMIN);
+            userRepo.save(user);
         } else
             log.error("User " + userDto.getUsername() + " already exists!");
+    }
+
+    public void updateUser(UserDto userDto, String username) {
+        userDto.setPassword(encoder().encode(userDto.getPassword()));
+        User oldUser = userRepo.findByUsername(username);
+        User newUser = mapper.toUser(userDto);
+        newUser.setRole(UserRole.USER);
+        newUser.setId(oldUser.getId());
+        newUser.setVersion(oldUser.getVersion());
+        userRepo.save(newUser);
     }
 }

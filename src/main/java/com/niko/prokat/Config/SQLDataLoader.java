@@ -43,29 +43,35 @@ public class SQLDataLoader implements ApplicationRunner {
         toolService.addBrand(bosh);
 
         cat0.setName("Электроинструменты");
-        cat0.setImage("/imgs/cat1.jpg");
+        cat0.setImage("cat.jpg");
         cat1.setName("Строительное оборудование");
-        cat1.setImage("/imgs/cat1.jpg");
+        cat1.setImage("cat.jpg");
         cat2.setName("Клининговое и климатическое оборудование");
-        cat2.setImage("/imgs/cat1.jpg");
+        cat2.setImage("cat.jpg");
         cat3.setName("Силовая техника");
-        cat3.setImage("/imgs/cat1.jpg");
+        cat3.setImage("cat.jpg");
         cat4.setName("Расходные материалы");
-        cat4.setImage("/imgs/cat1.jpg");
+        cat4.setImage("cat.jpg");
         cat5.setName("Бензоинструменты");
-        cat5.setImage("/imgs/cat1.jpg");
+        cat5.setImage("cat.jpg");
 
+        Long catId = toolService.addCategory(cat0);
         toolService.addCategory(cat1);
         toolService.addCategory(cat2);
         toolService.addCategory(cat3);
         toolService.addCategory(cat4);
         toolService.addCategory(cat5);
 
+        CategoryDto perf = new CategoryDto();
+        perf.setName("Перфораторы");
+        perf.setImage("cat.jpg");
+        Long perfId = toolService.addSubCategory(perf, catId);
+
         ToolDto tool = new ToolDto();
         tool.setBrand(makita);
-        tool.setCategory(cat0);
+        tool.setCategory(perf);
         tool.setDescription("description");
-        tool.setImage("/imgs/cat1.jpg");
+        tool.setImage("cat.jpg");
         tool.setName("Makita mega");
         tool.setPledge(6000);
         tool.setPower("2kWt");
