@@ -12,10 +12,8 @@ public class Category extends AbstractEntity {
     @Column(unique = true, nullable = false)
     private String name;
     private String image;
+    private Boolean isRoot = false;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Category> children;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Category parent;
 }

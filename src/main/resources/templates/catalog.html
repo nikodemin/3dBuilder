@@ -18,7 +18,7 @@
     <div th:if="${tools != null}" th:each="tool:${tools}" class="catalog-item">
         <a th:href="@{'/tool/'+${tool.id}}">
             <div>
-                <img class="img-fluid" th:src="@{'/imgs/'+${tool.image}}">
+                <img class="img-fluid" th:src="@{'/imgs/'+${tool.prevImagePath}}">
             </div>
             <div>
                 <span th:text="${tool.name}"></span>

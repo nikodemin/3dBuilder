@@ -15,7 +15,7 @@
     <div id="leaders" class="hide-for-desktop">
         <div th:each="tool:${topTools}">
             <div class="image">
-                <a th:href="@{'/tool/'+${tool.id}}"><img th:src="@{'/imgs/'+${tool.image}}" class="img-responsive"></a>
+                <a th:href="@{'/tool/'+${tool.id}}"><img th:src="@{'/imgs/'+${tool.getPrevImagePath}}" class="img-responsive"></a>
             </div>
             <div class="text">
                 <h5 th:text="${tool.name}">Бензиновый генератор</h5>
@@ -34,7 +34,7 @@
         <ul class="list-unstyled" th:attr="data-tool=${tool.id}" th:each="tool:${topTools}">
             <li><a th:href="@{'/tool/'+${tool.id}}">
                 <div class="hit">Хит</div>
-                <img th:src="@{'/imgs/'+${tool.image}}" class="img-responsive"></a></li>
+                <img th:src="@{'/imgs/'+${tool.getPrevImagePath}}" class="img-responsive"></a></li>
             <li><span th:text="${tool.name}">Бензиновый генератор</span></a></li>
             <li><span class="props" th:text="${tool.power}">8Квт, 6.4Квт, 100 Дцб</span></li>
             <li><i class="fas fa-map-marker-alt"> Самовывоз: </i><span class="pick-date">сегодня</span></li>

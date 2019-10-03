@@ -3,6 +3,7 @@ package com.niko.prokat.Service;
 import com.niko.prokat.Model.dto.BrandDto;
 import com.niko.prokat.Model.dto.CategoryDto;
 import com.niko.prokat.Model.dto.ToolDto;
+import com.niko.prokat.Model.dto.TreeNodeDto;
 import com.niko.prokat.Model.entity.Brand;
 import com.niko.prokat.Model.entity.Category;
 import com.niko.prokat.Model.entity.Tool;
@@ -34,6 +35,11 @@ public class ToolService {
         if (categoryId == null) {
             log.error("No category specified");
             return null;
+        }
+
+        if (categoryId == -2L){
+            return toolRepo.findByCategoryIsNull().stream()
+                    .map(mapper::toToolDto).collect(Collectors.toList());
         }
 
         Category cat = categoryRepo.findById(categoryId).orElse(null);
@@ -85,10 +91,9 @@ public class ToolService {
     }
 
     public List<CategoryDto> getRootCategories() {
-        return categoryRepo.findCategoriesByParentNull().stream()
+        return categoryRepo.findCategoryByIsRootIsTrue().stream()
                 .map(mapper::toCategoryDto).collect(Collectors.toList());
     }
-
 
     public Long addBrand(BrandDto brand) {
         return brandRepo.save(mapper.toBrand(brand)).getId();
@@ -107,7 +112,6 @@ public class ToolService {
             return null;
         }
 
-        category.setParent(parent);
         parent.getChildren().add(category);
         Long id = categoryRepo.save(category).getId();
         categoryRepo.save(parent);
@@ -118,11 +122,6 @@ public class ToolService {
     public Long addTool(ToolDto toolDto) {
         Tool tool = mapper.toTool(toolDto);
         return toolRepo.save(tool).getId();
-    }
-
-    public CategoryDto getCategory(Long id) {
-        Optional<Category> category = categoryRepo.findById(id);
-        return mapper.toCategoryDto(category.orElse(null));
     }
 
     public CategoryDto getCategory(List<Long> cat) {
@@ -145,5 +144,102 @@ public class ToolService {
         }
 
         return mapper.toCategoryDto(category);
+    }
+
+    public List<TreeNodeDto> getCategoriesTree() {
+        TreeNodeDto root = new TreeNodeDto();
+        root.setId(-1L);
+        root.setText("Root");
+        root.setChildren(categoryRepo.findCategoryByIsRootIsTrue().stream()
+                .map(mapper::toTreeNodeDto).collect(Collectors.toList()));
+        TreeNodeDto detachedTools = new TreeNodeDto();
+        detachedTools.setId(-2L);
+        detachedTools.setText("Detached tools");
+        return Arrays.asList(root,detachedTools);
+    }
+
+    public void removeCategory(Long id) {
+        Category category = categoryRepo.findById(id).get();
+        List<Category> leafs = new LinkedList<>();
+
+        getCategoryTreeLeafs(leafs, category);
+
+        for (Category leaf:leafs) {
+            for (Tool tool:toolRepo.findByCategory(leaf)) {
+                tool.setCategory(null);
+                toolRepo.save(tool);
+            }
+        }
+        Category parent = categoryRepo.findCategoryByChildrenContaining(category);
+        if (parent != null) {
+            parent.getChildren().remove(category);
+            categoryRepo.save(parent);
+        }
+        categoryRepo.deleteById(id);
+    }
+
+    private void getCategoryTreeLeafs(List<Category> leafs, Category category){
+        if (category.getChildren() == null ||
+                category.getChildren().isEmpty()) {
+            leafs.add(category);
+        } else {
+            for (Category child : category.getChildren()) {
+                getCategoryTreeLeafs(leafs, child);
+            }
+        }
+    }
+
+    public void renameCategory(Long id, String name) {
+        Category category = categoryRepo.findById(id).get();
+        category.setName(name);
+        categoryRepo.save(category);
+    }
+
+    public List<CategoryDto> getAllCategories() {
+        return ((List<Category>) categoryRepo.findAll()).stream()
+                .map(mapper::toCategoryDto).collect(Collectors.toList());
+    }
+
+    public List<CategoryDto> getCategoriesLeafs() {
+        List<Category> leafs = new ArrayList<>();
+        categoryRepo.findCategoryByIsRootIsTrue()
+                .forEach(c->getCategoryTreeLeafs(leafs,c));
+        return leafs.stream().map(mapper::toCategoryDto)
+                .collect(Collectors.toList());
+    }
+
+    public boolean areThereToolsInCategory(Long id) {
+        return toolRepo.existsByCategory(categoryRepo.findById(id).orElse(null));
+    }
+
+    public void detachTool(Long id) {
+        Tool tool = toolRepo.findById(id).get();
+        tool.setCategory(null);
+        toolRepo.save(tool);
+    }
+
+    public void removeTool(Long id) {
+        toolRepo.deleteById(id);
+    }
+
+    public void updateTool(Long id, ToolDto toolDto) {
+        Tool tool = toolRepo.findById(id).get();
+        tool.setCategory(categoryRepo.findById(toolDto.getCategoryID()).get());
+        tool.setName(toolDto.getName());
+        tool.setBrand(brandRepo.findById(toolDto.getBrandId()).get());
+        tool.setDescription(toolDto.getDescription());
+        tool.setPrevImage(toolDto.getPrevImagePath());
+        tool.setImage1(toolDto.getImage1Path());
+        tool.setImage2(toolDto.getImage2Path());
+        tool.setImage3(toolDto.getImage3Path());
+        tool.setPower(toolDto.getPower());
+        tool.setPrice(toolDto.getPrice());
+        tool.setPledge(toolDto.getPledge());
+        tool.setWeight(toolDto.getWeight());
+        toolRepo.save(tool);
+    }
+
+    public ToolDto getTool(Long id) {
+        return mapper.toToolDto(toolRepo.findById(id).get());
     }
 }

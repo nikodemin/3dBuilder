@@ -8,5 +8,7 @@ import java.util.List;
 public interface CategoryRepo extends CrudRepository<Category, Long> {
     Category findByNameIgnoreCase(String name);
 
-    List<Category> findCategoriesByParentNull();
+    List<Category> findCategoryByIsRootIsTrue();
+
+    Category findCategoryByChildrenContaining(Category category);
 }

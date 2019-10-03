@@ -12,4 +12,8 @@ public interface ToolRepo extends CrudRepository<Tool, Long> {
     List<Tool> findByCategory(Category category);
 
     List<Tool> findByNameContainingIgnoreCase(String name);
+
+    Boolean existsByCategory(Category category);
+
+    List<Tool> findByCategoryIsNull();
 }

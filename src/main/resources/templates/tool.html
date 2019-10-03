@@ -9,7 +9,7 @@
         <div class="col col-md-4 mt-3" th:attr="data-tool=${tool.id}">
             <div id="toolPreview">
                 <div>
-                    <img style="width:100%" th:src="@{'/imgs/'+${tool.image}}">
+                    <img style="width:100%" th:src="@{'/imgs/'+${tool.prevImagePath}}">
                 </div>
                 <h4 class="mt-2" id="toolName" th:text="${tool.name}">Перфоратор</h4>
                 <table class="table table-sm">

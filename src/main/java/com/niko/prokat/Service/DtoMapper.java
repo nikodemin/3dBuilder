@@ -3,11 +3,12 @@ package com.niko.prokat.Service;
 import com.niko.prokat.Model.dto.*;
 import com.niko.prokat.Model.entity.*;
 import com.niko.prokat.Model.enums.OrderStatus;
+import com.niko.prokat.Repo.BrandRepo;
 import com.niko.prokat.Repo.CategoryRepo;
 import com.niko.prokat.Repo.ToolRepo;
-import com.niko.prokat.Repo.UserRepo;
 import lombok.extern.log4j.Log4j2;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
@@ -23,61 +24,26 @@ public abstract class DtoMapper {
     @Autowired
     private ToolRepo toolRepo;
     @Autowired
-    private UserRepo userRepo;
+    private BrandRepo brandRepo;
 
     public abstract BrandDto toBrandDto(Brand brand);
 
-    public CategoryDto toCategoryDto(Category category){
-        if (category == null) {
-            return null;
-        }
-
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setImage(category.getImage());
-        categoryDto.setName(category.getName());
-        categoryDto.setId(category.getId());
-        categoryDto.setChildren(category.getChildren().stream().map(c->{
-          CategoryDto child = new CategoryDto();
-          child.setId(c.getId());
-          child.setName(c.getName());
-          child.setImage(c.getImage());
-          return child;
-        }).collect(Collectors.toList()));
-        categoryDto.setParent(toCategoryDto(category.getParent()));
-
-        return categoryDto;
-    }
+    public abstract CategoryDto toCategoryDto(Category category);
 
     public abstract OrderDto toOrderDto(Order order);
 
+    @Mapping(source = "prevImage",target = "prevImagePath")
+    @Mapping(target = "prevImage", ignore = true)
+    @Mapping(source = "image1",target = "image1Path")
+    @Mapping(source = "image2",target = "image2Path")
+    @Mapping(source = "image3",target = "image3Path")
     public abstract ToolDto toToolDto(Tool tool);
 
     public abstract UserDto toUserDto(User user);
 
     public abstract Brand toBrand(BrandDto brandDto);
 
-    public Category toCategory(CategoryDto categoryDto){
-        if ( categoryDto == null ) {
-            return null;
-        }
-
-        Category category = new Category();
-
-        category.setId( categoryDto.getId() );
-        category.setName( categoryDto.getName() );
-        category.setImage( categoryDto.getImage() );
-        category.setChildren( categoryDtoListToCategoryList( categoryDto.getChildren() ) );
-
-        CategoryDto parentDto = categoryDto.getParent();
-        if (parentDto != null && parentDto.getId() != null) {
-            Category parent = categoryRepo.findById(parentDto.getId()).orElse(null);
-            category.setParent(parent);
-        }
-
-        return category;
-    }
-
-    protected abstract List<Category> categoryDtoListToCategoryList(List<CategoryDto> children);
+    public abstract Category toCategory(CategoryDto categoryDto);
 
     public Order toOrder(OrderDto orderDto){
         if ( orderDto == null ) {
@@ -107,7 +73,6 @@ public abstract class DtoMapper {
         order.setStatus(OrderStatus.PROCESSING);
         order.setPledge(pledge[0]);
         order.setTotal(total[0]);
-        //order.setUser(userRepo.findByUsername(orderDto.getUser().getUsername()));
         try {
             if ( orderDto.getDate() != null ) {
                 order.setDate( new SimpleDateFormat("yyyy-MM-dd")
@@ -127,7 +92,7 @@ public abstract class DtoMapper {
         }
 
         Tool tool = new Tool();
-        Category category = categoryRepo.findById(toolDto.getCategory().getId())
+        Category category = categoryRepo.findById(toolDto.getCategoryID())
                 .orElse(null);
 
         if (category == null) {
@@ -135,11 +100,14 @@ public abstract class DtoMapper {
             return null;
         }
         tool.setId( toolDto.getId() );
-        tool.setImage( toolDto.getImage() );
+        tool.setPrevImage( toolDto.getPrevImagePath() );
+        tool.setImage1(toolDto.getImage1Path());
+        tool.setImage2(toolDto.getImage2Path());
+        tool.setImage3(toolDto.getImage3Path());
         tool.setCategory(category);
         tool.setName( toolDto.getName() );
         tool.setDescription( toolDto.getDescription() );
-        tool.setBrand( toBrand( toolDto.getBrand() ) );
+        tool.setBrand( brandRepo.findById(toolDto.getBrandId()).get());
         tool.setPower( toolDto.getPower() );
         tool.setWeight( toolDto.getWeight() );
         tool.setPrice( toolDto.getPrice() );
@@ -149,4 +117,7 @@ public abstract class DtoMapper {
     }
 
     public abstract User toUser(UserDto userDto);
+
+    @Mapping(source = "name", target = "text")
+    public abstract TreeNodeDto toTreeNodeDto(Category c);
 }

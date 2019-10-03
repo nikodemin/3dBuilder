@@ -12,8 +12,6 @@ import org.springframework.context.annotation.PropertySource;
 @Data
 @Primary
 public class PropertiesConfig {
-    private String uploadPath;
-    private String portfolioPath;
     private String email;
     private String emailPassword;
 }

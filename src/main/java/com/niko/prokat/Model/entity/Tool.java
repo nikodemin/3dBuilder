@@ -8,7 +8,10 @@ import javax.persistence.*;
 @Table(name = "tools")
 @Entity
 public class Tool extends AbstractEntity {
-    private String image;
+    private String prevImage;
+    private String image1;
+    private String image2;
+    private String image3;
 
     @ManyToOne
     private Category category;
@@ -17,10 +20,10 @@ public class Tool extends AbstractEntity {
     private String name;
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private Brand brand;
     private String power;
-    private Double weight;
+    private Integer weight;
     private Integer price;
     private Integer pledge;
 }
