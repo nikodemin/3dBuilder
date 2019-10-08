@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "uncompletedOrders")
 @Data
 public class Order extends AbstractEntity {
     private String address;

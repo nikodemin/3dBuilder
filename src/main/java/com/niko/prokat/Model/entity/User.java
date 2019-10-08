@@ -21,4 +21,5 @@ public class User extends AbstractEntity {
     private String firstname;
     private String lastname;
     private UserRole role;
+    private String token;
 }

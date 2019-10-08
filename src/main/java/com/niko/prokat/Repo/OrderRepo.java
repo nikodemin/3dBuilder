@@ -10,5 +10,8 @@ import java.util.List;
 @Repository
 public interface OrderRepo extends PagingAndSortingRepository<Order, Long> {
     List<Order> findByUser(User user);
+
     List<Order> findByDoneIsFalse();
+
+    List<Order> findByDoneIsTrue();
 }

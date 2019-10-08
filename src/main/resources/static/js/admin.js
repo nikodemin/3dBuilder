@@ -13,9 +13,14 @@ $(document).ready(function () {
         categories: [],
         brands: [],
         currCategory: {},
+        currBrand: {},
         toolId: -1,
-        newCategoryName: "",
-        isToolEditing: false
+        isToolEditing: false,
+        newCategoryName: '',
+        newBrandName: '',
+        newBrandSite: '',
+        BrandNewName: '',
+        BrandNewSite: ''
     }
 
     $('#tree').jstree({
@@ -163,7 +168,8 @@ $(document).ready(function () {
                     }
                 })
             },
-            renameCategory: function () {
+            renameCategory: function (e) {
+                e.preventDefault()
                 $.ajax({
                     url: baseUrl + '/admin/category/'+vueData.currCategory.id+
                         '/newName/'+vueData.newCategoryName,
@@ -187,6 +193,7 @@ $(document).ready(function () {
                 $('#addToolModal').show()
                 $('#shadow').show()
                 $('#addToolModal select[name=categoryID] option').remove()
+                $('#addToolModal select[name=brandId] option').remove()
                 vueData.categories.forEach((category)=>{
                     if (category.name===vueData.currCategory.text){
                         $('#addToolModal select[name=categoryID]')
@@ -211,6 +218,7 @@ $(document).ready(function () {
                 $('#addToolModal input[name=weight]').val(tool.weight)
                 $('#addToolModal input[name=price]').val(tool.price)
                 $('#addToolModal input[name=pledge]').val(tool.pledge)
+                $('#addToolModal input[name=quantity]').val(tool.quantity)
                 $('#addToolModal textarea').val(tool.description)
                 $('#addToolModal select[name=brandId] option')
                     .removeAttr('selected')
@@ -239,6 +247,66 @@ $(document).ready(function () {
                     success: function (data) {
                         raisePopup(data,'success')
                         getTools()
+                    },
+                    error: function (jqXHR, status, errorThrown) {
+                        raisePopup('ERROR: ' + jqXHR.responseText,'danger')
+                        console.log('ERROR: ' + jqXHR.responseText)
+                    }
+                })
+            },
+            addBrand: function (e) {
+                e.preventDefault()
+                var data = {
+                    name: vueData.newBrandName,
+                    site: vueData.newBrandSite
+                }
+                $.ajax({
+                    url: baseUrl + '/admin/brand/',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        raisePopup(data,'success')
+                        getBrands()
+                    },
+                    error: function (jqXHR, status, errorThrown) {
+                        raisePopup('ERROR: ' + jqXHR.responseText,'danger')
+                        console.log('ERROR: ' + jqXHR.responseText)
+                    }
+                })
+            },
+            selectBrand: function (brand) {
+                vueData.currBrand = brand
+            },
+            changeBrand: function (e) {
+                e.preventDefault()
+                var data = {
+                    name: vueData.BrandNewName,
+                    site: vueData.BrandNewSite
+                }
+                $.ajax({
+                    url: baseUrl + '/admin/brand/'+vueData.currBrand.id,
+                    type: 'PUT',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        raisePopup(data,'success')
+                        getBrands()
+                    },
+                    error: function (jqXHR, status, errorThrown) {
+                        raisePopup('ERROR: ' + jqXHR.responseText,'danger')
+                        console.log('ERROR: ' + jqXHR.responseText)
+                    }
+                })
+            },
+            deleteBrand: function () {
+                $.ajax({
+                    url: baseUrl + '/admin/brand/'+vueData.currBrand.id,
+                    type: 'DELETE',
+                    success: function (data) {
+                        raisePopup(data,'success')
+                        $('#tree').jstree(true).refresh();
+                        getBrands()
                     },
                     error: function (jqXHR, status, errorThrown) {
                         raisePopup('ERROR: ' + jqXHR.responseText,'danger')

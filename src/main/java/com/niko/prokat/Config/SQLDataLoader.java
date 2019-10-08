@@ -84,6 +84,7 @@ public class SQLDataLoader implements ApplicationRunner {
         tool.setPower("2kWt");
         tool.setPrice(600);
         tool.setWeight(1);
+        tool.setQuantity(2);
         toolService.addTool(tool);
 
 

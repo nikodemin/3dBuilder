@@ -1,9 +1,6 @@
 package com.niko.prokat.Service;
 
-import com.niko.prokat.Model.dto.BrandDto;
-import com.niko.prokat.Model.dto.CategoryDto;
-import com.niko.prokat.Model.dto.ToolDto;
-import com.niko.prokat.Model.dto.TreeNodeDto;
+import com.niko.prokat.Model.dto.*;
 import com.niko.prokat.Model.entity.Brand;
 import com.niko.prokat.Model.entity.Category;
 import com.niko.prokat.Model.entity.Tool;
@@ -39,6 +36,11 @@ public class ToolService {
 
         if (categoryId == -2L){
             return toolRepo.findByCategoryIsNull().stream()
+                    .map(mapper::toToolDto).collect(Collectors.toList());
+        }
+
+        if (categoryId == -3L){
+            return toolRepo.findByBrandIsNull().stream()
                     .map(mapper::toToolDto).collect(Collectors.toList());
         }
 
@@ -149,13 +151,16 @@ public class ToolService {
     public List<TreeNodeDto> getCategoriesTree() {
         TreeNodeDto root = new TreeNodeDto();
         root.setId(-1L);
-        root.setText("Root");
+        root.setText("Категории");
         root.setChildren(categoryRepo.findCategoryByIsRootIsTrue().stream()
                 .map(mapper::toTreeNodeDto).collect(Collectors.toList()));
         TreeNodeDto detachedTools = new TreeNodeDto();
         detachedTools.setId(-2L);
-        detachedTools.setText("Detached tools");
-        return Arrays.asList(root,detachedTools);
+        detachedTools.setText("Отсоединённые инструменты");
+        TreeNodeDto noCategoryTools = new TreeNodeDto();
+        noCategoryTools.setId(-3L);
+        noCategoryTools.setText("Инструменты без категории");
+        return Arrays.asList(root,detachedTools,noCategoryTools);
     }
 
     public void removeCategory(Long id) {
@@ -236,10 +241,50 @@ public class ToolService {
         tool.setPrice(toolDto.getPrice());
         tool.setPledge(toolDto.getPledge());
         tool.setWeight(toolDto.getWeight());
+        tool.setQuantity(toolDto.getQuantity());
         toolRepo.save(tool);
     }
 
     public ToolDto getTool(Long id) {
         return mapper.toToolDto(toolRepo.findById(id).get());
+    }
+
+    public void updateBrand(BrandDto brandDto, Long id) {
+        Brand brand = brandRepo.findById(id).get();
+        if (brandDto.getName() != null || brandDto.getName() != "") {
+            brand.setName(brandDto.getName());
+        }
+        if (brandDto.getSite() != null || brandDto.getSite() != ""){
+            brand.setSite(brandDto.getSite());
+        }
+        brandRepo.save(brand);
+    }
+
+    public void removeBrand(Long id) {
+        List<Tool> tools = toolRepo.findByBrand(brandRepo.findById(id).get());
+        tools.forEach(tool -> {
+            tool.setBrand(null);
+            toolRepo.save(tool);
+        });
+        brandRepo.deleteById(id);
+    }
+
+    public Integer howMuchToolsAvailable(Long id, OrderDto orderDto) {
+        final Integer[] quantity = {toolRepo.findById(id).get().getQuantity()};
+        orderRepo.findByDoneIsFalse().forEach(order -> {
+            order.getTools().forEach(tool -> {
+                if (tool.getId().equals(id)){
+                    --quantity[0];
+                }
+            });
+        });
+        if (orderDto != null) {
+            orderDto.getTools().forEach(tool -> {
+                if (tool.getId().equals(id)) {
+                    --quantity[0];
+                }
+            });
+        }
+        return quantity[0];
     }
 }

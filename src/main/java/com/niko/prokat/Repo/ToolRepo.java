@@ -1,5 +1,6 @@
 package com.niko.prokat.Repo;
 
+import com.niko.prokat.Model.entity.Brand;
 import com.niko.prokat.Model.entity.Category;
 import com.niko.prokat.Model.entity.Tool;
 import org.springframework.data.repository.CrudRepository;
@@ -16,4 +17,8 @@ public interface ToolRepo extends CrudRepository<Tool, Long> {
     Boolean existsByCategory(Category category);
 
     List<Tool> findByCategoryIsNull();
+
+    List<Tool> findByBrandIsNull();
+
+    List<Tool> findByBrand(Brand brand);
 }

@@ -6,10 +6,12 @@ import com.niko.prokat.Service.ToolService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,7 +24,11 @@ public class ToolRestController {
     @PostMapping("/tool/{id}")
     public Integer addToolToCart(@PathVariable Long id, HttpSession session){
         OrderDto order =  (OrderDto) session.getAttribute("order");
-        order.getTools().add(toolService.findToolById(id));
+        if (toolService.howMuchToolsAvailable(id,order)>0) {
+            order.getTools().add(toolService.findToolById(id));
+        } else {
+            throw new RuntimeException("Инструмента нет в наличии");
+        }
         session.setAttribute("order",order);
 
         return order.getUniqTools().size();
@@ -63,6 +69,28 @@ public class ToolRestController {
     @GetMapping("/admin/brands")
     public List<BrandDto> getBrands(){
         return toolService.getBrands();
+    }
+
+    @PostMapping("/admin/brand")
+    public ResponseEntity addBrand(@RequestBody @Valid BrandDto brandDto, Errors errors){
+        if (errors.hasErrors()){
+            return new ResponseEntity<>("Заполните все поля", HttpStatus.BAD_REQUEST);
+        }
+        toolService.addBrand(brandDto);
+        return new ResponseEntity<>("Брэнд успешно добавлен!", HttpStatus.OK);
+    }
+
+    @PutMapping("/admin/brand/{id}")
+    public ResponseEntity changeBrand(@RequestBody BrandDto brandDto,
+                                      @PathVariable Long id){
+        toolService.updateBrand(brandDto, id);
+        return new ResponseEntity<>("Брэнд успешно изменён!", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/admin/brand/{id}")
+    public ResponseEntity deleteBrand(@PathVariable Long id){
+        toolService.removeBrand(id);
+        return new ResponseEntity<>("Брэнд успешно Удалён!", HttpStatus.OK);
     }
 
     @GetMapping("/admin/tools/category/{id}")

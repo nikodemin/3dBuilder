@@ -116,12 +116,14 @@
                 </ul>
             </div>
             <span><i class="fas fa-percent"></i><a href="#"> Акции  </a></span>
-            <div class="input-group input-group-sm show-for-desktop">
-                <input type="text" class="form-control" placeholder="Что вы хотите взять в аренду?">
-                <div class="input-group-append">
-                    <a href="#" class="nav-link input-group-text"><i class="fas fa-search"></i></a>
+            <form id="searchForm" action="/search" method="GET">
+                <div class="input-group input-group-sm show-for-desktop">
+                    <input type="text" class="form-control" name="search" placeholder="Что вы хотите взять в аренду?">
+                    <div class="input-group-append">
+                        <button type="submit" class="nav-link input-group-text"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
-            </div>
+            </form>
             <span>
                 <i class="fas fa-shopping-cart"></i>
                 <a th:href="@{/order/cart}"> Товаров в корзине:</a>

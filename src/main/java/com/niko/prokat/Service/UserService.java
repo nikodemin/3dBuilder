@@ -1,5 +1,6 @@
 package com.niko.prokat.Service;
 
+import com.niko.prokat.Model.dto.TulipDto;
 import com.niko.prokat.Model.dto.UserDto;
 import com.niko.prokat.Model.entity.User;
 import com.niko.prokat.Model.enums.UserRole;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 @RequiredArgsConstructor
 @Service
@@ -70,7 +72,7 @@ public class UserService implements UserDetailsService {
 
                 @Override
                 public boolean isEnabled() {
-                    return true;
+                    return user.getToken()==null;
                 }
             };
 
@@ -81,15 +83,20 @@ public class UserService implements UserDetailsService {
         return mapper.toUserDto(userRepo.findByEmail(email));
     }
 
-    public void saveUser(UserDto userDto) {
+    public TulipDto<Long,String> saveUser(UserDto userDto) {
         if (userRepo.findByUsername(userDto.getUsername()) == null &&
                 userRepo.findByEmail(userDto.getEmail()) == null) {
             userDto.setPassword(encoder().encode(userDto.getPassword()));
             User user = mapper.toUser(userDto);
+            String token = encoder().encode(String.valueOf(new Date().getTime()))
+                    .replaceAll("/","");
+            user.setToken(token);
             user.setRole(UserRole.USER);
             userRepo.save(user);
+            return new TulipDto<>(user.getId(),token);
         } else
             log.error("User " + userDto.getUsername() + " already exists!");
+        return null;
     }
 
     public UserDto getUser(String username) {
@@ -115,5 +122,16 @@ public class UserService implements UserDetailsService {
         newUser.setId(oldUser.getId());
         newUser.setVersion(oldUser.getVersion());
         userRepo.save(newUser);
+    }
+
+    public Boolean activateUser(Long id, String token){
+        User user = userRepo.findById(id).get();
+        if (user.getToken().equals(token)){
+            user.setToken(null);
+            userRepo.save(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

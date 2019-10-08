@@ -7,30 +7,61 @@
 <div class="row container" style="margin: auto">
     <div id="tree" class="col-md-4"></div>
     <section id="main-container" class="col-md-8">
+        <div class="my-2">
+            <a th:href="@{/admin/orders}" class="btn btn-primary">Заказы</a>
+        </div>
         <strong>Текущяя категория: {{currCategory.text}}</strong>
         <div class="my-2">
             <button class="btn btn-danger" @click="deleteCategory">Удалить</button>
             <button class="btn btn-primary" @click="addSubCategory">Добавить подкатегорию</button>
         </div>
         <div>
-            <input type="text" v-model="newCategoryName">
-            <button class="btn btn-primary" @click="renameCategory">Переименовать</button>
+            <form>
+                <input type="text" v-model="newCategoryName" placeholder="Новое имя" required>
+                <button class="btn btn-primary" type="submit" @click="renameCategory">Переименовать</button>
+            </form>
         </div>
-        <div id="tools" class="mt-3">
-            <div v-for="tool in tools" class="card">
-                <img class="card-img-top" :src="'/imgs/'+tool.prevImagePath">
-                <div class="card-body">
-                    <h4 class="card-title">{{tool.name}}</h4>
-                    <p class="card-text">Аренда: {{tool.price}}</p>
-                    <p class="card-text">Залог: {{tool.pledge}}</p>
-                    <button class="btn btn-primary" @click="editTool(tool.id)">Редактировать</button>
-                    <button class="btn btn-primary my-2" @click="detachTool(tool.id)">Отсоединить</button>
-                    <button class="btn btn-danger" @click="deleteTool(tool.id)">Удалить</button>
-                </div>
+        <div class="my-2">
+            <h3>Добавить брэнд:</h3>
+            <form>
+                <input type="text" placeholder="Имя" v-model="newBrandName" required>
+                <input type="text" placeholder="Сайт" v-model="newBrandSite" required>
+                <button class="btn btn-primary mt-2" type="submit" @click="addBrand">Добавить</button>
+            </form>
+        </div>
+        <div>
+            <h3>Брэнды:</h3>
+            <strong>Выбранный брэнд: {{currBrand.name}}</strong>
+            <div>
+                <button v-for="brand in brands" @click="selectBrand(brand)" class=" mt-2 mr-1 btn btn-primary">{{brand.name}}</button>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <button class="btn btn-primary" @click="addTool">Добавить</button>
+        </div>
+        <div class="my-2">
+            <form>
+                <input type="text" placeholder="Новое имя" v-model="BrandNewName">
+                <input type="text" placeholder="Новый сайт" v-model="BrandNewSite">
+                <button class="btn btn-primary my-2 mr-1" type="submit" @click="changeBrand">Изменть</button>
+            </form>
+            <button class="btn btn-danger" @click="deleteBrand">Удалить</button>
+        </div>
+        <div>
+            <h3>Инструменты:</h3>
+            <div id="tools" class="mt-3">
+                <div v-for="tool in tools" class="card">
+                    <img class="card-img-top" :src="'/imgs/'+tool.prevImagePath">
+                    <div class="card-body">
+                        <h4 class="card-title">{{tool.name}}</h4>
+                        <p class="card-text">Аренда: {{tool.price}}</p>
+                        <p class="card-text">Залог: {{tool.pledge}}</p>
+                        <button class="btn btn-primary" @click="editTool(tool.id)">Редактировать</button>
+                        <button class="btn btn-primary my-2" @click="detachTool(tool.id)">Отсоединить</button>
+                        <button class="btn btn-danger" @click="deleteTool(tool.id)">Удалить</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <button class="btn btn-primary" @click="addTool">Добавить</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,10 +92,13 @@
             </tr>
             <tr>
                 <td class="input-group input-group-sm">
-                    <input style="width: 155px" type="text" class="form-control" name="power" placeholder="Мощность" required/>
+                    <input style="width: 90px" type="text" class="form-control" name="power" placeholder="Мощность" required/>
                 </td>
                 <td class="input-group input-group-sm">
-                    <input style="width: 155px" type="number" class="form-control" min="0" name="weight" placeholder="Вес (кг)" required/>
+                    <input style="width: 90px" type="number" class="form-control" min="0" name="weight" placeholder="Вес (кг)" required/>
+                </td>
+                <td class="input-group input-group-sm">
+                    <input style="width: 90px" type="number" class="form-control" min="1" name="quantity" placeholder="Количество" required/>
                 </td>
             </tr>
             <tr>

@@ -112,6 +112,7 @@ public abstract class DtoMapper {
         tool.setWeight( toolDto.getWeight() );
         tool.setPrice( toolDto.getPrice() );
         tool.setPledge( toolDto.getPledge() );
+        tool.setQuantity(toolDto.getQuantity());
 
         return tool;
     }

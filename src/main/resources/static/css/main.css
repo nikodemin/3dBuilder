@@ -1,3 +1,18 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: table;
+}
+
+section {
+    display: table-row;
+    height: 100%;
+}
+
 nav#nav-mobile {
     height: 3rem;
     color: #D60000;
@@ -13,6 +28,19 @@ nav#nav-mobile > div {
 #nav-search {
     padding: 10px;
     background-color: #E6E6E6;
+}
+
+#searchForm{
+    display: inline;
+}
+
+#searchEmpty{
+    height: 100px;
+    text-align: center;
+}
+
+#searchEmpty h4{
+    margin-top: 50px;
 }
 
 #nav-search a {
@@ -351,6 +379,14 @@ hr {
     color: #D60000;
 }
 
+#first-container{
+    height: 32px;
+}
+
+#second-container,#nav-second{
+    height: 100px;
+}
+
 #first-container, #second-container {
     margin: auto;
     max-width: 960px;
@@ -372,10 +408,10 @@ hr {
     width: 220px;
     height: 30px;
     display: inline-block;
-    line-height: 30px;
+    line-height: 20px;
     text-align: center;
     color: white;
-    margin-left: 40px;
+    margin-left: 20px;
     margin-right: 40px;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
@@ -397,7 +433,7 @@ hr {
     border-bottom-right-radius: 5px;
     padding: 10px;
     top: 85%;
-    left: 40px;
+    left: 20px;
     z-index: 999;
 }
 

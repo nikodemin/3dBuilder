@@ -15,23 +15,27 @@
                 <table class="table table-sm">
                     <tr>
                         <td>Брэнд:</td>
-                        <td th:text="${tool.brand.name}">Bosh</td>
+                        <td th:text="${tool.brand.name}"></td>
                     </tr>
                     <tr>
                         <td>Мощность:</td>
-                        <td th:text="${tool.power}">10 Вт</td>
+                        <td th:text="${tool.power}"></td>
                     </tr>
                     <tr>
                         <td>Вес:</td>
-                        <td th:text="${tool.weight}">1 кг</td>
+                        <td th:text="${tool.weight}"></td>
                     </tr>
                     <tr>
                         <td>Аренда:</td>
-                        <td th:text="${tool.price}">600 р</td>
+                        <td th:text="${tool.price}"></td>
                     </tr>
                     <tr>
                         <td>Залог:</td>
-                        <td th:text="${tool.pledge}">7000 р</td>
+                        <td th:text="${tool.pledge}"></td>
+                    </tr>
+                    <tr>
+                        <td>В наличии:</td>
+                        <td th:text="${available}"></td>
                     </tr>
                     <tr>
                         <td>
@@ -42,21 +46,7 @@
             </div>
         </div>
         <div class="col col-md-8 mt-3">
-            <div id="toolInfo" th:text="${tool.description}">
-                Fames sodales molestie hac etiam ac cursus nisl scelerisque convallis hendrerit. Eget a vehicula quis
-                elementum mollis facilisi. Litora porttitor euismod arcu platea sollicitudin dis sociis semper.
-                Condimentum lacinia hendrerit bibendum placerat eleifend tincidunt. Ipsum montes hac vivamus augue sit
-                lacus maecenas luctus tempus taciti commodo etiam. Conubia fringilla facilisi ornare inceptos duis
-                eleifend neque consequat consectetur vestibulum, eros quisque. Posuere dapibus enim id arcu dis quam
-                ultrices dolor luctus scelerisque praesent quis. Lorem habitasse inceptos a aliquam. Urna, suscipit
-                sociosqu tristique blandit vivamus facilisis. Vivamus ornare auctor gravida sociis habitant.
-
-                Euismod elit sagittis maecenas conubia ullamcorper curae;. Accumsan dignissim rhoncus ornare convallis
-                habitant at cursus augue hac commodo ullamcorper. Sodales in est, urna bibendum vestibulum dui
-                pellentesque commodo. Sollicitudin enim platea congue. Enim nunc justo torquent placerat mattis magnis
-                dictum? Dictumst vivamus quisque praesent iaculis eros blandit lorem! Sociis mattis quisque iaculis
-                erat. Cursus pellentesque!
-            </div>
+            <div id="toolInfo" th:utext="${tool.description}"></div>
         </div>
     </div>
 </section>

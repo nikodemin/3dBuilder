@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 @Data
 public class OrderDto {
+    private Long id;
+
     @NotBlank(message = "Адрес не указан")
     private String address;
 

@@ -25,6 +25,9 @@
             </div>
         </a>
     </div>
+    <div id="searchEmpty" th:if="${toolsEmpty == true}">
+        <h4>Ничего не найдено</h4>
+    </div>
 </section>
 <link href="/css/catalog.css" type="text/css" rel="stylesheet">
 <th:block th:include="_footer"></th:block>

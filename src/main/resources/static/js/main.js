@@ -72,6 +72,7 @@ $(document).ready(function () {
             url: baseUrl + '/tool/' + id,
             success: function (data) {
                 $('span.cart').text(data)
+                raisePopup("Инструмент добавлен в корзину","success")
             },
             error: function (jqXHR, status, errorThrown) {
                 raisePopup('ERROR: ' + jqXHR.responseText,'danger')

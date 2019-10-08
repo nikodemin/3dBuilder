@@ -2,7 +2,10 @@ package com.niko.prokat.Model.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Data
 @Table(name = "tools")
@@ -20,12 +23,13 @@ public class Tool extends AbstractEntity {
     private String name;
     private String description;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Brand brand;
     private String power;
     private Integer weight;
     private Integer price;
     private Integer pledge;
+    private Integer quantity;
 }
 
 

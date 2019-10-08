@@ -21,4 +21,5 @@ public class ToolDto {
     private Integer pledge;
     private MultipartFile prevImage;
     private MultipartFile[] images;
+    private Integer quantity;
 }
