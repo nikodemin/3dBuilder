@@ -91,7 +91,7 @@ public class SQLDataLoader implements ApplicationRunner {
         UserDto admin = new UserDto();
         admin.setUsername("admin");
         admin.setPassword("admin");
-        admin.setEmail("dummy");
+        admin.setEmail("niko.demin@gmail.com");
         userDetailsService.saveAdmin(admin);
 
         log.info("DATABASE FILLED!");

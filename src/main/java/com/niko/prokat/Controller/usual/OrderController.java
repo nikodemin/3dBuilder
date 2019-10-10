@@ -68,9 +68,7 @@ public class OrderController {
         String htmlMsg = messageBuilder.buildOrderMessage(orderDto,principal.getName(),
                 totalAndPledge.getFirst(),totalAndPledge.getSecond());
         message.setContent(htmlMsg, "text/html; charset=UTF-8");
-        //todo
-        //helper.setTo(userService.getUser(principal.getName()).getEmail());
-        helper.setTo("niko.demin@gmail.com");
+        helper.setTo(userService.getUser(principal.getName()).getEmail());
         helper.setSubject("Аренда - новый заказ");
         mailSender.send(message);
 

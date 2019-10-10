@@ -41,7 +41,6 @@ public class OrderService {
                 .map(mapper::toOrderDto).collect(Collectors.toList());
     }
 
-    //todo
     public void changeOrderStatus(Long id, String newStatus) {
         Order order = orderRepo.findById(id).get();
         OrderStatus status;
