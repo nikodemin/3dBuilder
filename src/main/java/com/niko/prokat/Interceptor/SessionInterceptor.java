@@ -24,9 +24,8 @@ public class SessionInterceptor implements HandlerInterceptor {
         session.setAttribute("categories", toolService.getRootCategories());
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        if (!username.equals("anonymousUser"))
-            session.setAttribute("username", username);
+        if (authentication != null && !authentication.getName().equals("anonymousUser"))
+            session.setAttribute("username", authentication.getName());
 
         if (session.getAttribute("order") == null) {
             session.setAttribute("order", new OrderDto());

@@ -20,6 +20,10 @@
                 <input type="text" v-model="newCategoryName" placeholder="Новое имя" required>
                 <button class="btn btn-primary" type="submit" @click="renameCategory">Переименовать</button>
             </form>
+            <form>
+                <textarea type="text" style="width: 507px; height: 130px;" v-model="newCategoryDesc" placeholder="Новое описание" required></textarea>
+                <button class="btn btn-primary" type="submit" @click="changeCategoryDesc">Изменить описание</button>
+            </form>
         </div>
         <div class="my-2">
             <h3>Добавить брэнд:</h3>
@@ -140,6 +144,9 @@
             </tr>
             <tr>
                 <td><input type="file" name="file" required></td>
+            </tr>
+            <tr>
+                <td><textarea name="description" placeholder="Описание (html)" required></textarea></td>
             </tr>
             <tr>
                 <td><button class="btn btn-primary" type="submit">Отправить</button></td>

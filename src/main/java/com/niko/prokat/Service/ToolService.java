@@ -214,7 +214,10 @@ public class ToolService {
     }
 
     public boolean areThereToolsInCategory(Long id) {
-        return toolRepo.existsByCategory(categoryRepo.findById(id).orElse(null));
+        Category category = categoryRepo.findById(id).orElse(null);
+        if (category == null)
+            return false;
+        return toolRepo.existsByCategory(category);
     }
 
     public void detachTool(Long id) {
@@ -271,13 +274,13 @@ public class ToolService {
 
     public Integer howMuchToolsAvailable(Long id, OrderDto orderDto) {
         final Integer[] quantity = {toolRepo.findById(id).get().getQuantity()};
-        orderRepo.findByDoneIsFalse().forEach(order -> {
+        /*orderRepo.findByDoneIsFalse().forEach(order -> {
             order.getTools().forEach(tool -> {
                 if (tool.getId().equals(id)){
                     --quantity[0];
                 }
             });
-        });
+        });*/
         if (orderDto != null) {
             orderDto.getTools().forEach(tool -> {
                 if (tool.getId().equals(id)) {
@@ -286,5 +289,11 @@ public class ToolService {
             });
         }
         return quantity[0];
+    }
+
+    public void changeCatDesc(Long id, String desc) {
+        Category category = categoryRepo.findById(id).get();
+        category.setDescription(desc);
+        categoryRepo.save(category);
     }
 }

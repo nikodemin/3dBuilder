@@ -1,17 +1,15 @@
 .catalog-item {
     display: inline-flex;
-    max-width: 150px;
-    padding: 7px;
+    max-width: 190px;
+    padding: 15px 20px;
     margin: 10px;
-    background-color: #E6E6E6;
+    background-color: #f7f7f7;
     border-radius: 4px;
-    box-shadow: 3px 3px 2px grey;
+    box-shadow: 0 0 20px 1px grey;
     text-align: center;
 }
-
-.catalog-item div {
-    display: inline-block;
-    max-width: 80%;
+.catalog-item .bigger{
+    font-size: 120%;
 }
 
 .catalog-item a {
@@ -20,6 +18,14 @@
 
 .catalog-item span {
     overflow-wrap: break-word;
+}
+
+.catalog-item span.name {
+    font-weight: bold;
+}
+
+.catalog-item img{
+    width: 150px;
 }
 
 #main-container {

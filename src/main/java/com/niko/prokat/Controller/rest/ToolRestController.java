@@ -118,6 +118,17 @@ public class ToolRestController {
                 HttpStatus.OK);
     }
 
+    @PutMapping("/admin/category/{id}/newDesc/{desc}")
+    public ResponseEntity changeCategoryDesc(@PathVariable Long id,
+                                         @PathVariable String desc){
+        if (id < 0) {
+            return new ResponseEntity<>("Нельзя изменить описание категории", HttpStatus.BAD_REQUEST);
+        }
+        toolService.changeCatDesc(id, desc);
+        return new ResponseEntity<>("Текст успешно изменён!",
+                HttpStatus.OK);
+    }
+
     @PostMapping("/admin/category/parent/{id}")
     public ResponseEntity addSubcategory(@PathVariable Long id,
                                          @ModelAttribute CategoryDto categoryDto) throws IOException {
@@ -133,7 +144,7 @@ public class ToolRestController {
         } else {
             toolService.addSubCategory(categoryDto, id);
         }
-        return new ResponseEntity<>("Категория успешно переименована!",
+        return new ResponseEntity<>("Категория успешно создана!",
                 HttpStatus.OK);
     }
 

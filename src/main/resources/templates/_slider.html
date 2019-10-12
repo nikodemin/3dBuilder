@@ -1,19 +1,22 @@
-<div id="main-banner">
-    <div class="wrapper">
-        <ul class="list-unstyled list-inline">
-            <li><a href="#">
-                <img class='img-responsive' src="/imgs/landscape-02.jpg">
-            </a></li>
-            <li><a href="#">
-                <img src="/imgs/landscape-03.jpg">
-            </a></li>
-            <li><a href="#">
-                <img src="/imgs/landscape-04.jpg">
-            </a></li>
-            <li><a href="#">
-                <img src="/imgs/landscape-05.jpg">
-            </a></li>
-        </ul>
+<div id="main-banner"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.thymeleaf.org">
+    <div id="slider" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#slider" th:each="image, state:${sliderImgs}" th:attr="data-slide-to=${state.index}" th:classappend="${state.first}? active:''"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div th:each="image, state:${sliderImgs}" class="carousel-item" th:classappend="${state.first}? active:''">
+                <img class="d-block w-100" alt="слайд" th:src="@{'/imgs/'+${image}}">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
 </div>
-<ul class="banner-btns"></ul>

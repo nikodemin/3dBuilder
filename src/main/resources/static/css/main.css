@@ -4,13 +4,29 @@ body {
     width: 100%;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     display: table;
 }
 
 section {
     display: table-row;
-    height: 100%;
+}
+
+.red{
+    color: red;
+}
+
+.center{
+    text-align: center;
+}
+
+.catalog-margin{
+    margin-left: 270px !important;
+    display: block;
 }
 
 nav#nav-mobile {
@@ -262,8 +278,6 @@ h3.leaders {
 #leaders-desktop ul a div.hit {
     position: absolute;
     z-index: 99;
-    top: 0;
-    left: 0;
     background-color: #D60000;
     color: white;
     border-radius: 5px;
@@ -331,8 +345,8 @@ hr {
 }
 
 #nav-first > div {
-    margin-left: 50px;
-    margin-right: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 #nav-first a {
@@ -358,6 +372,7 @@ hr {
 
 #nav-third {
     position: relative;
+    padding-left: 0;
 }
 
 #nav-third div.input-group {
@@ -377,14 +392,6 @@ hr {
 
 #nav-third a:hover {
     color: #D60000;
-}
-
-#first-container{
-    height: 32px;
-}
-
-#second-container,#nav-second{
-    height: 100px;
 }
 
 #first-container, #second-container {
@@ -407,8 +414,8 @@ hr {
     cursor: pointer;
     width: 220px;
     height: 30px;
+    line-height: 30px;
     display: inline-block;
-    line-height: 20px;
     text-align: center;
     color: white;
     margin-left: 20px;
@@ -432,7 +439,7 @@ hr {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 10px;
-    top: 85%;
+    top: 110%;
     left: 20px;
     z-index: 999;
 }

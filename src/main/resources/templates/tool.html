@@ -4,7 +4,6 @@
       xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="_header"></th:block>
 <section id="main-container">
-    <th:block th:include="_slider"></th:block>
     <div class="row">
         <div class="col col-md-4 mt-3" th:attr="data-tool=${tool.id}">
             <div id="toolPreview">
@@ -39,7 +38,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <button class="btn btn-primary addToCart">Арендовать</button>
+                            <button class="btn btn-primary addToCart"><i class="fas fa-shopping-cart"></i> Арендовать</button>
                         </td>
                     </tr>
                 </table>
@@ -52,4 +51,7 @@
 </section>
 <link href="/css/tool.css" type="text/css" rel="stylesheet">
 <th:block th:include="_footer"></th:block>
+<script>
+    $('#catalog').slideUp()
+</script>
 </html>

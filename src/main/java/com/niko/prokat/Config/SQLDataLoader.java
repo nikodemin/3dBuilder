@@ -10,10 +10,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
+@Profile("dev")
 @Log4j2
 public class SQLDataLoader implements ApplicationRunner {
     private final ToolService toolService;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,7 @@ public class ToolContoller {
             }
 
             model.addAttribute("tools",tools);
+            model.addAttribute("catDesc",category.getDescription());
             return "catalog";
         }
         model.addAttribute("categories",category.getChildren());
@@ -45,7 +47,16 @@ public class ToolContoller {
     @GetMapping("/")
     public String getHomePage(Model model){
         model.addAttribute("topTools",toolService.getTopTools());
+        model.addAttribute("sliderImgs", Arrays.asList("landscape-02.jpg",
+                "landscape-03.jpg","landscape-04.jpg","landscape-05.jpg"));
         return "main";
+    }
+
+    @GetMapping("/company")
+    public String getCompanyPage(Model model){
+        model.addAttribute("sliderImgs", Arrays.asList("landscape-02.jpg",
+                "landscape-03.jpg","landscape-04.jpg","landscape-05.jpg"));
+        return "company";
     }
 
     @GetMapping("/tool/{toolId}")

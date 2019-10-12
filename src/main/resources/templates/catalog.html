@@ -3,27 +3,37 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="_header"></th:block>
-<section id="main-container">
-    <th:block th:include="_slider"></th:block>
+<section id="main-container" class="catalog-margin">
     <div th:if="${categories != null}" th:each="cat:${categories}" class="catalog-item">
         <a th:href="@{${#request.requestURI}+'?cat='+${queryStr}+','+${cat.id}}">
             <div>
                 <img class="img-fluid" th:src="@{'/imgs/'+${cat.image}}">
             </div>
-            <div>
-                <span th:text="${cat.name}"></span>
+            <div class="mt-2">
+                <b th:text="${cat.name}"></b>
             </div>
         </a>
     </div>
-    <div th:if="${tools != null}" th:each="tool:${tools}" class="catalog-item">
-        <a th:href="@{'/tool/'+${tool.id}}">
+    <div>
+        <div th:utext="${catDesc}" class="my-3"></div>
+        <div th:if="${tools != null}" th:each="tool:${tools}" class="catalog-item">
             <div>
-                <img class="img-fluid" th:src="@{'/imgs/'+${tool.prevImagePath}}">
+                <a th:href="@{'/tool/'+${tool.id}}">
+                    <div style="height: 150px;">
+                        <img class="img-fluid" th:src="@{'/imgs/'+${tool.prevImagePath}}">
+                    </div>
+                    <div class="my-2">
+                        <span class="name" th:text="${tool.name}"></span>
+                    </div>
+                </a>
+                <div>
+                    <div class="bigger" th:utext="'<b>'+${tool.price}+'</b> руб/сутки'"></div>
+                    <div class="bigger" th:utext="'Залог <b>'+${tool.pledge}+'</b> руб'"></div>
+                    <div class="my-2" style="color: dimgrey" th:utext="'В наличии <b>'+${tool.quantity}+'</b> шт.'"></div>
+                    <button class="btn btn-primary addToCart"><i class="fas fa-shopping-cart"></i> Арендовать</button>
+                </div>
             </div>
-            <div>
-                <span th:text="${tool.name}"></span>
-            </div>
-        </a>
+        </div>
     </div>
     <div id="searchEmpty" th:if="${toolsEmpty == true}">
         <h4>Ничего не найдено</h4>

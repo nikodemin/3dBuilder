@@ -17,6 +17,7 @@ $(document).ready(function () {
         toolId: -1,
         isToolEditing: false,
         newCategoryName: '',
+        newCategoryDesc: "",
         newBrandName: '',
         newBrandSite: '',
         BrandNewName: '',
@@ -177,6 +178,21 @@ $(document).ready(function () {
                     success: function (data) {
                         raisePopup(data,'success')
                         $('#tree').jstree(true).refresh();
+                    },
+                    error: function (jqXHR, status, errorThrown) {
+                        raisePopup('ERROR: ' + jqXHR.responseText,'danger')
+                        console.log('ERROR: ' + jqXHR.responseText)
+                    }
+                })
+            },
+            changeCategoryDesc: function(e) {
+                e.preventDefault()
+                $.ajax({
+                    url: baseUrl + '/admin/category/'+vueData.currCategory.id+
+                        '/newDesc/'+vueData.newCategoryDesc,
+                    type: 'PUT',
+                    success: function (data) {
+                        raisePopup(data,'success')
                     },
                     error: function (jqXHR, status, errorThrown) {
                         raisePopup('ERROR: ' + jqXHR.responseText,'danger')
