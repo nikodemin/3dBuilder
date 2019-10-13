@@ -192,7 +192,7 @@ public class ToolRestController {
     private void saveImages(ToolDto toolDto) throws IOException {
         MultipartFile[] files = new MultipartFile[4];
         files[0] = toolDto.getPrevImage();
-        for (int i = 1; i < toolDto.getImages().length+1; i++) {
+        for (int i = 1; i < Math.min(toolDto.getImages().length,3)+1; i++) {
             files[i] = toolDto.getImages()[i-1];
         }
         List<String> paths = fileService.saveUploadedFiles(files);

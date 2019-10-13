@@ -8,9 +8,22 @@
         <div class="col col-md-4 mt-3" th:attr="data-tool=${tool.id}">
             <div id="toolPreview">
                 <div>
-                    <img style="width:100%" th:src="@{'/imgs/'+${tool.prevImagePath}}">
+                    <a data-fancybox="tools" th:href="@{'/imgs/'+${tool.prevImagePath}}">
+                        <img style="width:100%" th:src="@{'/imgs/'+${tool.prevImagePath}}">
+                    </a>
                 </div>
-                <h4 class="mt-2" id="toolName" th:text="${tool.name}">Перфоратор</h4>
+                <h4 class="mt-2" id="toolName" th:text="${tool.name}"></h4>
+                <div class="thumbnails">
+                    <a th:if="${tool.image1Path}!=null" data-fancybox="tools" th:href="@{'/imgs/'+${tool.image1Path}}">
+                        <img th:src="@{'/imgs/'+${tool.image1Path}}">
+                    </a>
+                    <a th:if="${tool.image2Path}!=null" data-fancybox="tools" th:href="@{'/imgs/'+${tool.image2Path}}">
+                        <img th:src="@{'/imgs/'+${tool.image2Path}}">
+                    </a>
+                    <a th:if="${tool.image3Path}!=null" data-fancybox="tools" th:href="@{'/imgs/'+${tool.image3Path}}">
+                        <img th:src="@{'/imgs/'+${tool.image3Path}}">
+                    </a>
+                </div>
                 <table class="table table-sm">
                     <tr>
                         <td>Брэнд:</td>
@@ -50,7 +63,22 @@
     </div>
 </section>
 <link href="/css/tool.css" type="text/css" rel="stylesheet">
+<div id="shadow"></div>
+<div id="slider">
+    <div></div>
+</div>
 <th:block th:include="_footer"></th:block>
+<style>
+    div.thumbnails{
+        text-align: center;
+    }
+    div.thumbnails img{
+        padding: 10px;
+        max-width: 30%;
+    }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 <script>
     $('#catalog').slideUp()
 </script>

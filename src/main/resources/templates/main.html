@@ -13,7 +13,7 @@
     </div>
     <h3 class="leaders">Лидеры проката</h3>
     <div id="leaders" class="hide-for-desktop">
-        <div th:each="tool:${topTools}">
+        <div th:each="tool:${topTools}" th:attr="data-tool=${tool.id}">
             <div class="image">
                 <a th:href="@{'/tool/'+${tool.id}}"><img th:src="@{'/imgs/'+${tool.prevImagePath}}" class="img-responsive"></a>
             </div>
@@ -24,30 +24,32 @@
         уровень шума 100дц
                 </pre>
                 <h5>От <span th:text="${tool.price}">1500</span> руб/сутки</h5>
-                <button class="btn btn-primary"><i class="fas fa-shopping-cart addToCart"></i> Арендовать</button>
+                <button class="btn btn-primary addToCart"><i class="fas fa-shopping-cart addToCart"></i> Арендовать</button>
             </div>
         </div>
     </div>
     <div id="leaders-desktop" class="show-for-desktop">
-        <a href="#" class="arrow-left"><i class="fas fa-arrow-left"></i></a>
-        <a href="#" class="arrow-right"><i class="fas fa-arrow-right"></i></a>
-        <ul class="list-unstyled" th:attr="data-tool=${tool.id}" th:each="tool:${topTools}">
-            <li><a th:href="@{'/tool/'+${tool.id}}">
-                <div class="hit">Хит</div>
-                <img th:src="@{'/imgs/'+${tool.prevImagePath}}" class="img-responsive"></a></li>
-            <li><span th:text="${tool.name}">Бензиновый генератор</span></a></li>
-            <li><span class="props" th:text="${tool.power}">8Квт, 6.4Квт, 100 Дцб</span></li>
-            <li><i class="fas fa-map-marker-alt"> Самовывоз: </i><span class="pick-date">сегодня</span></li>
-            <li><i class="fas fa-car"> Доставка: </i><span class="delivery-date">завтра</span></li>
-            <hr>
-            <li class="price-li">От <span class="price" th:text="${tool.price}">1500</span> руб/сутки</li>
-            <li>
-                <button class="btn btn-primary btn-block addToCart">Арендовать</button>
-            </li>
-            <li>
-                <button class="btn btn-outline-primary btn-block quickBuy">Быстрый заказ</button>
-            </li>
-        </ul>
+        <a class="arrow-left"><i class="fas fa-arrow-left"></i></a>
+        <a class="arrow-right"><i class="fas fa-arrow-right"></i></a>
+        <div class="slider-leaders">
+            <ul class="list-unstyled" th:attr="data-tool=${tool.id}" th:each="tool:${topTools}">
+                <li><a th:href="@{'/tool/'+${tool.id}}">
+                    <div class="hit">Хит</div>
+                    <img th:src="@{'/imgs/'+${tool.prevImagePath}}" class="img-responsive"></a></li>
+                <li><span th:text="${tool.name}">Бензиновый генератор</span></a></li>
+                <li><span class="props" th:text="${tool.power}">8Квт, 6.4Квт, 100 Дцб</span></li>
+                <li><i class="fas fa-map-marker-alt"> Самовывоз: </i><span class="pick-date">сегодня</span></li>
+                <li><i class="fas fa-car"> Доставка: </i><span class="delivery-date">завтра</span></li>
+                <hr>
+                <li class="price-li">От <span class="price" th:text="${tool.price}">1500</span> руб/сутки</li>
+                <li>
+                    <button class="btn btn-primary btn-block addToCart">Арендовать</button>
+                </li>
+                <li>
+                    <button class="btn btn-outline-primary btn-block quickBuy">Быстрый заказ</button>
+                </li>
+            </ul>
+        </div>
     </div>
     <div id="show-more" class="hide-for-desktop">
         <button class="btn btn-outline-primary">Показать ещё</button>
@@ -79,4 +81,27 @@
     </div>
 </section>
 <th:block th:include="_footer"></th:block>
+<script>
+    $('#leaders-desktop a.arrow-left').click(function (e) {
+        var first = $('div.slider-leaders ul:first-child')
+        first.clone().appendTo('div.slider-leaders')
+        $('div.slider-leaders').animate({
+            'margin-left': -(first.width()+60)
+        },1700, function () {
+            first.remove()
+            $('div.slider-leaders').css('margin-left',0)
+        })
+    })
+    $('#leaders-desktop a.arrow-right').click(function (e) {
+        var last = $('div.slider-leaders ul:last-child')
+        last.clone().prependTo('div.slider-leaders')
+        $('div.slider-leaders').css('margin-left',-(last.width()+60))
+        $('div.slider-leaders').animate({
+            'margin-left': 0
+        },1700, function () {
+            last.remove()
+            $('div.slider-leaders').css('margin-left',0)
+        })
+    })
+</script>
 </html>

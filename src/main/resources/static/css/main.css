@@ -1,19 +1,12 @@
-html,
-body {
-    height: 100%;
-    width: 100%;
-}
-
 html {
     overflow-x: hidden;
+    height: 100%;
 }
 
-body {
-    display: table;
-}
-
-section {
-    display: table-row;
+body{
+    padding-bottom: 200px;
+    position: relative;
+    min-height: 100%;
 }
 
 .red{
@@ -204,7 +197,10 @@ h3.leaders {
 }
 
 #footer {
-    padding: 2rem 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
     background-color: #3D3D3D;
     color: #7C7C7C;
     text-align: center;
@@ -248,12 +244,19 @@ h3.leaders {
     color: white;
 }
 
+#leaders-desktop div.slider-leaders{
+    display: flex;
+    overflow: hidden;
+}
+
 #leaders-desktop a.arrow-left {
     left: 0;
+    cursor: pointer;
 }
 
 #leaders-desktop a.arrow-right {
     right: 0;
+    cursor: pointer;
 }
 
 #leaders-desktop ul {
@@ -298,6 +301,10 @@ h3.leaders {
     font-weight: bolder;
 }
 
+#leaders div.image img {
+    max-width: 100px;
+}
+
 #leaders-desktop li img {
     width: 180px;
 }
@@ -308,11 +315,13 @@ hr {
 
 #nav-second {
     height: 100px;
+    max-width: 1000px;
+    margin: auto;
 }
 
 #nav-second > div {
     margin-right: 20px;
-    margin-left: 50px;
+    margin-left: 45px;
 }
 
 #nav-second h5 {
@@ -342,6 +351,11 @@ hr {
 
 #nav-second > div:last-child i {
     color: #D60000;
+}
+
+#nav-first{
+    max-width: 990px;
+    margin: auto;
 }
 
 #nav-first > div {
@@ -396,7 +410,7 @@ hr {
 
 #first-container, #second-container {
     margin: auto;
-    max-width: 960px;
+    max-width: 990px;
 }
 
 #third-container > div {
@@ -490,6 +504,15 @@ hr {
 
     ul.banner-btns {
         margin-left: 600px;
+    }
+}
+
+@media screen and (min-width: 1030px) {
+    #main-banner{
+        margin: auto;
+    }
+    #third-container > div{
+        width: 100%;
     }
 }
 

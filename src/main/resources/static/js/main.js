@@ -19,6 +19,7 @@ $(document).ready(function () {
         var scroll = $(window).scrollTop();
         if (scroll >= 150) {
             $('.scrollFix').addClass("fixed-top");
+            $('#catalog').slideUp()
         } else {
             $('.scrollFix').removeClass("fixed-top");
         }

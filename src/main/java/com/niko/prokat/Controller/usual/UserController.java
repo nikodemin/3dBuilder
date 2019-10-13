@@ -97,7 +97,7 @@ public class UserController {
         String htmlMsg = messageBuilder.buildRegistrationMessage(idAndToken.getFirst(),
                 idAndToken.getSecond());
         message.setContent(htmlMsg, "text/html; charset=UTF-8");
-        helper.setTo(userService.getUser(userDto.getUsername()).getEmail());
+        helper.setTo(userDto.getEmail());
         helper.setSubject(siteName+" - регистрация");
         mailSender.send(message);
 
