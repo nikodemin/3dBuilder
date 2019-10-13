@@ -16,7 +16,7 @@
     </div>
     <div>
         <div th:utext="${catDesc}" class="my-3"></div>
-        <div th:if="${tools != null}" th:each="tool:${tools}" class="catalog-item">
+        <div th:if="${tools != null}" th:each="tool:${tools}" class="catalog-item" th:attr="data-tool=${tool.id}">
             <div>
                 <a th:href="@{'/tool/'+${tool.id}}">
                     <div style="height: 150px;">

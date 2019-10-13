@@ -462,6 +462,9 @@ hr {
     .show-for-desktop {
         display: none !important;
     }
+    .catalog-margin{
+        margin: auto !important;
+    }
 }
 
 @media screen and (min-width: 960px) {
