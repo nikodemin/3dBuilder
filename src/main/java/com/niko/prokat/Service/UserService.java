@@ -118,7 +118,11 @@ public class UserService implements UserDetailsService {
         userDto.setPassword(encoder().encode(userDto.getPassword()));
         User oldUser = userRepo.findByUsername(username);
         User newUser = mapper.toUser(userDto);
-        newUser.setRole(UserRole.USER);
+        if (oldUser.getRole() == UserRole.USER){
+            newUser.setRole(UserRole.USER);
+        } else {
+            newUser.setRole(UserRole.ADMIN);
+        }
         newUser.setId(oldUser.getId());
         newUser.setVersion(oldUser.getVersion());
         userRepo.save(newUser);

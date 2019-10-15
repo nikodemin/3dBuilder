@@ -10,15 +10,15 @@ import java.util.List;
 
 @Repository
 public interface ToolRepo extends CrudRepository<Tool, Long> {
-    List<Tool> findByCategory(Category category);
+    List<Tool> findByCategoryOrderBySortIndex(Category category);
 
-    List<Tool> findByNameContainingIgnoreCase(String name);
+    List<Tool> findByNameContainingIgnoreCaseOrderBySortIndex(String name);
 
     Boolean existsByCategory(Category category);
 
-    List<Tool> findByCategoryIsNull();
+    List<Tool> findByCategoryIsNullOrderBySortIndex();
 
-    List<Tool> findByBrandIsNull();
+    List<Tool> findByBrandIsNullOrderBySortIndex();
 
-    List<Tool> findByBrand(Brand brand);
+    List<Tool> findByBrandOrderBySortIndex(Brand brand);
 }

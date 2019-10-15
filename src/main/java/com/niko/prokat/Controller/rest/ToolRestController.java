@@ -189,6 +189,20 @@ public class ToolRestController {
                 HttpStatus.OK);
     }
 
+    @PostMapping("/admin/categories/sort")
+    public ResponseEntity sortCategories(@RequestBody List<Long> catIds){
+        toolService.sortCategories(catIds);
+        return new ResponseEntity<>("Категории успешно отсортированы!",
+                HttpStatus.OK);
+    }
+
+    @PostMapping("/admin/tools/sort")
+    public ResponseEntity sortTools(@RequestBody List<Long> toolIds){
+        toolService.sortTools(toolIds);
+        return new ResponseEntity<>("Инструменты успешно отсортированы!",
+                HttpStatus.OK);
+    }
+
     private void saveImages(ToolDto toolDto) throws IOException {
         MultipartFile[] files = new MultipartFile[4];
         files[0] = toolDto.getPrevImage();

@@ -48,10 +48,10 @@
             </form>
             <button class="btn btn-danger" @click="deleteBrand">Удалить</button>
         </div>
-        <div>
+        <draggable>
             <h3>Инструменты:</h3>
-            <div id="tools" class="mt-3">
-                <div v-for="tool in tools" class="card">
+            <draggable id="tools" class="mt-3" group="tools" v-model="tools" @end="toolsDragEnd">
+                <div v-for="tool in tools" class="card tool" >
                     <img class="card-img-top" :src="'/imgs/'+tool.prevImagePath">
                     <div class="card-body">
                         <h4 class="card-title">{{tool.name}}</h4>
@@ -67,7 +67,7 @@
                         <button class="btn btn-primary" @click="addTool">Добавить</button>
                     </div>
                 </div>
-            </div>
+            </draggable>
         </div>
     </section>
 </div>
@@ -157,6 +157,6 @@
 <th:block th:include="_footer"></th:block>
 <link href="/css/admin.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css"/>
-<script src="/js/admin.js"></script>
+<script src="/js/admin.js" type="module"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js" integrity="sha256-NPMXVob2cv6rH/kKUuzV2yXKAQIFUzRw+vJBq4CLi2E=" crossorigin="anonymous"></script>
 </html>

@@ -7,8 +7,8 @@
     <th:block th:include="_slider"></th:block>
     <div class="row mobile-tools-menu hide-for-desktop">
         <div class="col col-sm-4" th:each="cat:${session.categories}"><a th:href="@{'/catalog?cat=' + ${cat.id}}">
-            <img class="img-responsive" th:src="@{'/imgs/'+${cat.image}}">
-            <span th:text="${cat.name}">Электроинструменты</span>
+            <img class="img-responsive" style="max-width: 170px" th:src="@{'/imgs/'+${cat.image}}">
+            <span th:text="${cat.name}"></span>
         </a></div>
     </div>
     <h3 class="leaders">Лидеры проката</h3>

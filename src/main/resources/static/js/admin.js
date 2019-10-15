@@ -1,5 +1,6 @@
 'use strict'
 $(document).ready(function () {
+
     $('#catalog').slideUp()
 
     var token = $("meta[name='_csrf']").attr("content");
@@ -26,7 +27,17 @@ $(document).ready(function () {
 
     $('#tree').jstree({
         "core" : {
-            "check_callback" : true,
+            "check_callback" : function (operation, node,
+                                         node_parent, node_position,
+                                         more) {
+                if (operation === 'move_node'){
+                    if (more && more.dnd && (more.pos !== "b" ||
+                        node_parent.id != node.parent)) {
+                        return false;
+                    }
+                }
+                return true
+            },
             "themes" : { "stripes" : true },
             'data' : {
                 'url': baseUrl+'/admin/categories',
@@ -36,12 +47,29 @@ $(document).ready(function () {
                     }
                 }
             }
-        }
+        },
+        'plugins': ["dnd"]
     }).bind("select_node.jstree",function(event, data){
         vueData.currCategory = data.node.original
         getTools()
     }).bind("refresh.jstree",function (event,data) {
         getCategories()
+    }).bind("move_node.jstree", function (e, data) {
+        var $siblings = $(`#tree li#${data.parent} ul li`)
+        var data = $siblings.map(function () {return this.id}).get()
+        $.ajax({
+            url: baseUrl + '/admin/categories/sort',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (data) {
+                vueData.categories = data
+            },
+            error: function (jqXHR, status, errorThrown) {
+                raisePopup('ERROR: ' + jqXHR.responseText,'danger')
+                console.log('ERROR: ' + jqXHR.responseText)
+            }
+        })
     })
 
     function getCategories() {
@@ -122,7 +150,7 @@ $(document).ready(function () {
         if (vueData.isToolEditing){
             var url = '/admin/tool/'+vueData.toolId
         } else {
-            url = '/admin/tools/category/'+vueData.currCategory.id
+            url = '/admin/tools/category/'+$('#addToolModal select[name=categoryID] option:selected').val()
         }
         $('#addToolModal input[type=file]').val(null)
 
@@ -155,6 +183,22 @@ $(document).ready(function () {
         el: '#main-container',
         data: vueData,
         methods: {
+            toolsDragEnd: function(){
+                var data = vueData.tools.map((tool)=>tool.id)
+                $.ajax({
+                    url: baseUrl + '/admin/tools/sort',
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        vueData.categories = data
+                    },
+                    error: function (jqXHR, status, errorThrown) {
+                        raisePopup('ERROR: ' + jqXHR.responseText,'danger')
+                        console.log('ERROR: ' + jqXHR.responseText)
+                    }
+                })
+            },
             deleteCategory: function () {
                 $.ajax({
                     url: baseUrl + '/admin/category/'+vueData.currCategory.id,

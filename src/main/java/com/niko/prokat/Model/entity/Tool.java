@@ -30,6 +30,7 @@ public class Tool extends AbstractEntity {
     private Integer price;
     private Integer pledge;
     private Integer quantity;
+    private Long sortIndex;
 }
 
 

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +31,21 @@ public abstract class DtoMapper {
     public abstract BrandDto toBrandDto(Brand brand);
 
     public abstract CategoryDto toCategoryDto(Category category);
+
+    protected List<CategoryDto> categoryListToCategoryDtoList(List<Category> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<CategoryDto> list1 = new ArrayList<CategoryDto>( list.size() );
+        for ( Category category : list ) {
+            list1.add( toCategoryDto( category ) );
+        }
+
+        //sort by sort index
+        list.sort(Comparator.comparing(Category::getSortIndex));
+        return list1;
+    }
 
     public abstract OrderDto toOrderDto(Order order);
 

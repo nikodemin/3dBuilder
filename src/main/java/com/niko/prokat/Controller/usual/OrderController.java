@@ -8,6 +8,7 @@ import com.niko.prokat.Service.MessageBuilder;
 import com.niko.prokat.Service.OrderService;
 import com.niko.prokat.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class OrderController {
     private final UserService userService;
     private final JavaMailSender mailSender;
     private final MessageBuilder messageBuilder;
+
+    @Value("${server.email}")
+    private String serverEmail;
 
     @GetMapping("/order/cart")
     public String getOrderPage(Model model,Principal principal){
@@ -68,7 +72,7 @@ public class OrderController {
         String htmlMsg = messageBuilder.buildOrderMessage(orderDto,principal.getName(),
                 totalAndPledge.getFirst(),totalAndPledge.getSecond());
         message.setContent(htmlMsg, "text/html; charset=UTF-8");
-        helper.setTo(userService.getUser(principal.getName()).getEmail());
+        helper.setTo(serverEmail);
         helper.setSubject("Аренда - новый заказ");
         mailSender.send(message);
 

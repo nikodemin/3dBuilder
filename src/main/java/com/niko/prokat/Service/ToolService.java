@@ -35,12 +35,12 @@ public class ToolService {
         }
 
         if (categoryId == -2L){
-            return toolRepo.findByCategoryIsNull().stream()
+            return toolRepo.findByCategoryIsNullOrderBySortIndex().stream()
                     .map(mapper::toToolDto).collect(Collectors.toList());
         }
 
         if (categoryId == -3L){
-            return toolRepo.findByBrandIsNull().stream()
+            return toolRepo.findByBrandIsNullOrderBySortIndex().stream()
                     .map(mapper::toToolDto).collect(Collectors.toList());
         }
 
@@ -51,12 +51,12 @@ public class ToolService {
             return null;
         }
 
-        return toolRepo.findByCategory(cat).stream()
+        return toolRepo.findByCategoryOrderBySortIndex(cat).stream()
                 .map(mapper::toToolDto).collect(Collectors.toList());
     }
 
     public List<ToolDto> findTools(String tool) {
-        return toolRepo.findByNameContainingIgnoreCase(tool).stream().map(mapper::toToolDto)
+        return toolRepo.findByNameContainingIgnoreCaseOrderBySortIndex(tool).stream().map(mapper::toToolDto)
                 .collect(Collectors.toList());
     }
 
@@ -93,7 +93,7 @@ public class ToolService {
     }
 
     public List<CategoryDto> getRootCategories() {
-        return categoryRepo.findCategoryByIsRootIsTrue().stream()
+        return categoryRepo.findCategoryByIsRootIsTrueOrderBySortIndex().stream()
                 .map(mapper::toCategoryDto).collect(Collectors.toList());
     }
 
@@ -152,7 +152,7 @@ public class ToolService {
         TreeNodeDto root = new TreeNodeDto();
         root.setId(-1L);
         root.setText("Категории");
-        root.setChildren(categoryRepo.findCategoryByIsRootIsTrue().stream()
+        root.setChildren(categoryRepo.findCategoryByIsRootIsTrueOrderBySortIndex().stream()
                 .map(mapper::toTreeNodeDto).collect(Collectors.toList()));
         TreeNodeDto detachedTools = new TreeNodeDto();
         detachedTools.setId(-2L);
@@ -170,7 +170,7 @@ public class ToolService {
         getCategoryTreeLeafs(leafs, category);
 
         for (Category leaf:leafs) {
-            for (Tool tool:toolRepo.findByCategory(leaf)) {
+            for (Tool tool:toolRepo.findByCategoryOrderBySortIndex(leaf)) {
                 tool.setCategory(null);
                 toolRepo.save(tool);
             }
@@ -207,7 +207,7 @@ public class ToolService {
 
     public List<CategoryDto> getCategoriesLeafs() {
         List<Category> leafs = new ArrayList<>();
-        categoryRepo.findCategoryByIsRootIsTrue()
+        categoryRepo.findCategoryByIsRootIsTrueOrderBySortIndex()
                 .forEach(c->getCategoryTreeLeafs(leafs,c));
         return leafs.stream().map(mapper::toCategoryDto)
                 .collect(Collectors.toList());
@@ -264,7 +264,7 @@ public class ToolService {
     }
 
     public void removeBrand(Long id) {
-        List<Tool> tools = toolRepo.findByBrand(brandRepo.findById(id).get());
+        List<Tool> tools = toolRepo.findByBrandOrderBySortIndex(brandRepo.findById(id).get());
         tools.forEach(tool -> {
             tool.setBrand(null);
             toolRepo.save(tool);
@@ -295,5 +295,23 @@ public class ToolService {
         Category category = categoryRepo.findById(id).get();
         category.setDescription(desc);
         categoryRepo.save(category);
+    }
+
+    public void sortCategories(List<Long> catIds) {
+        Long index = 0L;
+        for (Long id:catIds) {
+            Category category = categoryRepo.findById(id).get();
+            category.setSortIndex(index++);
+            categoryRepo.save(category);
+        }
+    }
+
+    public void sortTools(List<Long> toolIds) {
+        Long index = 0L;
+        for (Long id:toolIds) {
+            Tool tool = toolRepo.findById(id).get();
+            tool.setSortIndex(index++);
+            toolRepo.save(tool);
+        }
     }
 }

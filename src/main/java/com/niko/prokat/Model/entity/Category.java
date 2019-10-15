@@ -14,6 +14,7 @@ public class Category extends AbstractEntity {
     private String image;
     private String description;
     private Boolean isRoot = false;
+    private Long sortIndex;
 
     @OneToMany(fetch = FetchType.EAGER,orphanRemoval = true)
     private List<Category> children;
