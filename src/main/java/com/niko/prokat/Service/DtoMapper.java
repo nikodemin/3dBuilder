@@ -32,19 +32,25 @@ public abstract class DtoMapper {
 
     public abstract CategoryDto toCategoryDto(Category category);
 
-    protected List<CategoryDto> categoryListToCategoryDtoList(List<Category> list) {
-        if ( list == null ) {
+    protected List<CategoryDto> categoryListToCategoryDtoList(List<Category> categories) {
+        if ( categories == null ) {
             return null;
         }
 
-        List<CategoryDto> list1 = new ArrayList<CategoryDto>( list.size() );
-        for ( Category category : list ) {
-            list1.add( toCategoryDto( category ) );
+        //sort by sort index
+        categories.sort((c1, c2) -> {
+            if (c1.getSortIndex() != null && c2.getSortIndex() != null){
+                return c1.getSortIndex().compareTo(c2.getSortIndex());
+            }
+            return 0;
+        });
+
+        List<CategoryDto> categoryDtos = new ArrayList<CategoryDto>( categories.size() );
+        for ( Category category : categories ) {
+            categoryDtos.add( toCategoryDto( category ) );
         }
 
-        //sort by sort index
-        list.sort(Comparator.comparing(Category::getSortIndex));
-        return list1;
+        return categoryDtos;
     }
 
     public abstract OrderDto toOrderDto(Order order);
@@ -138,4 +144,25 @@ public abstract class DtoMapper {
 
     @Mapping(source = "name", target = "text")
     public abstract TreeNodeDto toTreeNodeDto(Category c);
+
+    protected List<TreeNodeDto> categoryListToTreeNodeDtoList(List<Category> categories) {
+        if ( categories == null ) {
+            return null;
+        }
+
+        //sort by sort index
+        categories.sort((c1, c2) -> {
+            if (c1.getSortIndex() != null && c2.getSortIndex() != null){
+                return c1.getSortIndex().compareTo(c2.getSortIndex());
+            }
+            return 0;
+        });
+
+        List<TreeNodeDto> treeNodeDtos = new ArrayList<TreeNodeDto>( categories.size() );
+        for ( Category category : categories ) {
+            treeNodeDtos.add( toTreeNodeDto( category ) );
+        }
+
+        return treeNodeDtos;
+    }
 }

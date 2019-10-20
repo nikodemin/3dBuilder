@@ -37,12 +37,14 @@
     </div>
 </nav>
 <div id="nav-search hide-for-desktop">
-    <div class="input-group input-group-sm hide-for-desktop">
-        <div class="input-group-append">
-            <a href="#" class="nav-link input-group-text"><i class="fas fa-search"></i></a>
+    <form class="searchForm" action="/search" method="GET">
+        <div class="input-group input-group-sm hide-for-desktop">
+            <div class="input-group-append">
+                <button type="submit" class="nav-link input-group-text"><i class="fas fa-search"></i></button>
+            </div>
+            <input type="text" name="search" class="form-control" placeholder="Поиск">
         </div>
-        <input type="text" class="form-control" placeholder="Поиск">
-    </div>
+    </form>
 </div>
 <div id="nav-top" class="show-for-desktop text-center">Аренда и ремонт строительного инструмента и оборудования</div>
 <section id="first-container">
@@ -117,7 +119,7 @@
                     </li>
                 </ul>
             </div>
-            <form id="searchForm" action="/search" method="GET">
+            <form class="searchForm" action="/search" method="GET">
                 <div class="input-group input-group-sm show-for-desktop">
                     <input type="text" class="form-control" name="search" placeholder="Что вы хотите взять в аренду?">
                     <div class="input-group-append">

@@ -39,7 +39,7 @@ nav#nav-mobile > div {
     background-color: #E6E6E6;
 }
 
-#searchForm{
+.searchForm{
     display: inline;
 }
 
