@@ -47,15 +47,17 @@ public class ToolContoller {
     @GetMapping("/")
     public String getHomePage(Model model){
         model.addAttribute("topTools",toolService.getTopTools());
-        model.addAttribute("sliderImgs", Arrays.asList("landscape-02.jpg",
-                "landscape-03.jpg","landscape-04.jpg","landscape-05.jpg"));
+        model.addAttribute("sliderImgs", Arrays.asList("slider_main/baner1.jpg",
+                "slider_main/baner2.jpg","slider_main/baner3.jpg","slider_main/baner4.jpg",
+                "slider_main/baner5.jpg","slider_main/baner6.jpg"));
         return "main";
     }
 
     @GetMapping("/company")
     public String getCompanyPage(Model model){
-        model.addAttribute("sliderImgs", Arrays.asList("landscape-02.jpg",
-                "landscape-03.jpg","landscape-04.jpg","landscape-05.jpg"));
+        model.addAttribute("sliderImgs", Arrays.asList("slider_companies/firmi1.jpg",
+                "slider_companies/firmi2.jpg","slider_companies/firmi3.jpg",
+                "slider_companies/firmi4.jpg"));
         return "company";
     }
 
