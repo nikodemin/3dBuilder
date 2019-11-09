@@ -2,6 +2,7 @@ package com.niko.prokat.Controller.usual;
 
 import com.niko.prokat.Model.dto.CategoryDto;
 import com.niko.prokat.Model.dto.ToolDto;
+import com.niko.prokat.Model.dto.TulipDto;
 import com.niko.prokat.Service.ToolService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,9 +40,11 @@ public class ToolContoller {
 
             model.addAttribute("tools",tools);
             model.addAttribute("catDesc",category.getDescription());
+            model.addAttribute("path",queryPath(cat));
             return "catalog";
         }
         model.addAttribute("categories",category.getChildren());
+        model.addAttribute("path",queryPath(cat));
         return "catalog";
     }
 
@@ -63,10 +67,12 @@ public class ToolContoller {
 
     @GetMapping("/tool/{toolId}")
     public String getTool(@PathVariable Long toolId,
+                          @RequestParam List<Long> cat,
                           Model model){
         model.addAttribute("tool",toolService.findToolById(toolId));
         model.addAttribute("available",
                 toolService.howMuchToolsAvailable(toolId,null));
+        model.addAttribute("path",queryPath(cat));
         return "tool";
     }
 
@@ -78,5 +84,15 @@ public class ToolContoller {
             model.addAttribute("toolsEmpty",true);
         }
         return "catalog";
+    }
+
+    private List<TulipDto<String, String>> queryPath(List<Long> cat) {
+        List<TulipDto<String, String>> result = new ArrayList<>();
+        for (int i = 1; i <= cat.size(); i++) {
+            result.add(new TulipDto<>(toolService.getCategory(cat.subList(0, i)).getName(),
+                    "/catalog?cat="+String.join(",",cat.subList(0,i)
+                            .stream().map(String::valueOf).collect(Collectors.toList()))));
+        }
+        return result;
     }
 }

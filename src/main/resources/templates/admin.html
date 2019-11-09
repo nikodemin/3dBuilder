@@ -26,7 +26,7 @@
             </form>
         </div>
         <div class="my-2">
-            <h3>Добавить брэнд:</h3>
+            <h3>Добавить бренд:</h3>
             <form>
                 <input type="text" placeholder="Имя" v-model="newBrandName" required>
                 <input type="text" placeholder="Сайт" v-model="newBrandSite" required>
@@ -34,8 +34,8 @@
             </form>
         </div>
         <div>
-            <h3>Брэнды:</h3>
-            <strong>Выбранный брэнд: {{currBrand.name}}</strong>
+            <h3>Бренды:</h3>
+            <strong>Выбранный бренд: {{currBrand.name}}</strong>
             <div>
                 <button v-for="brand in brands" @click="selectBrand(brand)" class=" mt-2 mr-1 btn btn-primary">{{brand.name}}</button>
             </div>

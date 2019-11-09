@@ -3,6 +3,12 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="_header"></th:block>
+<section id="path">
+    <div>
+        <a th:href="@{/}">Главная</a>
+        <a th:if="${path != null}" th:each="pathEl:${path}" th:href="${pathEl.second}" th:text="'/'+${pathEl.first}"></a>
+    </div>
+</section>
 <section id="main-container">
     <div class="row">
         <div class="col col-md-4 mt-3" th:attr="data-tool=${tool.id}">
@@ -26,7 +32,7 @@
                 </div>
                 <table class="table table-sm">
                     <tr>
-                        <td>Брэнд:</td>
+                        <td>Бренд:</td>
                         <td th:text="${tool.brand.name}"></td>
                     </tr>
                     <tr>

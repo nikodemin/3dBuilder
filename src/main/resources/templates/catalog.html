@@ -3,6 +3,12 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="_header"></th:block>
+<section id="path">
+    <div>
+        <a th:href="@{/}">Главная</a>
+        <a th:if="${path != null}" th:each="pathEl:${path}" th:href="${pathEl.second}" th:text="'/'+${pathEl.first}"></a>
+    </div>
+</section>
 <section id="main-container" class="catalog-margin">
     <div th:if="${categories != null}" th:each="cat:${categories}" class="catalog-item">
         <a th:href="@{${#request.requestURI}+'?cat='+${queryStr}+','+${cat.id}}">
@@ -18,7 +24,7 @@
         <div th:utext="${catDesc}" class="my-3"></div>
         <div th:if="${tools != null}" th:each="tool:${tools}" class="catalog-item" th:attr="data-tool=${tool.id}">
             <div>
-                <a th:href="@{'/tool/'+${tool.id}}">
+                <a th:href="@{'/tool/'+${tool.id}+'?cat='+${queryStr}}">
                     <div style="height: 150px;">
                         <img class="img-fluid" th:src="@{'/imgs/'+${tool.prevImagePath}}">
                     </div>

@@ -16,7 +16,6 @@ public class UserDto {
     @NotBlank(message = "Подтверждение пароля не указано")
     private String confirm;
 
-    @NotBlank(message = "Адрес не указан")
     private String address;
 
     @NotBlank(message = "Номер телефона не указан")
@@ -29,6 +28,5 @@ public class UserDto {
     @NotBlank(message = "Имя не указано")
     private String firstname;
 
-    @NotBlank(message = "Фамилия не указана")
     private String lastname;
 }

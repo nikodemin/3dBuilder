@@ -68,7 +68,6 @@ nav#nav-mobile > div {
 #main-banner {
     overflow: hidden;
     text-align: left;
-    height: 300px;
     width: 100%;
     margin: auto;
 }
@@ -472,12 +471,21 @@ hr {
     color: #D60000;
 }
 
+#path > div{
+    margin-left: 300px;
+    padding: 15px 0;
+}
+
 @media screen and (max-width: 960px) {
     .show-for-desktop {
         display: none !important;
     }
     .catalog-margin{
         margin: auto !important;
+    }
+    #path > div {
+        margin-left: 0;
+        text-align: center;
     }
 }
 

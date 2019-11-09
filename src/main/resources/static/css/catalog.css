@@ -33,3 +33,11 @@
     text-align: center;
     padding-top: 30px;
 }
+
+@media screen and (max-width: 640px) {
+    .catalog-item{
+        max-width: 160px;
+        font-size: 90%;
+        min-height: 200px;
+    }
+}

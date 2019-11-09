@@ -5,7 +5,7 @@
 <th:block th:include="_header"></th:block>
 <section id="main-container">
     <th:block th:include="_slider"></th:block>
-    <div class="row mobile-tools-menu hide-for-desktop">
+    <div class="row mobile-tools-menu">
         <div class="col col-sm-4" th:each="cat:${session.categories}"><a th:href="@{'/catalog?cat=' + ${cat.id}}">
             <img class="img-responsive" style="max-width: 170px" th:src="@{'/imgs/'+${cat.image}}">
             <span th:text="${cat.name}"></span>
@@ -18,12 +18,9 @@
                 <a th:href="@{'/tool/'+${tool.id}}"><img th:src="@{'/imgs/'+${tool.prevImagePath}}" class="img-responsive"></a>
             </div>
             <div class="text">
-                <h5 th:text="${tool.name}">Бензиновый генератор</h5>
-                <pre th:text="${tool.power}">
-        Мощность 1000лс
-        уровень шума 100дц
-                </pre>
-                <h5>От <span th:text="${tool.price}">1500</span> руб/сутки</h5>
+                <h5 th:text="${tool.name}"></h5>
+                <pre th:text="${tool.power}"></pre>
+                <h5><span th:text="${tool.price}"></span> руб/сутки</h5>
                 <button class="btn btn-primary addToCart"><i class="fas fa-shopping-cart addToCart"></i> Арендовать</button>
             </div>
         </div>
@@ -82,26 +79,35 @@
 </section>
 <th:block th:include="_footer"></th:block>
 <script>
+    var isAnimating = false
     $('#leaders-desktop a.arrow-left').click(function (e) {
-        var first = $('div.slider-leaders ul:first-child')
-        first.clone().appendTo('div.slider-leaders')
-        $('div.slider-leaders').animate({
-            'margin-left': -(first.width()+60)
-        },1700, function () {
-            first.remove()
-            $('div.slider-leaders').css('margin-left',0)
-        })
+        if(!isAnimating) {
+            isAnimating = true
+            var first = $('div.slider-leaders ul:first-child')
+            first.clone().appendTo('div.slider-leaders')
+            $('div.slider-leaders').animate({
+                'margin-left': -(first.width() + 60)
+            }, 1200, function () {
+                first.remove()
+                $('div.slider-leaders').css('margin-left', 0)
+                isAnimating = false
+            })
+        }
     })
     $('#leaders-desktop a.arrow-right').click(function (e) {
-        var last = $('div.slider-leaders ul:last-child')
-        last.clone().prependTo('div.slider-leaders')
-        $('div.slider-leaders').css('margin-left',-(last.width()+60))
-        $('div.slider-leaders').animate({
-            'margin-left': 0
-        },1700, function () {
-            last.remove()
-            $('div.slider-leaders').css('margin-left',0)
-        })
+        if (!isAnimating) {
+            isAnimating = true
+            var last = $('div.slider-leaders ul:last-child')
+            last.clone().prependTo('div.slider-leaders')
+            $('div.slider-leaders').css('margin-left', -(last.width() + 60))
+            $('div.slider-leaders').animate({
+                'margin-left': 0
+            }, 1200, function () {
+                last.remove()
+                $('div.slider-leaders').css('margin-left', 0)
+                isAnimating = false
+            })
+        }
     })
 </script>
 </html>

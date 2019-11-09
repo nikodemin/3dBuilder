@@ -38,8 +38,10 @@ public class OrderController {
     @GetMapping("/order/cart")
     public String getOrderPage(Model model,Principal principal){
         OrderDto orderDto = new OrderDto();
-        UserDto user = userService.getUser(principal.getName());
-        orderDto.setAddress(user.getAddress());
+        if (principal != null) {
+            UserDto user = userService.getUser(principal.getName());
+            orderDto.setAddress(user.getAddress());
+        }
         model.addAttribute("orderDto",orderDto);
         return "order";
     }

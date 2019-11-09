@@ -9,6 +9,7 @@
             <tr>
                 <td><label for="username">Имя пользователя:</label></td>
                 <td><input type="text" id="username" class="form-control form-control-sm" th:field="*{username}"></td>
+                <td><span class="red">*</span></td>
                 <td><span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
                           class="error">..</span></td>
             </tr>
@@ -16,6 +17,7 @@
                 <td><label for="password">Пароль:</label></td>
                 <td><input type="password" id="password" class="form-control form-control-sm" th:field="*{password}">
                 </td>
+                <td><span class="red">*</span></td>
                 <td><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
                           class="error">..</span></td>
             </tr>
@@ -23,18 +25,21 @@
                 <td><label for="confirmPassword">Подтверждение пароля:</label></td>
                 <td><input type="password" id="confirmPassword" class="form-control form-control-sm"
                            th:field="*{confirm}"></td>
+                <td><span class="red">*</span></td>
                 <td><span th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}"
                           class="error">..</span></td>
             </tr>
             <tr>
                 <td><label for="telNum">Номер телефона:</label></td>
                 <td><input type="text" id="telNum" class="form-control form-control-sm" th:field="*{telnum}"></td>
+                <td><span class="red">*</span></td>
                 <td><span th:if="${#fields.hasErrors('telnum')}" th:errors="*{telnum}"
                           class="error">..</span></td>
             </tr>
             <tr>
                 <td><label for="email">Адрес Эл. почты:</label></td>
                 <td><input type="email" id="email" class="form-control form-control-sm" th:field="*{email}"></td>
+                <td><span class="red">*</span></td>
                 <td><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                           class="error">..</span></td>
             </tr>
@@ -47,6 +52,7 @@
             <tr>
                 <td><label for="firstName">Имя:</label></td>
                 <td><input type="text" id="firstName" class="form-control form-control-sm" th:field="*{firstname}"></td>
+                <td><span class="red">*</span></td>
                 <td><span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"
                           class="error">..</span></td>
             </tr>
@@ -55,6 +61,9 @@
                 <td><input type="text" id="lastName" class="form-control form-control-sm" th:field="*{lastname}"></td>
                 <td><span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"
                           class="error">..</span></td>
+            </tr>
+            <tr>
+                <td><span class="red">Поля указанные * обязательны для заполнения</span></td>
             </tr>
         </table>
         <div class="form-group">
